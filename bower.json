@@ -1,0 +1,24 @@
+{
+  "name": "interactive-uk-cartogram-2015",
+  "version": "0.0.3",
+  "homepage": "git://github.com/guardian/interactive-uk-cartogram-2015.git",
+  "author": "Guardian Visuals",
+  "description": "UK cartogram for 2015 general election: constituency explorer and seat change mapper",
+  "main": "src/boot.js",
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "almond": "0.3.0",
+    "curl": "0.8.12",
+    "pasteup-buttons": "~0.4.12",
+    "requirejs-plugins": "1.0.3",
+    "text": "2.0.10",
+    "reqwest": "~1.1.5"
+  }
+}

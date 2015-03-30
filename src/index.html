@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+    </head>
+    <body>
+        <!-- Use the same figure elm as NGW -->
+        <figure class="element-interactive interactive"></figure>
+
+        <!-- Libs -->
+        <script src="@@assetPath@@/js/curl.js"></script>
+
+        <!-- Simulate boot.js -->
+        <script>
+          var el = document.querySelector('.interactive');
+          require = curl;
+          curl(['boot.js'], function(app) {
+                app.boot(el);
+          });
+        </script>
+    <body>
+</html>
