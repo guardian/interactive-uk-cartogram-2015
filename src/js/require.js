@@ -17,7 +17,8 @@ require.config({
     noext: "../../bower_components/requirejs-plugins/src/noext",
     propertyParser: "../../bower_components/requirejs-plugins/src/propertyParser",
     "Markdown.Converter": "../../bower_components/requirejs-plugins/lib/Markdown.Converter",
-    text: "../../bower_components/text/text"
+    text: "../../bower_components/text/text",
+    reqwest: "../../bower_components/reqwest/reqwest"
   },
   packages: [
 

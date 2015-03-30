@@ -1,48 +1,52 @@
 define([
     'reqwest',
-    'json!data/sampleData.json',
+    'json!data/uk-cartogram.json',
     'text!templates/appTemplate.html'
 ], function(
     reqwest,
-    sampleData,
+    localData,
     templateHTML
 ) {
-   'use strict';
-
-    function logResponse(resp) {
-        console.log(resp);
-    }
+    'use strict';
 
     function handleRequestError(err, msg) {
         console.error('Failed: ', err, msg);
     }
-
     function afterRequest(resp) {
         console.log('Finished', resp);
     }
 
-    function init(el, context, config, mediator) {
-        // DEBUG: What we get given on boot
-        console.log(el, context, config, mediator);
 
-        // DOM template example
+    function init(el) {
+
+        // DOM template
         el.innerHTML = templateHTML;
 
+        /*  Data */
         // Load local JSON data
-        console.log(sampleData);
+        // uk-cartogram
+        console.log(localData);
 
         // Load remote JSON data
-        var key = '1hy65wVx-pjwjSt2ZK7y4pRDlX9wMXFQbwKN0v3XgtXM';
-        var url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';
+        var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
+            url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';
 
         reqwest({
             url: url,
             type: 'json',
             crossOrigin: true
         })
-        .then(logResponse)
+        .then(function(remoteData) {
+            // poll projection
+            console.log(remoteData);
+        
+            /* Render */
+            //page.render(data);
+            //chartCartogram.remder(data, "#ID");
+            //...
+        })
         .fail(handleRequestError)
-        .always(afterRequest);
+        .always(afterRequest);  
     }
 
     return {
