@@ -9,22 +9,20 @@ $guss-webfonts-base-url: '//pasteup.guim.co.uk/fonts/';
 @include guss-webfonts();
 @include guss-typography-defaults;
 
-@import 'bower_components/guss-colours/_colours.scss';
+@import 'bower_components/guss-colours/_colours';
 @import 'bower_components/pasteup-palette/src/_palette';
-
-@import 'modules/grid';
-@import 'modules/page';
-@import 'modules/cartogram';
 
 
 // font
 // inheritance from guss-typography
 // https://github.com/guardian/guss-typography 
+/*
 $ff-s-h:  $f-serif-headline;        //: 'Guardian Egyptian Web';
 $ff-s-t:  $f-serif-text;            //: 'Guardian Text Egyptian Web';
 $ff-ss-h: $f-sans-serif-headline;   //: 'Guardian Sans Web';
 $ff-ss-t: $f-sans-serif-text;       //: 'Guardian Text Sans Web';
 $ff-data: $f-data;                  //: 'Guardian Agate Sans 1 Web';
+*/
 
 $fz-12: 12px;
 $fz-14: 14px;
@@ -40,11 +38,12 @@ $c-brand:   map-get($pasteup-palette, 'guardian-brand');
 $c-brand-l: map-get($pasteup-palette, 'guardian-brand-light');
 $c-brand-d: map-get($pasteup-palette, 'guardian-brand-dark');
 // grey
-$c-grey1: map-get($pasteup-palette, 'neutral-1'); //darker
-$c-grey2: map-get($pasteup-palette, 'neutral-2');
-$c-grey3: map-get($pasteup-palette, 'neutral-3'); //lighter
+$c-grey1:   map-get($pasteup-palette, 'neutral-1'); //darker
+$c-grey2:   map-get($pasteup-palette, 'neutral-2');
+$c-grey3:   map-get($pasteup-palette, 'neutral-3'); //lighter
 
 // parties
+/*
 $c-con:    #005789;
 $c-grn:    #33A22B;
 $c-lab:    #E31F26;
@@ -53,11 +52,12 @@ $c-ldem:   #FFB900;
 $c-ukip:   #7D0069;
 $c-pc:     #868686;
 $c-others: #B3B3B4;
-$c-dup:    $c-others;
+$c-dup:    #D46A4C;//$c-others;
+$c-sf:     #008800;
+$c-sdlp:   #99FF66;
+*/
 
 
-// example
-.content {
-    font-family: $ff-ss-t;
-    color: $c-grey2;
-}
+// import partial scss
+@import 'modules/page';
+@import 'modules/cartogram';

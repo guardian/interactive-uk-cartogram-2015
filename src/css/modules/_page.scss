@@ -1,3 +1,114 @@
 /**
  * CSS of page goes here
  * */
+
+// variables
+$w-icon: 60px;
+$h-icon: 80px;
+
+
+// reset
+figure {
+    margin: 0;
+}
+h1, h2, h3, p {
+    margin: 0;
+}
+input,
+button {
+    //remove focus style
+}
+
+
+// style
+h2 {
+    font-family: $f-serif-headline;
+    font-size: $fz-22;
+    color: $c-grey1;
+}
+h3 {
+    font-family: $f-serif-headline;
+    font-size: $fz-20;
+    color: $c-grey3;
+    margin-top: -5px;
+}
+p {
+    font-family: $f-sans-serif-text;
+    font-size: $fz-14;
+    color: $c-grey2;
+}
+.f-standfront {
+    font-family: $f-serif-text;
+    font-size: $fz-20;
+    color: $c-grey3;
+}
+
+.search-input,
+.search-btn {
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 30px;
+    border: 1px solid $c-grey3;
+    box-sizing: border-box;
+}
+.search-input { width: 225px; }
+.search-btn   { width: 75px; }
+
+.bt {
+    border-top: 1px solid $c-grey3;
+    margin-top: 30px; 
+}
+
+
+// responsive
+.row {
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.row-top {
+    @extend .row;
+}
+.col-map-uk {
+    height: 450px;
+    border: 1px dotted $c-grey3; //temp
+}
+
+.col-icon {
+    float: left;
+    width: $w-icon;
+    height: $h-icon;
+    background-color: $c-grey3; //temp
+}
+.col-h3 {
+    float: left;
+    width: calc(100% - #{$w-icon} - 10px);
+    padding-left: 10px;
+}
+
+.row-maps {
+    @extend .row; 
+    max-width: 660px;
+    margin: 0 auto;
+}
+.col-2010,
+.col-2015 {
+    max-width: 320px;
+    margin: 0 auto;
+    height: 240px; //temp
+    border: 1px dotted $c-grey3; //temp
+}
+
+@media (min-width: 660px) {
+    .row-top > * {
+        width: 50%;
+    }
+    .col-map-uk {
+        float: right;
+    }
+    .col-h3 {
+        width: calc(50% - #{$w-icon} - 10px);
+    }
+    .col-2015 { float: right; width: 50%; }
+    .col-2010 { float: left;  width: 50%; }
+}

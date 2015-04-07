@@ -41,7 +41,7 @@ define([
             console.log(remoteData);
         
             /* Render */
-            //page.render(data);
+            //pageText.render(data);
             //chartCartogram.remder(data, "#ID");
             //...
         })
