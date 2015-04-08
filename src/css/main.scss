@@ -34,13 +34,17 @@ $fz-22: 22px;
 // inheritance from pasteup-palette
 // http://guardian.github.io/pasteup-palette/demo/
 // blue
+/*
 $c-brand:   map-get($pasteup-palette, 'guardian-brand');
 $c-brand-l: map-get($pasteup-palette, 'guardian-brand-light');
 $c-brand-d: map-get($pasteup-palette, 'guardian-brand-dark');
+*/
 // grey
-$c-grey1:   map-get($pasteup-palette, 'neutral-1'); //darker
-$c-grey2:   map-get($pasteup-palette, 'neutral-2');
-$c-grey3:   map-get($pasteup-palette, 'neutral-3'); //lighter
+$c-grey1: map-get($pasteup-palette, 'neutral-1'); //darker
+$c-grey2: map-get($pasteup-palette, 'neutral-2');
+$c-grey3: map-get($pasteup-palette, 'neutral-3');
+$c-grey5: map-get($pasteup-palette, 'neutral-5');
+$c-grey7: map-get($pasteup-palette, 'neutral-7'); //lighter
 
 // parties
 /*

@@ -1,10 +1,12 @@
 define([
     'reqwest',
     'json!data/uk-cartogram.json',
+    'page/page.js',
     'text!templates/appTemplate.html'
 ], function(
     reqwest,
     localData,
+    pageText,
     templateHTML
 ) {
     'use strict';
@@ -36,12 +38,10 @@ define([
             type: 'json',
             crossOrigin: true
         })
-        .then(function(remoteData) {
-            // poll projection
-            console.log(remoteData);
-        
+        .then(function(data) {
+            
             /* Render */
-            //pageText.render(data);
+            pageText.render(data.sheets.glosses);
             //chartCartogram.remder(data, "#ID");
             //...
         })
