@@ -3,7 +3,7 @@
  * */
 
 // variables
-$w-icon: 60px;
+$w-icon: 80px;
 $h-icon: 80px;
 
 
@@ -11,9 +11,16 @@ $h-icon: 80px;
 figure {
     margin: 0;
 }
-h1, h2, h3, p {
+h1, h2, h3, h4, h5, p {
     margin: 0;
 }
+a {
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: underline;
+}
+
 input:focus,
 button:focus {
     outline: none;
@@ -22,7 +29,7 @@ button:focus {
 
 // style: fonts
 h1 {
-    font-size: 45px; //check again!
+    font-size: 34px; //check again!
 }
 h2 {
     font-family: $f-serif-headline;
@@ -34,6 +41,13 @@ h3 {
     font-size: $fz-20;
     color: $c-grey3;
     margin-top: -5px;
+}
+h4 { 
+    font-size: 16px;
+}
+h5 {
+    font-family: $f-sans-serif-text;
+    font-size: $fz-14;
 }
 
 p {
@@ -48,10 +62,21 @@ p {
     margin-top: 15px;
     margin-bottom: 30px;
 }
-
-// style
-.l-close {
-    height: 150px; //temp
+.f-people {
+    font-family: $f-sans-serif-text;
+    font-size: $fz-14;
+    color: $c-grey1;
+    padding-left: 15px;
+}
+.f-x {
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAzMy4yIDMzLjIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMzLjIgMzMuMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIyLjEsMCAwLDIuMSAxNC44LDE4LjQgMzEuNCwzMi45IDMzLjIsMzEuMSAxOC40LDE0LjggIi8+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIwLDMxLjEgMi4xLDMzLjIgMTguNCwxOC40IDMzLjIsMi4xIDMxLjEsMCAxNC44LDE0LjggIi8+PC9nPjwvc3ZnPg==);
+    opacity: 0.1;
+}
+.f-x:hover {
+    opacity: 0.3;
 }
 
 // style: components
@@ -62,12 +87,12 @@ p {
     border-radius: 30px;
     box-sizing: border-box;
 }
-.search-input { 
+.search-input { //temp 
     width: 225px; 
     border: 1px solid $c-grey5;
 }
 .search-btn { 
-    width: 75px; 
+    width: 70px; 
     border: 1px solid $c-grey7;
     background-color: $c-grey7;
     font-family: $f-sans-serif-text;
@@ -76,13 +101,50 @@ p {
 .search-btn:hover { 
     border: 1px solid $c-grey5;
     background-color: $c-grey5;
+    cursor: pointer;
+}
+
+.expand {
+    background-color: $c-grey8;
+    max-width: 295px;
+    margin-top: 30px;
+    padding-left: 10px;    
+    overflow: hidden;
+}
+.expand.hide {
+    height: 0;
+    transition: height, 1s;
+} 
+.expand.show { 
+    height: 240px; //temp 
+    margin-bottom: 30px;    
+    transition: height, 1s;
+}
+
+.ul-candidates {
+    @extend .f-people;
+    list-style: none;
+    margin-top: 0;
 }
 
 // style: misc
+.mt-10 {
+    margin-top: 10px;
+}
+
 .bt {
     border-top: 1px solid $c-grey5;
     margin-top: 30px; 
     padding-top: 15px; 
+}
+
+.pos-r { 
+    position: relative; 
+}
+.pos-x {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 
@@ -94,27 +156,28 @@ p {
 
 .row-top {
     @extend .row;
+    min-height: 560px;
 }
 .col-map-uk {
-    /*height: 450px;*/
-    
+    /*width: 360px;
+    margin: -15px auto 0 auto;
+    .cartogram {
+    margin-left: -50px;
+    }*/
 }
 
 .col-icon {
     float: left;
-    width:80px;
-    height:100px;
-    /*width: $w-icon;
+    width: $w-icon;
     height: $h-icon;
-    background-color: $c-grey3; //temp
-    */
+    margin-left: -20px;
 }
 .col-icon .ref-map {
     margin-top:-30px;
 }
 .col-h3 {
     float: left;
-    width: calc(100% - #{$w-icon} - 10px);
+    width: calc(100% - #{$w-icon});
     padding-left: 10px;
 }
 
@@ -127,27 +190,25 @@ p {
 .col-2015 {
     max-width: 320px;
     margin: 0 auto;
-    
-    
+
+
 }
 
 @media (min-width: 660px) {
     .row-top > * {
-        width: 50%;
+        width: calc(50% - 10px);
     }
     .col-map-uk {
         float: right;
     }
     .col-h3 {
-        width: calc(50% - #{$w-icon} - 10px);
+        width: calc(50% - #{$w-icon});
     }
     .col-2015 { float: right; width: 50%; }
     .col-2010 { float: left;  width: 50%; }
 
-    .pos-r { position: relative; }
-    .pos-a { position: absolute; }
     .pos-map-uk {
-        @extend .pos-a;
+        position: absolute;
         top: 0;
         right: 0;
     }

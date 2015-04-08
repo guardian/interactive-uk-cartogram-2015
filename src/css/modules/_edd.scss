@@ -5,7 +5,7 @@
 .edd__input:placeholder {
 }
 .edd__input {
-	width: 100%;
+    //width: 100%; //temp
 	box-sizing: border-box;
 }
 .edd__dropdown {
@@ -15,6 +15,7 @@
 	background-color: white;
 	width: 100%;
 	position: absolute;
+    z-index: 1;
 }
 .edd__entry {
 	cursor: pointer;

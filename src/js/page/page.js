@@ -15,14 +15,21 @@ define([
         //console.log(dataMap);
         
         /* view */
+        var doc = document;
         dataMap.forEach(function(d) { 
-            if (document.querySelector("#" + d.id) !== null) {
-                document.querySelector("#" + d.id + " .js-title").textContent = d.title;
-                document.querySelector("#" + d.id + " .js-gloss").textContent = d.gloss;
+            if (doc.querySelector("#" + d.id) !== null) {
+                doc.querySelector("#" + d.id + " .js-title").textContent = d.title;
+                doc.querySelector("#" + d.id + " .js-gloss").textContent = d.gloss;
             }
         });
+
+        /* component */
+        doc.querySelector(".js-btn-expand").addEventListener("click", onExpand, false);
+        doc.querySelector(".js-btn-collapse").addEventListener("click", onExpand, false);
     }
 
+
+    // utilities: string 
     function isPattern(string, pattern) {
         return string.indexOf(pattern) > -1;
     }
@@ -32,6 +39,22 @@ define([
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+
+    // component: expand or collapse
+    function onExpand() {
+        var el = document.querySelector(".js-expand"),
+            cn = el.className;
+        
+        if (isPattern(cn, "hide")) {
+            el.className = removePattern(cn, " hide") + " show"; 
+        } else if (isPattern(cn, "show")) {
+            el.className = removePattern(cn, " show") + " hide"; 
+        }
+    }
+    // component: social?
+    // ...
+
 
     return {
         render: render
