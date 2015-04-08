@@ -1,0 +1,31 @@
+.edd {
+	width: 300px;
+	position: relative;
+}
+.edd__input:placeholder {
+}
+.edd__input {
+	width: 100%;
+	box-sizing: border-box;
+}
+.edd__dropdown {
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-radius: 2px;
+	background-color: white;
+	width: 100%;
+	position: absolute;
+}
+.edd__entry {
+	cursor: pointer;
+}
+.edd__entry--focus {
+	background-color: #328efe;
+}
+.edd__entry--info {
+	color: #767676;
+}
+.edd__entry--info:hover {
+	background-color: transparent;
+	cursor: default;
+}

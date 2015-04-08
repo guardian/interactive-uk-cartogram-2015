@@ -96,15 +96,21 @@ p {
     @extend .row;
 }
 .col-map-uk {
-    height: 450px;
-    border: 1px dotted $c-grey3; //temp
+    /*height: 450px;*/
+    
 }
 
 .col-icon {
     float: left;
-    width: $w-icon;
+    width:80px;
+    height:100px;
+    /*width: $w-icon;
     height: $h-icon;
     background-color: $c-grey3; //temp
+    */
+}
+.col-icon .ref-map {
+    margin-top:-30px;
 }
 .col-h3 {
     float: left;
@@ -121,8 +127,8 @@ p {
 .col-2015 {
     max-width: 320px;
     margin: 0 auto;
-    height: 240px; //temp
-    border: 1px dotted $c-grey3; //temp
+    
+    
 }
 
 @media (min-width: 660px) {

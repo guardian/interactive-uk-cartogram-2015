@@ -1,12 +1,16 @@
 define([
     'reqwest',
-    'json!data/uk-cartogram.json',
+    'json!data/hexagons-topo.json',
+    'json!data/regions-topo.json',
     'page/page.js',
+    'cartograms/main',
     'text!templates/appTemplate.html'
 ], function(
     reqwest,
-    localData,
+    topo,
+    regions,
     pageText,
+    cartograms,
     templateHTML
 ) {
     'use strict';
@@ -27,7 +31,8 @@ define([
         /*  Data */
         // Load local JSON data
         // uk-cartogram
-        console.log(localData);
+        console.log(topo);
+        console.log(regions);
 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
@@ -42,8 +47,8 @@ define([
             
             /* Render */
             pageText.render(data.sheets.glosses);
-            //chartCartogram.remder(data, "#ID");
-            //...
+            cartograms.render(data,topo,regions);
+            
         })
         .fail(handleRequestError)
         .always(afterRequest);  

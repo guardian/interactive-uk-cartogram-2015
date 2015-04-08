@@ -18,7 +18,9 @@ require.config({
     propertyParser: "../../bower_components/requirejs-plugins/src/propertyParser",
     "Markdown.Converter": "../../bower_components/requirejs-plugins/lib/Markdown.Converter",
     text: "../../bower_components/text/text",
-    reqwest: "../../bower_components/reqwest/reqwest"
+    reqwest: "../../bower_components/reqwest/reqwest",
+    d3: "../../bower_components/d3/d3",
+    topojson: "../../bower_components/topojson/topojson"
   },
   packages: [
 
