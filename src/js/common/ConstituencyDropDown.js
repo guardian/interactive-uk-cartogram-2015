@@ -1,6 +1,6 @@
 define([
     'd3',
-    'edd/edd'
+    'common/edd'
 ], function(
     d3,
     EDD

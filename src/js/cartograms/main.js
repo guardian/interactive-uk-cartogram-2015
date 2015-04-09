@@ -3,22 +3,26 @@ define([
     'cartograms/UKCartogram',
     'cartograms/UKCartogramComparison',
     'cartograms/ReferenceMap',
-    'edd/ElectionPollDropdown'
+    'common/ConstituencyDropdown',
+    'common/ConstituencyExpand'
 ], function(
     d3,
     UKCartogram,
     UKCartogramComparison,
     ReferenceMap,
-    ElectionPollDropdown
+    ConstituencyDropdown,
+    ConstituencyExpand
 ) {
     'use strict';
     
     function render(projections,topo,regions) {
         
-        new ElectionPollDropdown(topo.objects.hexagons.geometries,{
+        new ConstituencyDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
-                console.log(constituency.properties.name)
+                //console.log(constituency.properties.name)
+                ConstituencyExpand.updateData(constituency.properties.name);
+                ConstituencyExpand.updateView(1); //0:collapse, 1:expand
             }
         });
 

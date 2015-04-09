@@ -111,7 +111,7 @@ define([
 
 			// create elements
 			input = document.createElement('input');
-			input.className = 'edd__input col-input search-input';
+			input.className = 'edd__input';
 			input.setAttribute('placeholder', opts.placeholder);
 			input.type = 'text';
 			dropdown = document.createElement('div');

@@ -11,12 +11,14 @@ $h-icon: 80px;
 figure {
     margin: 0;
 }
+
 h1, h2, h3, h4, h5, p {
     margin: 0;
 }
 a {
     cursor: pointer;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -68,16 +70,19 @@ p {
     color: $c-grey1;
     padding-left: 15px;
 }
-.f-x {
+
+// style: elements
+.btn-x {
     width: 20px;
     height: 20px;
     background-repeat: no-repeat;
     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAzMy4yIDMzLjIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMzLjIgMzMuMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIyLjEsMCAwLDIuMSAxNC44LDE4LjQgMzEuNCwzMi45IDMzLjIsMzEuMSAxOC40LDE0LjggIi8+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIwLDMxLjEgMi4xLDMzLjIgMTguNCwxOC40IDMzLjIsMi4xIDMxLjEsMCAxNC44LDE0LjggIi8+PC9nPjwvc3ZnPg==);
     opacity: 0.1;
 }
-.f-x:hover {
+.btn-x:hover {
     opacity: 0.3;
 }
+
 
 .hidden {
     display: none;
@@ -125,6 +130,8 @@ p {
     transition: height, 1s;
 }
 
+
+
 .ul-candidates {
     @extend .f-people;
     list-style: none;
@@ -140,15 +147,6 @@ p {
     border-top: 1px solid $c-grey5;
     margin-top: 30px; 
     padding-top: 15px; 
-}
-
-.pos-r { 
-    position: relative; 
-}
-.pos-x {
-    position: absolute;
-    top: 5px;
-    right: 5px;
 }
 
 
@@ -195,6 +193,7 @@ p {
     max-width: 320px;
     margin: 0 auto;
 }
+
 .col-2010 h4,
 .col-2015 h4 {
     font-size: 13px;
@@ -211,6 +210,15 @@ p {
     padding-left:30px;
 }
 
+.pos-r { 
+    position: relative; 
+}
+.pos-x {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 @media (min-width: 660px) {
 
     .row-top > * {
@@ -225,6 +233,7 @@ p {
     .col-h3 {
         width: calc(50% - #{$w-icon});
     }
+
     .col-2015 { 
         float: right; 
         max-width: calc(50% - 1px);
@@ -240,6 +249,7 @@ p {
         margin:0 auto;
         display: block;
     }
+
 
     .pos-map-uk {
         position: absolute;

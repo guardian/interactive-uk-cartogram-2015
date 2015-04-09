@@ -1,22 +1,38 @@
+$w: 300px;
+
+
+// component: dropdown
 .edd {
-	width: 300px;
+	width: $w;
 	position: relative;
+    font-family: $f-sans-serif-text;
+	font-size: $fz-14;;
 }
+
 .edd__input:placeholder {
 }
 .edd__input {
-    //width: 100%; //temp
-	box-sizing: border-box;
+    font-size: $fz-14;
+    width: 100%;
+	height: 35px;
+    box-sizing: border-box;
+    border: 1px solid $c-grey5;
+    border-radius: 30px;
+    padding: 0 10px;
 }
+
 .edd__dropdown {
-	border: 1px solid #ddd;
-	border-top: 0;
-	border-radius: 2px;
+    width: 100%;
+    box-sizing: border-box;
 	background-color: white;
-	width: 100%;
-	position: absolute;
+    border: 1px solid #ddd;
+	border-radius: 10px;
+    margin-top: -1px;
+	padding: 5px 10px;
+    position: absolute;
     z-index: 1;
 }
+
 .edd__entry {
 	cursor: pointer;
 }
@@ -30,3 +46,24 @@
 	background-color: transparent;
 	cursor: default;
 }
+
+
+// component: expand
+.expand {
+    background-color: $c-grey8;
+    max-width: $w;
+    box-sizing: border-box;
+    margin-top: 30px;
+    padding-left: 10px;    
+    overflow: hidden;
+}
+.expand.hide {
+    height: 0;
+    transition: height, 1s;
+} 
+.expand.show { 
+    height: 240px; //temp 
+    margin-bottom: 30px;    
+    transition: height, 1s;
+}
+
