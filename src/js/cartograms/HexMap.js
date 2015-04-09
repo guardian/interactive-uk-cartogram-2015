@@ -251,6 +251,10 @@ define([
         this.selectCostituency = function(constituency,callback) {
 
             if(!constituency) {
+                map//.classed("highlight",true)
+                    .selectAll("path")
+                        .classed("selected",false);
+
                 return;
             }
             map//.classed("highlight",true)
@@ -325,7 +329,7 @@ define([
                 */
 
                 var center =    getCentroid(constituency.properties.constituency),//path.centroid(constituency),
-                                scale = 1.5,
+                                scale = 2,
                                 translate = [options.width / 2 - scale * center[0], options.height / 2 - scale * center[1]];
 
                 __scale=scale;

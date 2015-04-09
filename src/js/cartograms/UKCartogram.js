@@ -57,6 +57,7 @@ define([
                         .text("Reset map")
                         .on("click",function(){
                             d3.event.preventDefault();
+                            map.selectCostituency();
                             map.resetZoom();
                             regions_map.resetZoom();
                             resetButton.classed("hidden",true);
