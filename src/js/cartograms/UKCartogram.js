@@ -100,6 +100,7 @@ define([
             map.zoom(constituency);
             map.selectCostituency(constituency);
             console.log(map.getCentroid(constituency),constituency);
+            return constituency;
         }
         /*
     	var to=null;

@@ -17,7 +17,8 @@ define([
         
         new ElectionPollDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
-                ukCartogram.selectConstituency(constituencyCode);
+                var constituency=ukCartogram.selectConstituency(constituencyCode);
+                alert(constituency.properties.name)
             }
         });
 
@@ -31,6 +32,7 @@ define([
                 center:[1, 54.6]
             },
         });
+
         
         new UKCartogramComparison(projections, topo, regions,{
             container:"#jsLondon .cartogram",
@@ -43,7 +45,7 @@ define([
             clipPath:true,
             fadeOut:true
         });
-
+        return;
         new ReferenceMap(regions,{
             container:"#jsLondon .small-map",
             regions:["London"]
