@@ -1,8 +1,8 @@
 .con {
-    fill:#005789;
-    color:#005789;
-    stroke:#005789;
-    stop-color:#005789;
+    fill:$c-con;
+    color:$c-con;
+    stroke:$c-con;
+    stop-color:$c-con;
 }
 .lab {
     fill:#E31F26;
@@ -40,6 +40,12 @@
     stroke:#B3B3B4;
     stop-color:#B3B3B4;
 }
+.dup {
+    fill:#B3B3B4;
+    color:#B3B3B4;
+    stroke:#B3B3B4;
+    stop-color:#B3B3B4;
+}
 .pc {
     fill:#868686;
     color:#868686;;
@@ -60,6 +66,7 @@ div.cartogram {
 /************** CARTOGRAM SVG *************/
 svg {
     background: transparent;
+
 }
 svg rect.bg {
     fill-opacity:0;
@@ -111,6 +118,9 @@ g .winner2010 {
 }
 .highlight .constituency.changing {
     fill-opacity:0.8;
+}
+.constituency.changing {
+    /*fill:#000;*/
 }
 
 #connections .connection {

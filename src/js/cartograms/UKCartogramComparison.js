@@ -76,15 +76,12 @@ define([
         function Tooltip(options) {
             console.log("Tooltip",options)
 
-            var margins={
-                left:15,
-                right:15
-            }
+            
 
             var tooltip = d3.select(options.container)
                 .append("div")
-                .attr("class", "tooltip tooltip-arrow")
-                .style("width",options.width?((options.width/2-(margins.left+margins.right))+"px"):"90%");
+                .attr("class", "tooltip-arrow")
+                //.style("width","46%");//options.width?((options.width/2-(margins.left+margins.right))+"px"):"90%");
 
 
 
@@ -107,7 +104,7 @@ define([
 
                 tooltip.style({
                     display:"block",
-                    left: (coords[0]+(options.left||0)) + margins.left  + "px",
+                    left: (coords[0]+(options.left||0))  + "px",
                     top: coords[1] + "px"
                 });
 

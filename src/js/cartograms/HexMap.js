@@ -98,9 +98,11 @@ define([
         	    	});
         	    	//console.log(c)
 
-                    __currentConstituency=c;
-
-        	    	options.mouseOverMapCallback(c);
+                    if(c) {
+                        __currentConstituency=c;
+                        options.mouseOverMapCallback(c);
+                    }
+                    
 
         	    })
                 
@@ -267,7 +269,7 @@ define([
         		}
         		return;
         	}
-        	map//.classed("highlight",true)
+        	map
         		.selectAll("path")
         			.classed("highlight",function(d){
         				return d.properties.constituency==constituency.properties.constituency;
@@ -276,13 +278,11 @@ define([
                         return d.properties.constituency==constituency.properties.constituency;
                     })
                     .each(function(d){
-                        //console.log(options.field,this)
                         d3.select(this).moveToFront();
                         map.selectAll("path.selected").moveToFront();
                     })
 
         	if (options.tooltip) {
-                //tooltip.show(constituency, path.centroid(constituency),__translate,__scale);
                 tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale);
             }
 
@@ -303,7 +303,7 @@ define([
                                   translate = [options.width / 2 - scale * x, options.height / 2 - scale * y];
                 */
 
-                var center =    path.centroid(constituency),
+                var center =    getCentroid(constituency.properties.constituency),//path.centroid(constituency),
                                 scale = 1.5,
                                 translate = [options.width / 2 - scale * center[0], options.height / 2 - scale * center[1]];
 
@@ -320,6 +320,11 @@ define([
 
                 
                 updateConstituencies();
+                setCentroids();
+
+                if(options.tooltip) {
+                    tooltip.hide();
+                }
 
                 return translate;    
             }
@@ -339,18 +344,20 @@ define([
         	return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
         }
 
+        
+
+        function getMapCoords(x, y, translate, scale) {
+                return [(x - translate[0])/scale,(y - translate[1])/scale];
+            }
+
         function findClosest(coords,filter) {
 
             
 
         	var closest_constituency=null,
         		dist=10000;
-
-            coords[0]-=__translate[0];
-            coords[1]-=__translate[1];
-
-            coords[0]/=__scale;
-            coords[1]/=__scale;
+            
+            coords=getMapCoords(coords[0],coords[1],__translate,__scale);
 
         	constituencies.filter(function(d){
         		if(!filter) {
@@ -361,21 +368,25 @@ define([
         	}).forEach(function(constituency){
                 
         		//var c_centre=path.centroid(constituency),
-                var c_centre=getCentroid(constituency.properties.constituency),
-        			__dist=getDistance(coords[0],coords[1],c_centre[0],c_centre[1])	;	    		
+                var     c_centre=getCentroid(constituency.properties.constituency),
+        		      __dist=getDistance(coords[0],coords[1],c_centre[0],c_centre[1]);	    		
+
+                //console.log(coords,c_centre,screen_c_centre)
 
                 //console.log(c_centre,constituency.properties.centroid)
 
         		
 
         		if(__dist<dist) {
-                    
+                    //console.log(coords,c_centre,screen_c_centre)
         			closest_constituency=constituency;
         			dist=__dist;
+                    
         		}
                 
         	});
 
+            
 
 
         	return closest_constituency;

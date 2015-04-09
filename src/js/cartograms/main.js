@@ -18,7 +18,6 @@ define([
         new ElectionPollDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
-                alert(constituency.properties.name)
             }
         });
 
@@ -72,10 +71,10 @@ define([
             container:"#jsScotland .cartogram",
             id:"sct",
             regions:["Scotland"],
-            height:300,
+            //height:300,
             geom: {
                 scale_factor:2,
-                center:[-1.2, 57.1]
+                center:[-1.2, 56.9]
             },
             clipPath:true,
             fadeOut:true

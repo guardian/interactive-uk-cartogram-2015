@@ -2,7 +2,6 @@
 .tooltip {
     position: absolute;
     width:0px;
-    height:60px;
     overflow: visible;
     z-index: 9;
     left:-1000000px;
@@ -10,35 +9,62 @@
 
 .tooltip div.tooltip-content {
     
-    width:230px;
+    width:170px;
     
+
     padding:5px;
 
-    margin-left:-100px;
-    margin-top:-45px;
+    margin-left:25px;
 
     background:rgba(255,255,255,0.9);
     border:1px solid #ddd;
+
+    position:relative;
 }
+
+.tooltip .tooltip-content:after, .tooltip-content:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tooltip .tooltip-content:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #ffffff;
+    border-width: 8px;
+    margin-top: -8px;
+}
+.tooltip .tooltip-content:before {
+    border-color: rgba(221, 221, 221, 0);
+    border-right-color: #ddd;
+    border-width: 9px;
+    margin-top: -9px;
+}
+
 .tooltip h4 {
+    font-family: $f-sans-serif-headline;
     margin: 0;
     padding: 0;
     font-size: 12px;
 }
 .tooltip p {
+    font-family: $f-sans-serif-text;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 11px;
+    color:#000;
 }
 /*************** TOOLTIP-ARROW ***************/
-.tooltip-arrow {
-    border-bottom:1px solid #333;
-    height: 0px;
-}
 .tooltip-arrow div.tooltip-content {
     position: relative;
 
     width:230px;
+    height:35px;
     
     padding:5px;
 
@@ -47,13 +73,25 @@
     background:rgba(255,255,255,0.9);
     border:1px solid #ddd;
 }
+.tooltip-arrow {
 
+    position: absolute;
+    width:0px;
+    overflow: visible;
+    z-index: 9;
+    left:-1000000px;
+
+    border-bottom:2px solid #333;
+    height: 0px;
+    width:calc(50% - 30px);
+    margin-left:15px;
+}
 .tooltip-arrow  .arrow_box {
     position: absolute;
-    background: #000000;
-    height:1px;
+    background: #333;
+    height:2px;
     overflow: visible;
-    bottom: -1px;
+    bottom: 2px;
     right: 2px;
 }
 .tooltip-arrow .arrow_box:after {
@@ -65,8 +103,25 @@
     width: 0;
     position: absolute;
     pointer-events: none;
-    border-color: rgba(0, 0, 0, 0);
-    border-left-color: #000000;
-    border-width: 3px;
-    margin-top: -3px;
+
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 4.5px 0 4.5px 9px;
+    border-color: transparent transparent transparent #333;
+
+
+}
+.tooltip-arrow h4 {
+    font-family: $f-sans-serif-headline;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+.tooltip-arrow p {
+    font-family: $f-sans-serif-text;
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    color:#000;
 }

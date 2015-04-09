@@ -204,8 +204,8 @@ p {
     .col-h3 {
         width: calc(50% - #{$w-icon});
     }
-    .col-2015 { float: right; width: 50%; }
-    .col-2010 { float: left;  width: 50%; }
+    .col-2015 { float: right; width: calc(50% - 20px); margin-left:10px;}
+    .col-2010 { float: left;  width: calc(50% - 20px); margin-right:10px;}
 
     .pos-map-uk {
         position: absolute;
