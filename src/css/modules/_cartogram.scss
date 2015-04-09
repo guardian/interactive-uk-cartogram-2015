@@ -66,8 +66,6 @@ div.cartogram {
 /************** CARTOGRAM SVG *************/
 svg {
     background: transparent;
-    border:1px solid #333;
-
 }
 svg rect.bg {
     fill-opacity:0;
@@ -167,7 +165,7 @@ g .winner2010 {
 #ukProjections .regions path {
     fill:none;
     stroke-width:1;
-    stroke:#000;
+    stroke:#333;
 }
 /*************** REF MAP *******************/
 .ref-map {

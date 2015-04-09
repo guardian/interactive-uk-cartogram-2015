@@ -83,9 +83,7 @@ define([
         
         if(options.mouseClickMapCallback) {
             ix.on("click",function(){
-                    self.zoom(__currentConstituency);
-
-                    options.mouseClickMapCallback(__currentConstituency,__translate,__scale);
+                    options.mouseClickMapCallback(__currentConstituency);
                 })
         }
         if(options.mouseOverMapCallback) {
@@ -262,6 +260,10 @@ define([
                         d3.select(this).moveToFront();
                     });
 
+            if(callback) {
+                callback(constituency);
+            }
+
         };
         this.highlightCostituency = function(constituency) {
         	if(!constituency) {
@@ -296,7 +298,7 @@ define([
 
         };
 
-        this.zoom=function(constituency) {
+        this.zoom=function(constituency,callback) {
             if(options.zoomable) {
                 var c_centre=this.getCentroid(constituency);
                 /*
@@ -317,13 +319,15 @@ define([
 
                 var dist=getDistance(__translate[0],__translate[1],translate[0],translate[1]);
                 
-                __translate=translate;    
+                __translate=translate;
 
                 map.transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
-
+                if(callback) {
+                    callback(__translate,__scale);
+                }
                 
                 updateConstituencies();
                 setCentroids();

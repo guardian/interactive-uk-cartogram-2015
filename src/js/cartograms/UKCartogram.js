@@ -92,9 +92,11 @@ define([
             regions:options.regions,
             zoomable:true,
             reset:resetButton,
-            mouseClickMapCallback:function(d,translate,scale){
-                map.selectCostituency(d,function(){
-                    regions_map.zoom(translate,scale);    
+            mouseClickMapCallback:function(d){
+                map.selectCostituency(d,function(c){
+                    map.zoom(c,function(translate,scale){
+                        regions_map.zoom(translate,scale)
+                    });  
                 });
             },
             mouseOverMapCallback:function(d){
@@ -113,7 +115,9 @@ define([
         this.selectConstituency=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
 
-            map.zoom(constituency);    
+            map.zoom(constituency,function(translate,scale){
+                    regions_map.zoom(translate,scale)
+                }); 
             
             map.selectCostituency(constituency);
 
