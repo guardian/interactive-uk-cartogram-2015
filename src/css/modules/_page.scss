@@ -31,7 +31,8 @@ button:focus {
 
 // style: fonts
 h1 {
-    font-size: 34px; //check again!
+    //check again!
+    //font-size: 34px;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -41,8 +42,8 @@ h2 {
 h3 {
     font-family: $f-serif-headline;
     font-size: $fz-20;
+    font-weight: bold;
     color: $c-grey3;
-    margin-top: -5px;
 }
 h4 { 
     font-size: 16px;
@@ -57,7 +58,7 @@ p {
     font-size: $fz-14;
     color: $c-grey2;
 }
-.f-standfront {
+.f-standfirst {
     font-family: $f-serif-text;
     font-size: $fz-18;
     color: $c-grey3;
@@ -83,61 +84,6 @@ p {
     opacity: 0.3;
 }
 
-
-.hidden {
-    display: none;
-}
-
-// style: components
-.search-input,
-.search-btn {
-    height: 30px;
-    padding: 0 10px;
-    border-radius: 30px;
-    box-sizing: border-box;
-}
-.search-input { //temp 
-    width: 225px; 
-    border: 1px solid $c-grey5;
-}
-.search-btn { 
-    width: 70px; 
-    border: 1px solid $c-grey7;
-    background-color: $c-grey7;
-    font-family: $f-sans-serif-text;
-    font-size: 12px;
-}
-.search-btn:hover { 
-    border: 1px solid $c-grey5;
-    background-color: $c-grey5;
-    cursor: pointer;
-}
-
-.expand {
-    background-color: $c-grey8;
-    max-width: 295px;
-    margin-top: 30px;
-    padding-left: 10px;    
-    overflow: hidden;
-}
-.expand.hide {
-    height: 0;
-    transition: height, 1s;
-} 
-.expand.show { 
-    height: 240px; //temp 
-    margin-bottom: 30px;    
-    transition: height, 1s;
-}
-
-
-
-.ul-candidates {
-    @extend .f-people;
-    list-style: none;
-    margin-top: 0;
-}
-
 // style: misc
 .mt-10 {
     margin-top: 10px;
@@ -147,6 +93,17 @@ p {
     border-top: 1px solid $c-grey5;
     margin-top: 30px; 
     padding-top: 15px; 
+}
+
+.hidden {
+    display: none;
+}
+
+.ul-candidates {
+    @extend .f-people;
+    list-style: none;
+    margin-top: 0;
+    margin-left: 0;
 }
 
 
@@ -159,13 +116,6 @@ p {
 .row-top {
     @extend .row;
     min-height: 560px;
-}
-.col-map-uk {
-    /*width: 360px;
-    margin: -15px auto 0 auto;
-    .cartogram {
-    margin-left: -50px;
-    }*/
 }
 
 .col-icon {
@@ -220,7 +170,6 @@ p {
 }
 
 @media (min-width: 660px) {
-
     .row-top > * {
         width: calc(50% - 10px);
     }

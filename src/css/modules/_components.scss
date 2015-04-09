@@ -1,9 +1,8 @@
-$w: 300px;
+$w: 460px;
 
 
 // component: dropdown
 .edd {
-	width: $w;
 	position: relative;
     font-family: $f-sans-serif-text;
 	font-size: $fz-14;;
@@ -14,6 +13,7 @@ $w: 300px;
 .edd__input {
     font-size: $fz-14;
     width: 100%;
+	max-width: $w;
 	height: 35px;
     box-sizing: border-box;
     border: 1px solid $c-grey5;
@@ -23,6 +23,7 @@ $w: 300px;
 
 .edd__dropdown {
     width: 100%;
+	max-width: $w;
     box-sizing: border-box;
 	background-color: white;
     border: 1px solid #ddd;
@@ -55,6 +56,7 @@ $w: 300px;
     box-sizing: border-box;
     margin-top: 30px;
     padding-left: 10px;    
+    padding-right: 10px;    
     overflow: hidden;
 }
 .expand.hide {
@@ -62,7 +64,7 @@ $w: 300px;
     transition: height, 1s;
 } 
 .expand.show { 
-    height: 240px; //temp 
+    height: 308px; //temp 
     margin-bottom: 30px;    
     transition: height, 1s;
 }
