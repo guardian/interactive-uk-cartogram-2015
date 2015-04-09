@@ -115,7 +115,7 @@ p {
 
 .row-top {
     @extend .row;
-    min-height: 560px;
+    min-height: 640px;
 }
 
 .col-icon {
@@ -175,6 +175,7 @@ p {
     }
     .row-maps {
         max-width: 100%;
+        overflow: hidden;
     }
     .col-map-uk {
         float: right;
@@ -194,8 +195,12 @@ p {
         max-width: calc(50% - 1px);
         width: calc(50% - 1px);
     }
-    .row-maps svg {
-        margin:0 auto;
+    .col-2010 svg {
+        float: left;
+        display: block;
+    }
+    .col-2015 svg {
+        float: right;
         display: block;
     }
 

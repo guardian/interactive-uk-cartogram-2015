@@ -110,7 +110,7 @@ define([
 
                 tooltip.style({
                     display:"block",
-                    left: (left+coords[0])  + "px",
+                    left: coords[0]+"px",
                     top: coords[1] + "px"
                 });
 

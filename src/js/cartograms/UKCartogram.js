@@ -1,11 +1,13 @@
 define([
     'd3',
     'cartograms/HexMap',
-    'cartograms/RegionsMap'
+    'cartograms/RegionsMap',
+    'common/ConstituencyExpand'
 ], function(
     d3,
     HexMap,
-    RegionsMap
+    RegionsMap,
+    ConstituencyExpand
 ) {
    'use strict';
 
@@ -58,6 +60,7 @@ define([
                             map.resetZoom();
                             regions_map.resetZoom();
                             resetButton.classed("hidden",true);
+                            ConstituencyExpand.updateView(0);
                         });
 
         var regions_map=new RegionsMap(topoRegions,{
@@ -98,6 +101,10 @@ define([
                         regions_map.zoom(translate,scale)
                     });  
                 });
+                var c = d.properties,
+                    p = c.projection_info;
+                ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
+                ConstituencyExpand.updateView(1);
             },
             mouseOverMapCallback:function(d){
                 map.highlightCostituency(d);

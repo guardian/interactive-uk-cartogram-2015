@@ -150,6 +150,13 @@ g .winner2010 {
     stroke-opacity:1;
     shape-rendering:crispEdges;
 }
+/*************** CLONE *******************/
+.clone path {
+    fill:none;
+    stroke-opacity:1;
+    stroke:#000;
+    stroke-width:2;
+}
 /*************** REGIONS *******************/
 .regions path {
     fill:#fefefe;

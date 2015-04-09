@@ -67,7 +67,13 @@ define([
         
 
        	var ix=map;
+        var clone;
         if(options.bg) {
+            clone=options.svg.append("g")
+                    .attr("class","clone")
+                    .attr("x",options.left)
+                        .append("path");
+
     	    ix=options.svg.append("rect")
     				.attr("class","bg")
     				.attr("x",options.left)
@@ -98,7 +104,7 @@ define([
                         }
         	    		return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
         	    	});
-        	    	//console.log(c)
+        	    	
 
                     if(c) {
                         __currentConstituency=c;
@@ -275,7 +281,8 @@ define([
         		}
         		return;
         	}
-        	map
+        	
+            map
         		.selectAll("path")
         			.classed("highlight",function(d){
         				return d.properties.constituency==constituency.properties.constituency;
@@ -284,9 +291,15 @@ define([
                         return d.properties.constituency==constituency.properties.constituency;
                     })
                     .each(function(d){
-                        d3.select(this).moveToFront();
+                        var __this=d3.select(this);
+                        __this.moveToFront();
                         map.selectAll("path.selected").moveToFront();
-                    })
+                        clone
+                            .attr("d",__this.attr("d"));
+                    });
+            
+
+
 
         	if (options.tooltip) {
 
@@ -325,6 +338,12 @@ define([
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                clone.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
                 if(callback) {
                     callback(__translate,__scale);
                 }
@@ -355,6 +374,11 @@ define([
                 __scale=1;
 
                 map.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                clone.transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");

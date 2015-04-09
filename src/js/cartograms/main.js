@@ -32,11 +32,11 @@ define([
         var ukCartogram=new UKCartogram(projections, topo, regions,{
             container:"#ukProjections .cartogram",
             id:"ukProjection",
-            width:560,
-            height:560,
+            width:460,
+            height:640,
             geom: {
-                scale_factor:1.8,
-                center:[1, 54.6]
+                scale_factor:2,
+                center:[1, 54.2]
             },
         });
 
