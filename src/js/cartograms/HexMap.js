@@ -27,7 +27,6 @@ define([
         var path = d3.geo.path()
             .projection(projection);
 
-        var zoom;
         var __scale=1,
             __translate=[0,0];
         var __currentConstituency;
@@ -61,12 +60,7 @@ define([
         	.attr("class","constituencies")
         	.classed("highlight-change",options.highlightChange);
 
-        function zoomed() {
-            //alert("!")
-            constituenciesMap.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-            //constituenciesMap.select(".state-border").style("stroke-width", 1.5 / d3.event.scale + "px");
-            //constituenciesMap.select(".county-border").style("stroke-width", .5 / d3.event.scale + "px");
-        }
+        
 
        	var ix=map;
         if(options.bg) {
@@ -95,9 +89,11 @@ define([
         	ix
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
+
         	    	var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
-                        if(!options.filterSame)
+                        if(!options.filterSame) {
                             return true;
+                        }
         	    		return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
         	    	});
         	    	//console.log(c)
@@ -135,7 +131,7 @@ define([
         }());
 
 
-        var constituencies=[];
+        //var constituencies=[];
         //console.log("!!!!!!",topo)
         constituenciesMap
         	.selectAll("path")
@@ -190,16 +186,39 @@ define([
         map.selectAll("path").filter(function(d){
         	return !d.properties.gray;
         })
-        .each(function(d){
+        /*.each(function(d){
         	constituencies.push(d);
-        })
+        })*/
         .style("fill",function(d){
         	if(options.gradients) {
         		return "url(#grad_"+d.properties.projection_info.winner2010.toLowerCase()+"2"+d.properties.projection_info.projection.toLowerCase()+")";	
         	}
         });
 
+        var constituencies=map
+                .selectAll("path").filter(function(d){
+                    return !d.properties.gray;
+                })
+                .data(),
+            centroids={};
 
+        updateConstituencies();
+        setCentroids();
+
+        //setTimeout(updateConstituencies,1000);
+        function setCentroids() {
+            map
+                .selectAll("path")
+                .each(function(d){
+                    centroids[d.properties.constituency]=path.centroid(d);
+                });
+        }
+        function getCentroid(constituencyCode) {
+            return centroids[constituencyCode];
+        }
+        function updateConstituencies() {
+            
+        }
         this.getConstituencies=function() {
         	return constituencies;
         };
@@ -263,7 +282,8 @@ define([
                     })
 
         	if (options.tooltip) {
-                tooltip.show(constituency, path.centroid(constituency),__translate,__scale);
+                //tooltip.show(constituency, path.centroid(constituency),__translate,__scale);
+                tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale);
             }
 
 
@@ -273,7 +293,7 @@ define([
         this.zoom=function(constituency) {
             if(options.zoomable) {
                 var c_centre=this.getCentroid(constituency);
-
+                /*
                 var bounds = path.bounds(constituency),
                                   dx = bounds[1][0] - bounds[0][0],
                                   dy = bounds[1][1] - bounds[0][1],
@@ -281,13 +301,11 @@ define([
                                   y = (bounds[0][1] + bounds[1][1]) / 2,
                                   scale = 1.5,//.05 / Math.max(dx / options.width, dy / options.width),
                                   translate = [options.width / 2 - scale * x, options.height / 2 - scale * y];
+                */
 
-                
-                //translate[0]=Math.max(translate[0],-options.width/3);
-                //translate[0]=Math.min(translate[0],options.width/10);
-
-               // translate[1]=Math.max(translate[1],-options.height*2/3);
-               // translate[1]=Math.min(translate[1],options.height/10);
+                var center =    path.centroid(constituency),
+                                scale = 1.5,
+                                translate = [options.width / 2 - scale * center[0], options.height / 2 - scale * center[1]];
 
                 __scale=scale;
 
@@ -299,6 +317,9 @@ define([
                         .ease(d3.ease("quad-in-out"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                
+                updateConstituencies();
 
                 return translate;    
             }
@@ -320,7 +341,7 @@ define([
 
         function findClosest(coords,filter) {
 
-            console.log("FIND CLOSEST",coords)
+            
 
         	var closest_constituency=null,
         		dist=10000;
@@ -331,8 +352,7 @@ define([
             coords[0]/=__scale;
             coords[1]/=__scale;
 
-        	constituenciesMap
-                .selectAll("path").filter(function(d){
+        	constituencies.filter(function(d){
         		if(!filter) {
         			return 1;
         		}
@@ -340,17 +360,16 @@ define([
         		return filter(d);
         	}).forEach(function(constituency){
                 
-        		var c_centre=path.centroid(constituency),
-                //var c_centre=constituency.properties.centroid,
+        		//var c_centre=path.centroid(constituency),
+                var c_centre=getCentroid(constituency.properties.constituency),
         			__dist=getDistance(coords[0],coords[1],c_centre[0],c_centre[1])	;	    		
 
+                //console.log(c_centre,constituency.properties.centroid)
 
-
-        		if(__dist<5) {
-        			return closest_constituency=constituency;
-        		}
+        		
 
         		if(__dist<dist) {
+                    
         			closest_constituency=constituency;
         			dist=__dist;
         		}

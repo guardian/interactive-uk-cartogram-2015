@@ -45,7 +45,7 @@ define([
             clipPath:true,
             fadeOut:true
         });
-        return;
+        
         new ReferenceMap(regions,{
             container:"#jsLondon .small-map",
             regions:["London"]
