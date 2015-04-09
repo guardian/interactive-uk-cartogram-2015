@@ -19,7 +19,7 @@ define([
         console.error('Failed: ', err, msg);
     }
     function afterRequest(resp) {
-        console.log('Finished', resp);
+        //console.log('Finished', resp);
     }
 
 
@@ -31,8 +31,8 @@ define([
         /*  Data */
         // Load local JSON data
         // uk-cartogram
-        console.log(topo);
-        console.log(regions);
+        //console.log(topo);
+        //console.log(regions);
 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',

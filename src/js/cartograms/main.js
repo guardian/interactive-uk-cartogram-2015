@@ -18,7 +18,7 @@ define([
         new ElectionPollDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
-                alert(constituency.properties.name)
+                console.log(constituency.properties.name)
             }
         });
 

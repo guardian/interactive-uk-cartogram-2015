@@ -76,7 +76,7 @@ define([
         });
 
         var constituencies = map.getConstituencies();
-        console.log("---->",constituencies)
+        //console.log("---->",constituencies)
             
         //console.log(1,map.getCentroid(constituencies[20]),constituencies[20]);
 
@@ -88,19 +88,20 @@ define([
 
         window.zoom=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
-            console.log(constituency)
+            //console.log(constituency)
             map.zoom(constituency);
             map.selectCostituency(constituency);
-            console.log(map.getCentroid(constituency),constituency);
+            //console.log(map.getCentroid(constituency),constituency);
         }
 
         this.selectConstituency=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
-            console.log(constituency)
+            //console.log(constituency)
             map.zoom(constituency);
             map.selectCostituency(constituency);
-            console.log(map.getCentroid(constituency),constituency);
+            //console.log(map.getCentroid(constituency),constituency);
             return constituency;
+            //console.log(map.getCentroid(constituency),constituency);
         }
         /*
     	var to=null;

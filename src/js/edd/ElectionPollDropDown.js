@@ -10,7 +10,7 @@ define([
 
 	function ElectionPollDropdown(constituencies,options) {
 
-		var renderDropdown = new EDD();
+        var renderDropdown = new EDD();
 
 		var s3prefix = 'http://interactive.guim.co.uk/2015/general-election/postcodes/';
 
@@ -95,7 +95,7 @@ define([
 		function onSelect(val) {
 			console.log('selected', val);
 			document.querySelector('#selected-val').innerHTML = val;
-		}
+        }
 	}
 
 	return ElectionPollDropdown;
