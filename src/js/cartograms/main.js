@@ -39,8 +39,8 @@ define([
             id:"lnd",
             regions:["London"],
             geom: {
-                scale_factor:2,
-                center:[0, 51.6]
+                scale_factor:3.4,
+                center:[0.8, 51.6]
             },
             clipPath:true,
             fadeOut:true
@@ -56,8 +56,8 @@ define([
             id:"sw",
             regions:["South West"],
             geom: {
-                scale_factor:2,
-                center:[-2, 51.15]
+                scale_factor:3.4,
+                center:[-1.5, 51.15]
             },
             clipPath:true,
             fadeOut:true
@@ -72,10 +72,10 @@ define([
             container:"#jsScotland .cartogram",
             id:"sct",
             regions:["Scotland"],
-            //height:300,
+            height:440,
             geom: {
-                scale_factor:2,
-                center:[-1.2, 56.9]
+                scale_factor:3.4,
+                center:[-1.2, 57.1]
             },
             clipPath:true,
             fadeOut:true
@@ -92,8 +92,8 @@ define([
             height:440,
             regions:["Eastern","South East"],
             geom: {
-                scale_factor:2,
-                center:[2, 52]
+                scale_factor:3.4,
+                center:[0.8, 52]
             },
             clipPath:true,
             fadeOut:true

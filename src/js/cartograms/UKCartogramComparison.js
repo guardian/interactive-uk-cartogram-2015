@@ -98,13 +98,19 @@ define([
                     display:"none"
                 });
             };
-            this.show = function(info, coords) {
+            this.show = function(info, coords, translate, scale, bbox) {
 
                 //console.log(info,coords);
+                
+                var left=bbox.left;
+
+                if(left>460) {
+                    return;
+                }
 
                 tooltip.style({
                     display:"block",
-                    left: (coords[0]+(options.left||0))  + "px",
+                    left: (left+coords[0])  + "px",
                     top: coords[1] + "px"
                 });
 
@@ -117,7 +123,21 @@ define([
                     .html(function() {
                         var from=info.properties.projection_info["winner2010"].toLowerCase(),
                             to=info.properties.projection;
-                        return "from <span class=\""+from+"\">" + names[from] + "<\/span> to <span class=\""+to+"\">" + names[to] + "<\/span>";
+
+                        //console.log(info.properties.projection_info)
+
+                        var swings={
+                            "Const":"constituency poll",
+                            "National":"national swing",
+                            "NI":"Not Identified by carlo",
+                            "Wales":"Wales polls",
+                            "Scotland":"Scotland polls"
+                        }
+
+                        if(from!==to) {
+                            return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span> based on "+swings[info.properties.projection_info.source];    
+                        }
+                        return "<span class=\""+to+"\">" + names[to] + "<\/span> keep the seat, based on "+swings[info.properties.projection_info.source];    
                     });
 
             };

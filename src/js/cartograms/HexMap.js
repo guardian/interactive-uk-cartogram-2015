@@ -9,8 +9,12 @@ define([
 
     function HexMap(topo, options) {
 
+        var self=this;
+
         var WIDTH = options.width || 300,
             HEIGHT = options.height || 300;
+
+        
 
         //100:600=WIDTH:x
         var scale = 2000;
@@ -79,9 +83,9 @@ define([
         
         if(options.mouseClickMapCallback) {
             ix.on("click",function(){
-                    self.zoom(__currentConstituency.properties.constituency);
+                    self.zoom(__currentConstituency);
 
-                    options.mouseClickMapCallback(__currentConstituency);
+                    options.mouseClickMapCallback(__currentConstituency,__translate,__scale);
                 })
         }
         if(options.mouseOverMapCallback) {
@@ -240,7 +244,7 @@ define([
         this.getBounds=function(constituency) {
         	return path.bounds(constituency);
         };
-        this.selectCostituency = function(constituency) {
+        this.selectCostituency = function(constituency,callback) {
 
             if(!constituency) {
                 return;
@@ -283,7 +287,9 @@ define([
                     })
 
         	if (options.tooltip) {
-                tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale);
+
+                var bbox=svg.node().getBoundingClientRect();
+                tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale, bbox);
             }
 
 
@@ -314,13 +320,17 @@ define([
                 __translate=translate;    
 
                 map.transition()
-                        .ease(d3.ease("quad-in-out"))
+                        .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
 
                 
                 updateConstituencies();
                 setCentroids();
+
+                if(options.reset) {
+                    options.reset.classed("hidden",false);
+                }
 
                 if(options.tooltip) {
                     tooltip.hide();
@@ -331,6 +341,20 @@ define([
             
             return null;
 
+        }
+        this.resetZoom=function() {
+            if(options.reset && options.zoomable) {
+                if(options.tooltip) {
+                    tooltip.hide();
+                }
+                __translate=[0,0];
+                __scale=1;
+
+                map.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+            }
         }
 
         this.findConstituency=function(code) {

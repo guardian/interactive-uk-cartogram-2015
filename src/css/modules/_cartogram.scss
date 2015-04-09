@@ -66,6 +66,7 @@ div.cartogram {
 /************** CARTOGRAM SVG *************/
 svg {
     background: transparent;
+    border:1px solid #333;
 
 }
 svg rect.bg {
@@ -163,6 +164,11 @@ g .winner2010 {
 .regions .borders rect {
     fill:#fff;
 }
+#ukProjections .regions path {
+    fill:none;
+    stroke-width:1;
+    stroke:#000;
+}
 /*************** REF MAP *******************/
 .ref-map {
     
@@ -174,4 +180,28 @@ g .winner2010 {
 .ref-map path.highlight {
     fill:#aaa;
     stroke:#999;
+}
+/*************** RESET *******************/
+.reset-zoom {
+    position: absolute;
+    top:10px;
+    right:10px;
+    font-size: 12px;
+    font-family: $f-sans-serif-text;
+}
+.reset-zoom a {
+    background-color:#f1f1f1;
+    color:#333;
+    
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    border-radius: 30px;
+    box-sizing: border-box;
+
+    text-decoration: none;
+    display: block;
+}
+.reset-zoom a:hover {
+    background-color:#ccc;
 }

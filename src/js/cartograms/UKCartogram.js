@@ -1,9 +1,11 @@
 define([
     'd3',
-    'cartograms/HexMap'
+    'cartograms/HexMap',
+    'cartograms/RegionsMap'
 ], function(
     d3,
-    HexMap
+    HexMap,
+    RegionsMap
 ) {
    'use strict';
 
@@ -31,8 +33,9 @@ define([
         var svg = d3.select(options.container).append("svg")
                                 .attr("width", WIDTH)
                                 .attr("height", HEIGHT);
-        var map_regions_g=svg.append("g").attr("class","regions"),
-            map_g=svg.append("g");
+
+        var map_g=svg.append("g"),
+            map_regions_g=svg.append("g").attr("class","regions");
     	
 
         var center=[0,0];
@@ -43,6 +46,30 @@ define([
     	parties.sort(function(a, b) {
     		return ORDER.indexOf(a) - ORDER.indexOf(b);
     	});
+
+        var resetButton = d3.select(options.container)
+                        .append("div")
+                            .attr("class","reset-zoom hidden");
+        resetButton.append("a")
+                        .attr("href","#")
+                        .text("Reset map")
+                        .on("click",function(){
+                            d3.event.preventDefault();
+                            map.resetZoom();
+                            regions_map.resetZoom();
+                            resetButton.classed("hidden",true);
+                        });
+
+        var regions_map=new RegionsMap(topoRegions,{
+                field:"aa",
+                width: WIDTH,
+                height: HEIGHT,
+                left: 0,
+                svg:svg,
+                map_g:map_regions_g,
+                geom:options.geom,
+                main_regions:options.regions
+            });
 
         var map=new HexMap(topo, {
             id:options.id,
@@ -64,8 +91,11 @@ define([
             geom:options.geom,
             regions:options.regions,
             zoomable:true,
-            mouseClickMapCallback:function(d){
-                map.selectCostituency(d);
+            reset:resetButton,
+            mouseClickMapCallback:function(d,translate,scale){
+                map.selectCostituency(d,function(){
+                    regions_map.zoom(translate,scale);    
+                });
             },
             mouseOverMapCallback:function(d){
                 map.highlightCostituency(d);
@@ -75,33 +105,19 @@ define([
             }
         });
 
-        var constituencies = map.getConstituencies();
-        //console.log("---->",constituencies)
-            
-        //console.log(1,map.getCentroid(constituencies[20]),constituencies[20]);
+        
+        
 
-        //center=map.zoom(constituencies[20]);
-
-        //console.log(2,map.getCentroid(constituencies[20]),constituencies[20]);
-
-
-
-        window.zoom=function(constituency) {
-            constituency=map.findConstituency(constituency || "S14000051");
-            //console.log(constituency)
-            map.zoom(constituency);
-            map.selectCostituency(constituency);
-            //console.log(map.getCentroid(constituency),constituency);
-        }
+        var constituencies = map.getConstituencies();    
 
         this.selectConstituency=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
-            //console.log(constituency)
-            map.zoom(constituency);
+
+            map.zoom(constituency);    
+            
             map.selectCostituency(constituency);
-            //console.log(map.getCentroid(constituency),constituency);
+
             return constituency;
-            //console.log(map.getCentroid(constituency),constituency);
         }
         /*
     	var to=null;

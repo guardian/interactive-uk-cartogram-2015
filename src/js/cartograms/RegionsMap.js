@@ -77,6 +77,19 @@ define([
             regionsMap.attr("transform","translate("+(options.left)+",0)");
         }
 
+        this.zoom=function(translate,scale) {
+            regionsMap.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+        }
+        this.resetZoom=function(translate,zoom) {
+            regionsMap.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(0,0)scale(1)");
+        }
+
         function addBorders() {
             
 

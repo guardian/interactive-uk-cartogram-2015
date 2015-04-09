@@ -79,6 +79,10 @@ p {
     opacity: 0.3;
 }
 
+.hidden {
+    display: none;
+}
+
 // style: components
 .search-input,
 .search-btn {
@@ -183,20 +187,37 @@ p {
 
 .row-maps {
     @extend .row; 
-    max-width: 660px;
+    max-width: 642px;
     margin: 0 auto;
 }
 .col-2010,
 .col-2015 {
     max-width: 320px;
     margin: 0 auto;
-
-
+}
+.col-2010 h4,
+.col-2015 h4 {
+    font-size: 13px;
+    color:#000;
+    font-family: $f-sans-serif-headline;
+}
+.col-2010 h4 {
+    text-align: right;
+    font-weight: normal;
+    padding-right:30px;
+}
+.col-2015 h4 {
+    text-align: left;
+    padding-left:30px;
 }
 
 @media (min-width: 660px) {
+
     .row-top > * {
         width: calc(50% - 10px);
+    }
+    .row-maps {
+        max-width: 100%;
     }
     .col-map-uk {
         float: right;
@@ -204,8 +225,21 @@ p {
     .col-h3 {
         width: calc(50% - #{$w-icon});
     }
-    .col-2015 { float: right; width: calc(50% - 20px); margin-left:10px;}
-    .col-2010 { float: left;  width: calc(50% - 20px); margin-right:10px;}
+    .col-2015 { 
+        float: right; 
+        max-width: calc(50% - 1px);
+        width: calc(50% - 1px);
+        border-left:1px solid #ddd;
+    }
+    .col-2010 { 
+        float: left;  
+        max-width: calc(50% - 1px);
+        width: calc(50% - 1px);
+    }
+    .row-maps svg {
+        margin:0 auto;
+        display: block;
+    }
 
     .pos-map-uk {
         position: absolute;

@@ -14,105 +14,27 @@ define([
     	var WIDTH = options.width || 960,
             HEIGHT = options.height || 500;
 
-        
+        WIDTH=Math.min(WIDTH,460*2);        
 
-        var svgs=d3.select(options.container)
+        var maps=d3.select(options.container)
             .selectAll("div.carto")
             .data([
                     {
                         id:"map2010",
-                        field:"winner2010",
-                        year:2010
+                        field:"winner2010"
                     },
                     {
                         id:"map2015",
-                        field:"projection",
-                        year:2015
-                    }])
-                .enter()
-                .append("div")
-                .attr("id",function(d){
-                    return d.id;
-                })
-                .attr("class",function(d){
-                    return "carto col-"+d.year;
-                })
-                .append("svg")
+                        field:"projection"
+                    }]);
+
+
+        var svgs=maps.append("svg")
                     .attr("width", WIDTH/2)
                     .attr("height", HEIGHT);
 
 
         var defs=svgs.append("defs");
-
-        
-
-        //console.log(parties);
-        parties.forEach(function(d){
-            parties.forEach(function(t){
-                var gradient=defs.append("linearGradient")
-                        .attr({
-                            id:"grad_"+d+"2"+t,
-                            x1:"0%",
-                            y1:"0%",
-                            x2:"100%",
-                            y2:"0%"
-                        });
-                gradient.append("stop")
-                            .attr({
-                                offset:"30%",
-                                //"stop-color":"#ff6600"
-                                //offset:0.485,
-                                "class":d
-                            });
-                gradient.append("stop")
-                            .attr({
-                                offset:"70%",
-                                //"stop-color":"#000"
-                                //offset:0.485,
-                                "class":t
-                            });
-            });
-        });
-        
-        parties.forEach(function(p){
-        	
-        	defs.append("marker")
-    				.attr({
-    					id:"triangle-start-"+p,
-    					//"viewBox":"0 0 10 10",
-    					"refX":5,					
-    					"refY":6,
-    					markerUnits:"userSpaceOnUse",
-    					markerWidth:10,
-    					markerHeight:10,
-    					orient:"auto",
-    					"class":"marker "//+p
-    				})
-    				.append("path")
-    					.attr({
-    						//"d":"M 0 0 L 10 5 L 0 10 z"
-    						"d":"M 1 1 7 4 1 7 Z"
-    					})
-    					.attr("transform","rotate(180 5 5)");
-
-    		defs.append("marker")
-    				.attr({
-    					id:"triangle-end-"+p,
-    					//"viewBox":"0 0 10 10",
-    					"refX":5,					
-    					"refY":4,
-    					markerUnits:"userSpaceOnUse",
-    					markerWidth:10,
-    					markerHeight:10,
-    					orient:"auto",
-    					"class":"marker "//+p
-    				})
-    				.append("path")
-    					.attr({
-    						//"d":"M 0 0 L 10 5 L 0 10 z"
-    						"d":"M 1 1 7 4 1 7 Z"
-    					});
-    			    });
         
         var xscale=options.xscale;
 
