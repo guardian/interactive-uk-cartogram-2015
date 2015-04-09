@@ -20,8 +20,11 @@ define([
         new ConstituencyDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
-                //console.log(constituency.properties.name)
-                ConstituencyExpand.updateData(constituency.properties.name);
+                
+                // expand component:
+                var c = constituency.properties,
+                    p = c.projection_info;
+                ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
                 ConstituencyExpand.updateView(1); //0:collapse, 1:expand
             }
         });

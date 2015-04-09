@@ -203,3 +203,8 @@ g .winner2010 {
 .reset-zoom a:hover {
     background-color:#ccc;
 }
+
+// check again!
+@media (max-width: 979px) { .cartogram { margin-left: -50px; }}
+@media (max-width: 659px) { .cartogram { margin-left: 0; }}
+@media (max-width: 480px) { .cartogram { margin-left: -50px; }}

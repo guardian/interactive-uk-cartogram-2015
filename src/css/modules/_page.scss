@@ -31,7 +31,8 @@ button:focus {
 
 // style: fonts
 h1 {
-    font-size: 34px; //check again!
+    //check again!
+    //font-size: 34px;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -57,7 +58,7 @@ p {
     font-size: $fz-14;
     color: $c-grey2;
 }
-.f-standfront {
+.f-standfirst {
     font-family: $f-serif-text;
     font-size: $fz-18;
     color: $c-grey3;
@@ -169,7 +170,6 @@ p {
 }
 
 @media (min-width: 660px) {
-
     .row-top > * {
         width: calc(50% - 10px);
     }

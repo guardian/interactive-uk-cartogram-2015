@@ -2,7 +2,7 @@ define([
     'reqwest',
     'json!data/hexagons-topo.json',
     'json!data/regions-topo.json',
-    'page/page.js',
+    'page/page',
     'cartograms/main',
     'text!templates/appTemplate.html'
 ], function(
@@ -30,9 +30,7 @@ define([
 
         /*  Data */
         // Load local JSON data
-        // uk-cartogram
-        //console.log(topo);
-        //console.log(regions);
+        //console.log(localData);
 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
