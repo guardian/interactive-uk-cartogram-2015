@@ -121,7 +121,7 @@ define([
         var maps={};
 
         svgs.each(function(d,i){
-            console.log(d);
+            //console.log(d);
 
             var svg=d3.select(this),
                 map_regions_g=svg.append("g").attr("class","regions"),

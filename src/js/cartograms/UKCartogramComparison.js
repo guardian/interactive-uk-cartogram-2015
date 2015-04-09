@@ -74,7 +74,7 @@ define([
         });*/
     	
         function Tooltip(options) {
-            console.log("Tooltip",options)
+            //console.log("Tooltip",options)
 
             
 

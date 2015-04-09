@@ -334,7 +334,7 @@ define([
         }
 
         this.findConstituency=function(code) {
-            console.log("looking for ",code)
+            //console.log("looking for ",code)
             return constituencies.filter(function(c){
                 return c.properties.constituency==code;
             })[0];
@@ -352,7 +352,7 @@ define([
 
         function findClosest(coords,filter) {
 
-            
+            //console.log("FIND CLOSEST",coords)
 
         	var closest_constituency=null,
         		dist=10000;

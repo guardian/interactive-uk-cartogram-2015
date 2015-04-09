@@ -102,7 +102,7 @@ define([
 				renderDropdown([]);
 			}
 			function onDropdownMouseOver(event) {
-				console.log(event);
+				//console.log(event);
 				var toElement = event.target;
 				if (/edd__entry/.test(toElement.className)) {
 					setFocusElement(toElement);
