@@ -28,7 +28,14 @@ define([
         // DOM template
         el.innerHTML = templateHTML;
 
-        /*  Data */
+        /* View */
+        var head = document.querySelector('head'),
+            script = document.createElement('script');
+        script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
+        script.setAttribute('type','text/javascript');
+        head.appendChild(script);
+
+        /* Data */
         // Load local JSON data
         //console.log(localData);
 
@@ -42,11 +49,11 @@ define([
             crossOrigin: true
         })
         .then(function(data) {
-            
+
             /* Render */
             pageText.render(data.sheets.glosses);
             cartograms.render(data,topo,regions);
-            
+
         })
         .fail(handleRequestError)
         .always(afterRequest);  

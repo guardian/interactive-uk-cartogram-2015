@@ -1,6 +1,10 @@
 // grid 
+.is-immersive .l-footer {
+    display: block;
+}
+
 figure.element {
-    margin-top: 0; //hack
+    margin: 0; //hack
 }
 .interactive-wrapper{
     background-color: white;
