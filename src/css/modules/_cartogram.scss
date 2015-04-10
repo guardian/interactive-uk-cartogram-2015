@@ -66,6 +66,11 @@ div.cartogram {
 .center {
     position: relative;
     margin:0 auto;
+
+    //-webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
+    //-moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
+    //box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
+
 }
 /************** CARTOGRAM SVG *************/
 .cartogram svg {
@@ -155,6 +160,18 @@ g .winner2010 {
     stroke-opacity:1;
     shape-rendering:crispEdges;
 }
+/*************** LABELS *******************/
+.m-labels{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; fill: #000; font-size: 16px; opacity: 0.4}
+.m-labels-below{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; stroke:#000; font-size: 16px; opacity:0; stroke-width:4px; stroke-linejoin:round;}
+#ukProjections {
+    .m-labels{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; fill: #FFF; font-size: 16px; opacity: 0.7}
+    .m-labels-below{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; stroke:#000; font-size: 16px; opacity:0.25; stroke-width:4px; stroke-linejoin:round;}
+
+    .regions text.city,
+.regions text.city-below { 
+    font-size:12px;
+}
+}
 /*************** CLONE *******************/
 .clone path {
     fill:none;
@@ -168,6 +185,17 @@ g .winner2010 {
     stroke-width:1;
     stroke:#ccc;
 }
+.regions text { 
+    text-anchor:middle;
+}
+
+.regions text.city,
+.regions text.city-below { 
+    font-size:12px;
+}
+.regions circle.city { 
+    fill:#333;
+}
 .regions path.main {
     stroke:#333;
 }
@@ -179,7 +207,9 @@ g .winner2010 {
     stroke-width:1;
     stroke:#fff;
 }
+
 /*************** REF MAP *******************/
+/*
 .ref-map {
     
 }
@@ -191,6 +221,7 @@ g .winner2010 {
     fill:#aaa;
     stroke:#999;
 }
+*/
 /*************** RESET *******************/
 .reset-zoom {
     position: absolute;

@@ -76,7 +76,9 @@ define([
 
         regionsMap
             .selectAll("path")
-            .data(topojson.feature(topo, regions).features)
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                return d.geometry.type!="Point";
+            }))
             .enter()
             .append("path")
             .attr("d", function(d) {
@@ -94,6 +96,74 @@ define([
                 }
             })
 
+        regionsMap
+            .selectAll("text.m-labels-below")
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                return d.geometry.type=="Point" && d.properties.abbr;
+            }))
+            .enter()
+            .append("text")
+                .attr("class","m-labels-below")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("dy", "-.35em")
+                    .text(function(d){
+                        return d.properties[options.textField] || d.properties.name;
+                    });
+
+        regionsMap
+            .selectAll("text.m-labels")
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                return d.geometry.type=="Point" && d.properties.abbr;
+            }))
+            .enter()
+            .append("text")
+                .attr("class","m-labels")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("dy", "-.35em")
+                    .text(function(d){
+                        return d.properties[options.textField] || d.properties.name;
+                    });
+
+        regionsMap
+            .selectAll("text.city-below")
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                return d.geometry.type=="Point" && !d.properties.abbr;
+            }))
+            .enter()
+            .append("text")
+                .attr("class","m-labels-below city-below")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("dy", "-.35em")
+                    .text(function(d){
+                        return d.properties[options.textField] || d.properties.name;
+                    });
+        regionsMap
+            .selectAll("text.city")
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                return d.geometry.type=="Point" && !d.properties.abbr;
+            }))
+            .enter()
+            .append("text")
+                .attr("class","m-labels city")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("dy", "-.35em")
+                    .text(function(d){
+                        return d.properties[options.textField] || d.properties.name;
+                    });
+
+        regionsMap
+            .selectAll("circle.label")
+            .data(topojson.feature(topo, regions).features.filter(function(d){
+                console.log(d.properties)
+                return d.geometry.type=="Point" && !d.properties.abbr;
+            }))
+            .enter()
+            .append("circle")
+                .attr("class","city")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("cx",0)
+                    .attr("cy",0)
+                    .attr("r",2)
 
         if(typeof options.left != 'undefined') {
             regionsMap.attr("transform","translate("+(options.left)+",0)");
@@ -175,7 +245,7 @@ define([
         }
 
         this.zoom=function(translate,scale) {
-            
+
             regionsMap.transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
@@ -288,7 +358,7 @@ define([
                 gradient.append("stop")
                             .attr({
                                 offset:"0%",
-                                "stop-color":"#ddd",
+                                "stop-color":"#fff",
                                 "stop-opacity":1
                             });
                 gradient.append("stop")
@@ -331,34 +401,7 @@ define([
                                 return d.fill;
                             });
 
-            //left
-            /*borders.append("rect")
-                    .attr("x",0)
-                    .attr("y",0)
-                    .attr("width",thickness)
-                    .attr("height",h)
-                    .style("fill","url(#borderGrad_left)");
-            //top
-            borders.append("rect")
-                    .attr("x",0)
-                    .attr("y",0)
-                    .attr("width",w)
-                    .attr("height",thickness)
-                    .style("fill","url(#borderGrad_top)");
-            //right
-            borders.append("rect")
-                    .attr("x",w-thickness)
-                    .attr("y",0)
-                    .attr("width",thickness)
-                    .attr("height",h)
-                    .style("fill","url(#borderGrad_right)");
-            //bottom
-            borders.append("rect")
-                    .attr("x",0)
-                    .attr("y",h-thickness)
-                    .attr("width",w)
-                    .attr("height",thickness)
-                    .style("fill","url(#borderGrad_bottom)");*/
+            
 
             if(options.clipPath) {
                 var clipPath=svg.select("defs").append("clipPath")

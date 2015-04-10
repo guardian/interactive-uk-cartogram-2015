@@ -60,7 +60,8 @@ define([
                 geom_small:options.geom_small,
                 selected_geom:options.selected_geom,
                 main_regions:options.regions,
-                fadeOut:options.fadeOut
+                fadeOut:options.fadeOut,
+                textField:"name"
             });
 
             maps[d.field]=new HexMap(topo, {

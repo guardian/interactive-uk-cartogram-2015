@@ -143,17 +143,22 @@ define([
                         //console.log(info.properties.projection_info)
 
                         var swings={
-                            "Const":"constituency poll",
-                            "National":"national swing",
-                            "NI":"Not Identified by carlo",
-                            "Wales":"Wales polls",
-                            "Scotland":"Scotland polls"
+                            "Const":"on constituency and national polling",
+                            "National":"national polling",
+                            "NI":"Northern Ireland polling",
+                            "Wales":"polling in Wales",
+                            "Scotland":"Scotland-wide polling"
                         }
-
+                        /*
                         if(from!==to) {
-                            return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span> based on "+swings[info.properties.projection_info.source];    
+                            return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span>, based on "+swings[info.properties.projection_info.source];    
                         }
-                        return "<span class=\""+to+"\">" + names[to] + "<\/span> keep the seat, based on "+swings[info.properties.projection_info.source];    
+                        return "<span class=\""+to+"\">" + names[to] + "<\/span> hold, based on "+swings[info.properties.projection_info.source];    
+                        */
+                        if(from!==to) {
+                            return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[info.properties.projection_info.source];    
+                        }
+                        return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source];    
                     });
 
             };
