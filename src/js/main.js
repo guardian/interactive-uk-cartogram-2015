@@ -51,7 +51,7 @@ define([
         .then(function(data) {
 
             /* Render */
-            pageText.render(data.sheets.glosses);
+            pageText.render(data.sheets.RESULT[0], data.sheets.glosses);
             cartograms.render(data,topo,regions);
 
         })

@@ -57,13 +57,18 @@ p {
     font-size: $fz-14;
     color: $c-grey2;
 }
+
 .f-standfirst {
     font-family: $f-serif-text;
     font-size: $fz-18;
     color: $c-grey3;
     margin-top: 15px;
+}
+.f-lastupdate {
+    margin-top: 15px;
     margin-bottom: 30px;
 }
+
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
