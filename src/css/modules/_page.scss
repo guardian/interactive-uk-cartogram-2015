@@ -31,8 +31,7 @@ button:focus {
 
 // style: fonts
 h1 {
-    //check again!
-    //font-size: 34px;
+    font-size: 32px;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -125,7 +124,7 @@ p {
     margin-left: -20px;
 }
 .col-icon .ref-map {
-    margin-top:-30px;
+    margin-top:-20px;
 }
 .col-h3 {
     float: left;
@@ -177,13 +176,6 @@ p {
         max-width: 100%;
         overflow: hidden;
     }
-    .col-map-uk {
-        float: right;
-    }
-    .col-h3 {
-        width: calc(50% - #{$w-icon});
-    }
-
     .col-2015 { 
         float: right; 
         max-width: calc(50% - 1px);
@@ -209,5 +201,13 @@ p {
         position: absolute;
         top: 0;
         right: 0;
+    }
+}
+@media (min-width: 980px) {
+    h1 {
+        font-size: 48px;
+    }
+    .col-h3 {
+        width: calc(50% - #{$w-icon});
     }
 }
