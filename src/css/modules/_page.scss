@@ -3,8 +3,8 @@
  * */
 
 // variables
-$w-icon: 80px;
-$h-icon: 80px;
+$w-icon: 100px;
+$h-icon: 100px;
 
 
 // reset
@@ -31,8 +31,7 @@ button:focus {
 
 // style: fonts
 h1 {
-    //check again!
-    //font-size: 34px;
+    font-size: 32px;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -58,13 +57,18 @@ p {
     font-size: $fz-14;
     color: $c-grey2;
 }
+
 .f-standfirst {
     font-family: $f-serif-text;
     font-size: $fz-18;
     color: $c-grey3;
     margin-top: 15px;
+}
+.f-lastupdate {
+    margin-top: 15px;
     margin-bottom: 30px;
 }
+
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
@@ -122,15 +126,11 @@ p {
     float: left;
     width: $w-icon;
     height: $h-icon;
-    margin-left: -20px;
-}
-.col-icon .ref-map {
-    margin-top:-30px;
+    margin-left: -30px;
 }
 .col-h3 {
     float: left;
     width: calc(100% - #{$w-icon});
-    padding-left: 10px;
 }
 
 .row-maps {
@@ -174,13 +174,6 @@ p {
         max-width: 100%;
         overflow: hidden;
     }
-    .col-map-uk {
-        float: right;
-    }
-    .col-h3 {
-        width: calc(50% - #{$w-icon});
-    }
-
     .col-2015 { 
         float: right; 
 
@@ -218,5 +211,13 @@ p {
         position: absolute;
         top: 0;
         right: 0;
+    }
+}
+@media (min-width: 980px) {
+    h1 {
+        font-size: 48px;
+    }
+    .col-h3 {
+        width: calc(50% - #{$w-icon});
     }
 }
