@@ -24,17 +24,17 @@ define([
 
     	});
 
-    	d3.select(options.container).attr("width",options.width||"100%")
 
     	var WIDTH=options.width || d3.select(options.container).node().clientWidth || d3.select(options.container).node().offsetWidth || 960,
-    		HEIGHT = options.height || 500,
+    		HEIGHT = options["geom"+(options.selected_geom=="small"?"_small":"")] || options.height || 500,
     		margins = {
     			top:15
     		};
 
-        var svg = d3.select(options.container).append("svg")
-                                .attr("width", WIDTH)
-                                .attr("height", HEIGHT);
+        d3.select(options.container).style("width",(options.geom[options.selected_geom].width+"px")||"100%")
+
+        var svg = d3.select(options.container).append("svg");
+                                
 
         var map_g=svg.append("g"),
             map_regions_g=svg.append("g").attr("class","regions");
@@ -72,6 +72,8 @@ define([
                 svg:svg,
                 map_g:map_regions_g,
                 geom:options.geom,
+                geom_small:options.geom_small,
+                selected_geom:options.selected_geom,
                 main_regions:options.regions
             });
 
@@ -93,6 +95,7 @@ define([
             border:1,
             container: options.container,
             geom:options.geom,
+            selected_geom:options.selected_geom,
             regions:options.regions,
             zoomable:true,
             reset:resetButton,
@@ -112,6 +115,7 @@ define([
             },
             mouseOutMapCallback:function(d){
                 map.highlightCostituency();
+                map.deHighlightCostituency();
             }
         });
 
@@ -130,20 +134,13 @@ define([
             map.selectCostituency(constituency);
 
             return constituency;
-        }
-        /*
-    	var to=null;
-        window.addEventListener('resize', function(event){
-            if(to) {
-                clearTimeout(to);
-                to=null;
-            }
-            to=setTimeout(function(){
-                mapsTable.resize();   
-            },250)
-            
-        });
-        */
+        };
+        
+    	this.resize=function(size) {
+            map.resize(size);
+            regions_map.resize(size);
+        };
+        
     	
         function Tooltip(options) {
 

@@ -23,7 +23,7 @@ define([
     	
 
     	var WIDTH=d3.select(options.container).node().clientWidth || d3.select(options.container).node().offsetWidth,
-    		HEIGHT = 200,
+    		HEIGHT = options.height,
     		margins = {
     			top:15
     		};
@@ -41,7 +41,10 @@ define([
         
         var tooltip=new Tooltip({
             container: options.container,
-            width:options.width || WIDTH
+            width:options.width || WIDTH,
+            height:options.height || HEIGHT,
+            geom:options.geom,
+            selected_geom:options.selected_geom
         });
 
     	var mapsTable = new MapsTable(parties, topo, topoRegions, {
@@ -49,6 +52,8 @@ define([
     		width: options.width || WIDTH,
     		height: options.height || 300,
     		geom:options.geom,
+            geom_small:options.geom_small,
+            selected_geom:options.selected_geom,
     		id:options.id,
     		xscale:xscale,
     		regions:options.regions,
@@ -57,7 +62,9 @@ define([
             tooltip:tooltip
     	});
 
-
+        this.resize=function(size) {
+            mapsTable.resize(size);
+        }
 
     	//mapsTable.connect("2010", "2015", "end", "projection",options);
         /*
@@ -76,9 +83,9 @@ define([
         function Tooltip(options) {
             //console.log("Tooltip",options)
 
-            
+            var container=d3.select(options.container);
 
-            var tooltip = d3.select(options.container)
+            var tooltip = container
                 .append("div")
                 .attr("class", "tooltip-arrow")
                 //.style("width","46%");//options.width?((options.width/2-(margins.left+margins.right))+"px"):"90%");
@@ -107,10 +114,19 @@ define([
                 if(left>460) {
                     return;
                 }
-
+                //console.log(options)
+                
+                var container_w=container.node().clientWidth || container.node().offsetWidth,
+                    status=(container_w>620)?"h":"v",
+                    w=(status=="h")?options.geom.normal.width:options.geom.small.width,
+                    h=(status=="h")?0:options.geom.small.height,
+                
+                container_w=(container_w>620)?container_w/2:container_w;
+                console.log(status,container_w,w,coords[0])
                 tooltip.style({
                     display:"block",
-                    left: coords[0]+"px",
+                    left: (status=="v"?(container_w-w)/2:0) + coords[0] +"px",
+                    height: h+"px",
                     top: coords[1] + "px"
                 });
 

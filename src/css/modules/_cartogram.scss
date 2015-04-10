@@ -63,11 +63,16 @@
 div.cartogram {
     position: relative;
 }
-/************** CARTOGRAM SVG *************/
-svg {
-    background: transparent;
+.center {
+    position: relative;
+    margin:0 auto;
 }
-svg rect.bg {
+/************** CARTOGRAM SVG *************/
+.cartogram svg {
+    background: transparent;
+    display: block;
+}
+.cartogram svg rect.bg {
     fill-opacity:0;
     stroke:none;
 }
@@ -210,8 +215,13 @@ g .winner2010 {
 .reset-zoom a:hover {
     background-color:#ccc;
 }
-
+@media(min-width:660px){
+    .center {
+        position: relative;
+        margin:0;
+    }
+}
 // check again!
-@media (max-width: 979px) { .cartogram { margin-left: -50px; }}
-@media (max-width: 659px) { .cartogram { margin-left: 0; }}
-@media (max-width: 480px) { .cartogram { margin-left: -50px; }}
+//@media (max-width: 979px) { .cartogram { margin-left: -50px; }}
+//@media (max-width: 659px) { .cartogram { margin-left: 0; }}
+//@media (max-width: 480px) { .cartogram { margin-left: -50px; }}

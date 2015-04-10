@@ -151,13 +151,10 @@ p {
     font-family: $f-sans-serif-headline;
 }
 .col-2010 h4 {
-    text-align: right;
-    font-weight: normal;
-    padding-right:30px;
+    text-align: left;
 }
 .col-2015 h4 {
     text-align: left;
-    padding-left:30px;
 }
 
 .pos-r { 
@@ -186,14 +183,26 @@ p {
 
     .col-2015 { 
         float: right; 
-        max-width: calc(50% - 1px);
+
+        min-width: 310px;
         width: calc(50% - 1px);
+        max-width: calc(50% - 1px);
         border-left:1px solid #ddd;
     }
     .col-2010 { 
         float: left;  
-        max-width: calc(50% - 1px);
+        min-width: 310px;
         width: calc(50% - 1px);
+        max-width: calc(50% - 1px);
+    }
+    .col-2010 h4 {
+        text-align: right;
+        font-weight: normal;
+        padding-right:30px;
+    }
+    .col-2015 h4 {
+        text-align: left;
+        padding-left:30px;
     }
     .col-2010 svg {
         float: left;

@@ -9,21 +9,39 @@ define([
 
     function HexMap(topo, options) {
 
-        var self=this;
+        
 
         var WIDTH = options.width || 300,
             HEIGHT = options.height || 300;
 
-        
+        var GEOM= {
+            center:[2, 54.1],
+            scale_factor:1,
+            width:WIDTH,
+            height:HEIGHT
+        };
 
-        //100:600=WIDTH:x
+        if(options.selected_geom) {
+            
+            GEOM.center=options.geom[options.selected_geom].center || GEOM.center;
+            GEOM.scale_factor=options.geom[options.selected_geom].scale_factor || GEOM.scale_factor;
+            GEOM.width=options.geom[options.selected_geom].width || GEOM.width;
+            GEOM.height=options.geom[options.selected_geom].height || GEOM.height;
+            
+
+            WIDTH = GEOM.width || WIDTH;
+            HEIGHT = GEOM.height || HEIGHT;
+
+            
+        }
+
         var scale = 2000;
-        scale*=(options.geom?options.geom.scale_factor:1);
+        scale*=GEOM.scale_factor;
 
         var projection = d3.geo.transverseMercator()
             .scale(scale)
             .translate([HEIGHT / 2, HEIGHT / 2])
-            .center(options.geom?options.geom.center:[2, 54.1])
+            .center(GEOM.center)
             .rotate([2,0])
             .precision(.1);
 
@@ -41,6 +59,9 @@ define([
         
         var map,
         	svg=options.svg;
+
+        svg.attr("width", WIDTH)
+            .attr("height", HEIGHT);
 
         if(!options.svg) {
     	    map = d3.select(options.container)
@@ -78,7 +99,7 @@ define([
     				.attr("class","bg")
     				.attr("x",options.left)
     				.attr("y",0)
-    				.attr("width",options.bg.width)
+    				.attr("width",WIDTH)
     				.attr("height",HEIGHT)
             
                     
@@ -229,6 +250,48 @@ define([
         function updateConstituencies() {
             
         }
+
+        function resize(size) {
+
+
+            GEOM=options.geom[size];
+
+            if(WIDTH===GEOM.width) {
+                return;
+            }
+
+            WIDTH = GEOM.width;
+            HEIGHT = GEOM.height;
+
+            svg.attr("width",WIDTH)
+                .attr("height",HEIGHT);
+
+            //100:600=WIDTH:x
+            scale = 2000;
+            scale*=GEOM.scale_factor;
+
+            projection.scale(scale)
+                        .translate([HEIGHT / 2, HEIGHT / 2])
+                        .center(GEOM.center);
+
+            path.projection(projection);
+
+            setCentroids();
+
+            ix.attr("width",GEOM.width)
+                .attr("height",GEOM.height);
+
+            constituenciesMap
+                .selectAll("path")
+                    .attr("d", function(d) {
+                        return path(d);
+                    });
+
+        }
+
+        this.resize=function(size){
+            resize(size);
+        }
         this.getConstituencies=function() {
         	return constituencies;
         };
@@ -275,6 +338,13 @@ define([
             }
 
         };
+        this.deHighlightCostituency = function() {
+            map
+                .selectAll(".highlight")
+                    .classed("highlight",false)
+            clone
+                .style("display","none")
+        }
         this.highlightCostituency = function(constituency) {
         	if(!constituency) {
         		//map.classed("highlight",false);
@@ -299,6 +369,7 @@ define([
                         __this.moveToFront();
                         map.selectAll("path.selected").moveToFront();
                         clone
+                            .style("display","block")
                             .attr("d",__this.attr("d"));
                     });
             

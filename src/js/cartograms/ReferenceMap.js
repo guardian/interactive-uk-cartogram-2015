@@ -25,8 +25,14 @@ define([
             svg:svg,
             map_g:map,
             highlight:options.regions,
+            selected_geom:"normal",
             geom:{
-            	scale_factor:0.25
+            	normal:{
+                    scale_factor:0.25
+                },
+                small:{
+                    scale_factor:0.25
+                },
             }
         });
 

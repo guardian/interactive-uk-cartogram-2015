@@ -35,7 +35,7 @@
 
 .tooltip .tooltip-content:after {
     border-color: rgba(255, 255, 255, 0);
-    border-right-color: #ffffff;
+    border-right-color: rgba(255,255,255,0.9);
     border-width: 8px;
     margin-top: -8px;
 }
@@ -68,34 +68,34 @@
     z-index: 9;
     left:-1000000px;
 
-    border-bottom:2px solid #333;
-    height: 0px;
-    width:calc(100% - 500px); //460px + 40px
-    margin-left:15px;
-    margin-top:19px; /* height of h4 title on the map */
+    border-left:2px solid #333;
+    height: 300px;
+    width:0px;
+    margin-left:-6px;
+    margin-top:30px;
 }
 
 .tooltip-arrow div.tooltip-content {
     position: relative;
 
-    width:230px;
-    height:35px;
+    width:200px;
+    
+    border:1px solid #ddd;
     
     padding:5px;
 
-    margin:-60px auto 0;
+    margin:150px 0 0 -100px;
 
-    background:rgba(255,255,255,0.9);
+    background:#fff;
     
 }
-
 .tooltip-arrow  .arrow_box {
     position: absolute;
     background: #333;
     height:2px;
     overflow: visible;
     bottom: 2px;
-    right: 2px;
+    right: 5px;
 }
 .tooltip-arrow .arrow_box:after {
     left: 100%;
@@ -110,10 +110,8 @@
     width: 0px;
     height: 0px;
     border-style: solid;
-    border-width: 4.5px 0 4.5px 9px;
-    border-color: transparent transparent transparent #333;
-
-
+    border-width: 9px 4.5px 0 4.5px;
+    border-color: #333 transparent transparent transparent;
 }
 .tooltip-arrow h4 {
     font-family: $f-sans-serif-headline;
@@ -127,4 +125,61 @@
     padding: 0;
     font-size: 11px;
     color:#000;
+}
+
+
+@media(min-width:660px){
+
+    .tooltip-arrow {
+
+        position: absolute;
+        width:0px;
+        overflow: visible;
+        z-index: 9;
+        left:-1000000px;
+
+        border-bottom:2px solid #333;
+        height: 0px;
+        width:calc(100% - 350px); //460px + 40px
+        margin-left:15px;
+        margin-top:19px; /* height of h4 title on the map */
+    }
+
+    .tooltip-arrow div.tooltip-content {
+        margin:-60px auto 0;
+    }
+
+    .tooltip-arrow div.tooltip-content {
+        background:rgba(255,255,255,0.9);
+    }
+
+    .tooltip-arrow  .arrow_box {
+        position: absolute;
+        background: #333;
+        height:2px;
+        overflow: visible;
+        bottom: 2px;
+        right: 2px;
+    }
+    .tooltip-arrow .arrow_box:after {
+        left: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+
+        width: 0px;
+        height: 0px;
+        border-style: solid;
+        border-width: 4.5px 0 4.5px 9px;
+        border-color: transparent transparent transparent #333;
+    }
+}
+@media(min-width:980px){
+    .tooltip-arrow {
+        width:calc(100% - 500px);
+    }
 }

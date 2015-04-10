@@ -14,16 +14,37 @@ define([
         var WIDTH = options.width || 300,
             HEIGHT = options.height || 300;
 
-        
+        var GEOM= {
+            center:[2, 54.1],
+            scale_factor:1,
+            width:WIDTH,
+            height:HEIGHT
+        };
+
+        if(options.selected_geom) {
+            
+            GEOM.center=options.geom[options.selected_geom].center || GEOM.center;
+            GEOM.scale_factor=options.geom[options.selected_geom].scale_factor || GEOM.scale_factor;
+            GEOM.width=options.geom[options.selected_geom].width || GEOM.width;
+            GEOM.height=options.geom[options.selected_geom].height || GEOM.height;
+            
+
+            WIDTH = GEOM.width || WIDTH;
+            HEIGHT = GEOM.height || HEIGHT;
+
+
+            
+        }
+
         var scale = 2000;
-        scale*=((options.geom && options.geom.scale_factor)?options.geom.scale_factor:1);
+        scale*=GEOM.scale_factor;
 
         var projection = d3.geo.transverseMercator()
-            .scale(scale)
-            .translate([HEIGHT / 2, HEIGHT / 2])
-            .center((options.geom && options.geom.center)?options.geom.center:[2, 54.1])
-            .rotate([2,0])
-            .precision(.1);
+                            .scale(scale)
+                            .translate([HEIGHT / 2, HEIGHT / 2])
+                            .center(GEOM.center)
+                            .rotate([2,0])
+                            .precision(.1);
 
         var path = d3.geo.path()
             .projection(projection);
@@ -31,7 +52,8 @@ define([
         var map,
             svg=options.svg;
 
-
+        svg.attr("width", WIDTH)
+            .attr("height", HEIGHT);
 
 
         var regionsMap=options.map_g.append("g")
@@ -77,6 +99,82 @@ define([
             regionsMap.attr("transform","translate("+(options.left)+",0)");
         }
 
+        function resize(size) {
+
+            
+            GEOM=options.geom[size];
+
+            if(WIDTH===GEOM.width) {
+                return;
+            }
+
+            WIDTH = GEOM.width;
+            HEIGHT = GEOM.height;
+
+            svg.attr("width",WIDTH)
+                .attr("height",HEIGHT);
+
+            //100:600=WIDTH:x
+            scale = 2000;
+            scale*=GEOM.scale_factor;
+
+            projection.scale(scale)
+                        .translate([HEIGHT / 2, HEIGHT / 2])
+                        .center(GEOM.center);
+
+            path.projection(projection);
+
+            regionsMap
+                .selectAll("path")
+                    .attr("d", function(d) {
+                        return path(d);
+                    });
+
+            var thickness=30,
+                h=svg.attr("height");
+
+            
+            options.map_g.select("g.borders")
+                        .selectAll("rect")
+                            .data(getBordersData(WIDTH,h,thickness))
+                                .attr("x",function(d){
+                                    //console.log("setting ",d.x)
+                                    return d.x;
+                                })
+                                .attr("y",function(d){
+                                    return d.y;
+                                })
+                                .attr("width",function(d){
+                                    console.log("MERDA",d)
+                                    return d.width;
+                                })
+                                .attr("height",function(d){
+                                    return d.height;
+                                })
+                                
+
+            if(options.clipPath) {
+                var clipPath=svg.select("defs").append("clipPath")
+                            .attr("id","clip");
+
+                clipPath.select("rect")
+                            .attr("x",0)
+                            .attr("y",0)
+                            .attr("width",WIDTH)
+                            .attr("height",h);
+
+            
+                regionsMap
+                    .attr("clip-path","url(#clip)")        
+            }
+ 
+
+        }
+
+        this.resize=function(size){
+            resize(size);
+        }
+
         this.zoom=function(translate,scale) {
             regionsMap.transition()
                         .ease(d3.ease("linear"))
@@ -89,7 +187,39 @@ define([
                         .duration(500)
                         .attr("transform", "translate(0,0)scale(1)");
         }
-
+        function getBordersData(w,h,thickness) {
+            console.log(w,h,thickness)
+            return [
+                {
+                    x:0,
+                    y:0,
+                    width:thickness,
+                    height:h,
+                    fill:"url(#borderGrad_left)"
+                },
+                {
+                    x:0,
+                    y:0,
+                    width:w,
+                    height:thickness,
+                    fill:"url(#borderGrad_top)"
+                },
+                {
+                    x:w-thickness,
+                    y:0,
+                    width:thickness,
+                    height:h,
+                    fill:"url(#borderGrad_right)"
+                },
+                {
+                    x:0,
+                    y:h-thickness,
+                    width:w,
+                    height:thickness,
+                    fill:"url(#borderGrad_bottom)"
+                }
+            ];
+        }
         function addBorders() {
             
 
@@ -158,7 +288,7 @@ define([
                 gradient.append("stop")
                             .attr({
                                 offset:"0%",
-                                "stop-color":"#fff",
+                                "stop-color":"#ddd",
                                 "stop-opacity":1
                             });
                 gradient.append("stop")
@@ -179,8 +309,31 @@ define([
                 w=svg.attr("width"),
                 h=svg.attr("height");
 
+            
+
+            borders.selectAll("rect")
+                        .data(getBordersData(w,h,thickness))
+                        .enter()
+                        .append("rect")
+                            .attr("x",function(d){
+                                return d.x;
+                            })
+                            .attr("y",function(d){
+                                return d.y;
+                            })
+                            .attr("width",function(d){
+                                return d.width;
+                            })
+                            .attr("height",function(d){
+                                return d.height;
+                            })
+                            .style("fill",function(d){
+                                console.log("MERDA DI MERDA DI MERDA",d.fill)
+                                return d.fill;
+                            });
+
             //left
-            borders.append("rect")
+            /*borders.append("rect")
                     .attr("x",0)
                     .attr("y",0)
                     .attr("width",thickness)
@@ -206,7 +359,7 @@ define([
                     .attr("y",h-thickness)
                     .attr("width",w)
                     .attr("height",thickness)
-                    .style("fill","url(#borderGrad_bottom)");
+                    .style("fill","url(#borderGrad_bottom)");*/
 
             if(options.clipPath) {
                 var clipPath=svg.select("defs").append("clipPath")

@@ -29,9 +29,7 @@ define([
                     }]);
 
 
-        var svgs=maps.append("svg")
-                    .attr("width", WIDTH/2)
-                    .attr("height", HEIGHT);
+        var svgs=maps.append("svg");
 
 
         var defs=svgs.append("defs");
@@ -40,7 +38,8 @@ define([
 
         var MAX_WIDTH=300;
 
-        var maps={};
+        var maps={},
+            regions={};
 
         svgs.each(function(d,i){
             //console.log(d);
@@ -49,7 +48,7 @@ define([
                 map_regions_g=svg.append("g").attr("class","regions"),
                 map_g=svg.append("g").attr("class","highlight");
 
-            new RegionsMap(topoRegions,{
+            regions[d.field]=new RegionsMap(topoRegions,{
                 field:d.field,
                 width: WIDTH/2,
                 height: HEIGHT,
@@ -58,6 +57,8 @@ define([
                 //clipPath:options.clipPath,
                 map_g:map_regions_g,
                 geom:options.geom,
+                geom_small:options.geom_small,
+                selected_geom:options.selected_geom,
                 main_regions:options.regions,
                 fadeOut:options.fadeOut
             });
@@ -77,6 +78,8 @@ define([
                     border:1,
                     container: options.container,
                     geom:options.geom,
+                    geom_small:options.geom_small,
+                    selected_geom:options.selected_geom,
                     regions:options.regions,
                     filterSame:true,
                     mouseOverMapCallback:function(d){
@@ -94,6 +97,7 @@ define([
                     mouseOutMapCallback:function(d){
                         d3.entries(maps).forEach(function(map){
                             map.value.highlightCostituency();
+                            map.value.deHighlightCostituency();
                         });
                         //connections.selectAll("g.connection").classed("highlight",false);
                     }
@@ -101,7 +105,15 @@ define([
 
         });
 
-        
+        this.resize=function(size) {
+
+            d3.values(maps).forEach(function(map) {
+                map.resize(size);
+            });
+            d3.values(regions).forEach(function(map) {
+                map.resize(size);
+            });
+        };
 
     }
 

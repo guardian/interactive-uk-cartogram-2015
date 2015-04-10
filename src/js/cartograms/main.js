@@ -17,6 +17,9 @@ define([
     
     function render(projections,topo,regions) {
         
+        var body=document.querySelector("body"),
+            width=body.clientWidth || body.offsetWidth;
+
         new ConstituencyDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
@@ -28,90 +31,155 @@ define([
                 ConstituencyExpand.updateView(1); //0:collapse, 1:expand
             }
         });
-
+        console.log("BODY WIDTH",width);
         var ukCartogram=new UKCartogram(projections, topo, regions,{
-            container:"#ukProjections .cartogram",
+            container:"#ukProjections .cartogram .center",
             id:"ukProjection",
             width:460,
             height:640,
-            geom: {
-                scale_factor:2,
-                center:[1, 54.2]
-            },
+            selected_geom:(width<490*2?"small":"normal"),
+            geom:{
+                normal:{
+                    width:460,
+                    height:640,
+                    scale_factor:2,
+                    center:[1, 54.2]
+                },
+                small:{
+                    width:310,
+                    height:640,
+                    scale_factor:1.6,
+                    center:[2.9, 54.2]
+                }
+            }
         });
 
+        var mapsData=[
+            {
+                container:"#jsLondon",
+                id:"lnd",
+                regions:["London"],
+                geom:{
+                    normal:{
+                        width:460,
+                        height:440,
+                        scale_factor:3.4,
+                        center:[0.8, 51.6]
+                    },
+                    small:{
+                        width:310,
+                        height:280,
+                        scale_factor:2,
+                        center:[0.8, 51.6]
+                    }
+                }
+            },
+            {
+                container:"#jsSouthwest",
+                id:"sw",
+                regions:["South West"],
+                geom:{
+                    normal:{
+                        width:460,
+                        height:440,
+                        scale_factor:3.4,
+                        center:[-1.5, 51.15]
+                    },
+                    small:{
+                        width:310,
+                        height:280,
+                        scale_factor:2,
+                        center:[-1.5, 51.15]
+                    }
+                }
+            },
+            {
+                container:"#jsScotland",
+                id:"sct",
+                regions:["Scotland"],
+                height:440,
+                geom:{
+                    normal:{
+                        width:460,
+                        height:440,
+                        scale_factor:3.4,
+                        center:[-1.2, 57.1]
+                    },
+                    small:{
+                        width:310,
+                        height:280,
+                        scale_factor:2,
+                        center:[-1, 57]
+                    }
+                }
+            },
+            {
+                container:"#jsEast",
+                id:"east",
+                height:440,
+                regions:["Eastern","South East"],
+                geom:{
+                    normal:{
+                        width:460,
+                        height:440,
+                        scale_factor:3.4,
+                        center:[0.8, 52]
+                    },
+                    small:{
+                        width:310,
+                        height:330,
+                        scale_factor:2,
+                        center:[1.5, 52]
+                    }
+                }
+            }
+        ];
+
+        var maps=[{map:ukCartogram}];
         
-        new UKCartogramComparison(projections, topo, regions,{
-            container:"#jsLondon .cartogram",
-            id:"lnd",
-            regions:["London"],
-            geom: {
-                scale_factor:3.4,
-                center:[0.8, 51.6]
-            },
-            clipPath:true,
-            fadeOut:true
-        });
-        
-        new ReferenceMap(regions,{
-            container:"#jsLondon .small-map",
-            regions:["London"]
-        })
+        mapsData.forEach(function(m){
 
-        new UKCartogramComparison(projections, topo, regions,{
-            container:"#jsSouthwest .cartogram",
-            id:"sw",
-            regions:["South West"],
-            geom: {
-                scale_factor:3.4,
-                center:[-1.5, 51.15]
-            },
-            clipPath:true,
-            fadeOut:true
-        });
-
-        new ReferenceMap(regions,{
-                    container:"#jsSouthwest .small-map",
-                    regions:["South West"]
+            maps.push({
+                map:new UKCartogramComparison(projections, topo, regions,{
+                        container:m.container+" .cartogram",
+                        id:m.id,
+                        regions:m.regions,
+                        height:m.height,
+                        geom:m.geom,
+                        geom_normal: m.geom_normal,
+                        geom_small: m.geom_small,
+                        selected_geom:(width<490*2?"small":"normal"),
+                        clipPath:true,
+                        fadeOut:true
+                    }),
+                ref:new ReferenceMap(regions,{
+                    container:m.container+" .small-map",
+                    regions:m.regions
                 })
-
-        new UKCartogramComparison(projections, topo, regions,{
-            container:"#jsScotland .cartogram",
-            id:"sct",
-            regions:["Scotland"],
-            height:440,
-            geom: {
-                scale_factor:3.4,
-                center:[-1.2, 57.1]
-            },
-            clipPath:true,
-            fadeOut:true
+            });
         });
+        
+        function resize(size) {
 
-        new ReferenceMap(regions,{
-                    container:"#jsScotland .small-map",
-                    regions:["Scotland"]
-                });
+            maps.forEach(function(m) {
+                m.map.resize(size);
+            });
+        };
 
-        new UKCartogramComparison(projections, topo, regions,{
-            container:"#jsEast .cartogram",
-            id:"east",
-            height:440,
-            regions:["Eastern","South East"],
-            geom: {
-                scale_factor:3.4,
-                center:[0.8, 52]
-            },
-            clipPath:true,
-            fadeOut:true
+        var to=null;
+        window.addEventListener('resize', function(event){
+            if(to) {
+                clearTimeout(to);
+                to=null;
+            }
+            to=setTimeout(function(){
+                var width=body.clientWidth || body.offsetWidth;
+                resize(width<490*2?"small":"normal");
+            },250)
             
         });
 
-        new ReferenceMap(regions,{
-            container:"#jsEast .small-map",
-            regions:["Eastern","South East"]
-        });
-
+        
     }
 
     
