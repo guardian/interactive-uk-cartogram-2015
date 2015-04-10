@@ -3,8 +3,8 @@
  * */
 
 // variables
-$w-icon: 80px;
-$h-icon: 80px;
+$w-icon: 100px;
+$h-icon: 100px;
 
 
 // reset
@@ -126,15 +126,11 @@ p {
     float: left;
     width: $w-icon;
     height: $h-icon;
-    margin-left: -20px;
-}
-.col-icon .ref-map {
-    margin-top:-20px;
+    margin-left: -30px;
 }
 .col-h3 {
     float: left;
     width: calc(100% - #{$w-icon});
-    padding-left: 10px;
 }
 
 .row-maps {

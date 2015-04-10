@@ -98,7 +98,7 @@ module.exports = function(grunt) {
           'src/**/*.json',
           'src/js/templates/*.html'
         ],
-        tasks: ['jshint', 'requirejs'],
+        tasks: ['jshint', 'requirejs', 'replace:local'],
         options: {
           spawn: false,
           livereload: true
