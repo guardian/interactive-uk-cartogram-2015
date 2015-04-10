@@ -122,7 +122,7 @@ define([
                     h=(status=="h")?0:options.geom.small.height,
                 
                 container_w=(container_w>620)?container_w/2:container_w;
-                console.log(status,container_w,w,coords[0])
+                
                 tooltip.style({
                     display:"block",
                     left: (status=="v"?(container_w-w)/2:0) + coords[0] +"px",

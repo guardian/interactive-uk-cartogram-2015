@@ -31,7 +31,7 @@ define([
                 ConstituencyExpand.updateView(1); //0:collapse, 1:expand
             }
         });
-        console.log("BODY WIDTH",width);
+        
         var ukCartogram=new UKCartogram(projections, topo, regions,{
             container:"#ukProjections .cartogram .center",
             id:"ukProjection",
@@ -43,13 +43,13 @@ define([
                     width:460,
                     height:640,
                     scale_factor:2,
-                    center:[1, 54.2]
+                    center:[1, 54.45]
                 },
                 small:{
                     width:310,
                     height:640,
                     scale_factor:1.6,
-                    center:[2.9, 54.2]
+                    center:[2.9, 54.45]
                 }
             }
         });
@@ -151,11 +151,7 @@ define([
                         selected_geom:(width<490*2?"small":"normal"),
                         clipPath:true,
                         fadeOut:true
-                    }),
-                ref:new ReferenceMap(regions,{
-                    container:m.container+" .small-map",
-                    regions:m.regions
-                })
+                    })
             });
         });
         

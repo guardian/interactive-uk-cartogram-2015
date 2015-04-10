@@ -145,7 +145,6 @@ define([
                                     return d.y;
                                 })
                                 .attr("width",function(d){
-                                    console.log("MERDA",d)
                                     return d.width;
                                 })
                                 .attr("height",function(d){
@@ -176,6 +175,7 @@ define([
         }
 
         this.zoom=function(translate,scale) {
+            
             regionsMap.transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
@@ -188,7 +188,7 @@ define([
                         .attr("transform", "translate(0,0)scale(1)");
         }
         function getBordersData(w,h,thickness) {
-            console.log(w,h,thickness)
+            
             return [
                 {
                     x:0,
@@ -328,7 +328,6 @@ define([
                                 return d.height;
                             })
                             .style("fill",function(d){
-                                console.log("MERDA DI MERDA DI MERDA",d.fill)
                                 return d.fill;
                             });
 

@@ -387,27 +387,22 @@ define([
         };
 
         this.zoom=function(constituency,callback) {
+
             if(options.zoomable) {
                 var c_centre=this.getCentroid(constituency);
-                /*
-                var bounds = path.bounds(constituency),
-                                  dx = bounds[1][0] - bounds[0][0],
-                                  dy = bounds[1][1] - bounds[0][1],
-                                  x = (bounds[0][0] + bounds[1][0]) / 2,
-                                  y = (bounds[0][1] + bounds[1][1]) / 2,
-                                  scale = 1.5,//.05 / Math.max(dx / options.width, dy / options.width),
-                                  translate = [options.width / 2 - scale * x, options.height / 2 - scale * y];
-                */
+                
 
                 var center =    getCentroid(constituency.properties.constituency),//path.centroid(constituency),
                                 scale = 2,
-                                translate = [options.width / 2 - scale * center[0], options.height / 2 - scale * center[1]];
+                                translate = [GEOM.width / 2 - scale * center[0], GEOM.height / 2 - scale * center[1]];
 
                 __scale=scale;
 
-                var dist=getDistance(__translate[0],__translate[1],translate[0],translate[1]);
+                //var dist=getDistance(__translate[0],__translate[1],translate[0],translate[1]);
                 
                 __translate=translate;
+
+                
 
                 map.transition()
                         .ease(d3.ease("linear"))
@@ -418,7 +413,7 @@ define([
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
-
+                
                 if(callback) {
                     callback(__translate,__scale);
                 }
@@ -426,12 +421,18 @@ define([
                 updateConstituencies();
                 setCentroids();
 
+
                 if(options.reset) {
                     options.reset.classed("hidden",false);
                 }
 
                 if(options.tooltip) {
                     tooltip.hide();
+                    setTimeout(function(d){
+                        var bbox=svg.node().getBoundingClientRect();
+                        tooltip.show(constituency, c_centre, __translate, __scale, bbox);    
+                    },750)
+                    
                 }
 
                 return translate;    

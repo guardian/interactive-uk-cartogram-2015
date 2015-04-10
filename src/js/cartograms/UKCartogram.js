@@ -72,9 +72,9 @@ define([
                 svg:svg,
                 map_g:map_regions_g,
                 geom:options.geom,
-                geom_small:options.geom_small,
                 selected_geom:options.selected_geom,
-                main_regions:options.regions
+                main_regions:options.regions,
+                fadeOut:true
             });
 
         var map=new HexMap(topo, {
@@ -103,7 +103,8 @@ define([
                 map.selectCostituency(d,function(c){
                     map.zoom(c,function(translate,scale){
                         regions_map.zoom(translate,scale)
-                    });  
+                    });
+
                 });
                 var c = d.properties,
                     p = c.projection_info;
