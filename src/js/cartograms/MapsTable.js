@@ -45,8 +45,8 @@ define([
             //console.log(d);
 
             var svg=d3.select(this),
-                map_regions_g=svg.append("g").attr("class","regions"),
-                map_g=svg.append("g").attr("class","highlight");
+                map_g=svg.append("g").attr("class","highlight"),
+                map_regions_g=svg.append("g").attr("class","regions");
 
             regions[d.field]=new RegionsMap(topoRegions,{
                 field:d.field,
