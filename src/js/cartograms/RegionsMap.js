@@ -200,6 +200,11 @@ define([
                         return path(d);
                     });
 
+            regionsMap
+                .selectAll("text")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; });
+                    
+
             var thickness=30,
                 h=svg.attr("height");
 
