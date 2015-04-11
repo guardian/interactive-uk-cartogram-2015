@@ -3,13 +3,15 @@ define([
     'json!data/hexagons-topo.json',
     'json!data/regions-topo.json',
     'page/page',
-    'cartograms/main',
+    'common/elementStick.js',
+    'cartograms/main.js',
     'text!templates/appTemplate.html'
 ], function(
     reqwest,
     topo,
     regions,
     pageText,
+    stickElement,
     cartograms,
     templateHTML
 ) {
@@ -34,6 +36,7 @@ define([
         script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
         script.setAttribute('type','text/javascript');
         head.appendChild(script);
+        stickElement.render();
 
         /* Data */
         // Load local JSON data

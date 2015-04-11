@@ -8,10 +8,6 @@ $h-icon: 100px;
 
 
 // reset
-figure {
-    margin: 0;
-}
-
 h1, h2, h3, h4, h5, p {
     margin: 0;
 }
@@ -63,10 +59,10 @@ p {
     font-size: $fz-18;
     color: $c-grey3;
     margin-top: 15px;
+    margin-bottom: 15px;
 }
 .f-lastupdate {
-    margin-top: 15px;
-    margin-bottom: 30px;
+    margin-bottom: -10px;
 }
 
 .f-people {
@@ -165,11 +161,16 @@ p {
     top: 5px;
     right: 5px;
 }
+.pos-bg {
+    position: absolute;
+    bottom: 0;
+}
 
 @media (min-width: 660px) {
-    .row-top > * {
-        width: calc(50% - 10px);
-    }
+    .row-top { 
+        > * { width: calc(50% - 10px); }
+        .legend { min-width: 335px; } //temp
+    }    
     .row-maps {
         max-width: 100%;
         overflow: hidden;

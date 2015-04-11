@@ -1,12 +1,15 @@
 // grid 
+body {
+    margin: 0; //hack
+}
 .is-immersive .l-footer {
     display: block; //hack
 }
-
-figure.element {
+figure.interactive {
     margin: 0; //hack
     min-height: 768px; //hack
 }
+
 .interactive-wrapper{
     background-color: white;
     max-width:680px;
