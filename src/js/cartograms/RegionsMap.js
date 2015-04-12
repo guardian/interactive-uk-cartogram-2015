@@ -154,7 +154,7 @@ define([
         regionsMap
             .selectAll("circle.label")
             .data(topojson.feature(topo, regions).features.filter(function(d){
-                console.log(d.properties)
+                //console.log(d.properties)
                 return d.geometry.type=="Point" && !d.properties.abbr;
             }))
             .enter()

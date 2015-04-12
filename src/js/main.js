@@ -36,12 +36,13 @@ define([
         script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
         script.setAttribute('type','text/javascript');
         head.appendChild(script);
+
         stickElement.render();
 
         /* Data */
         // Load local JSON data
         //console.log(localData);
-
+ 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
             url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';
