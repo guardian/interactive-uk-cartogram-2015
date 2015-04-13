@@ -8,23 +8,23 @@ $w: 460px;
 }
 
 button {
-    color: #fff;
-    background-color: #4bc6df;
+    color: $c-grey2;
+    background-color: #d4d4d4;
     font-family: $f-sans-serif-text;
-    font-size: 13px;
-    //font-weight: bold;
+    font-size: 15px;
     vertical-align: top;
     text-decoration: none;
-    line-height: 25px;
+    line-height: 24px;
     width: auto;
     height: 24px;
-    padding: 0 10px;
-    margin-right: 5px;
-    border: 1px solid #4bc6df;
-    border-radius: 1000px;
+    padding: 0 6px;
+    margin: 0 3px;
+    border: 1px solid #d4d4d4;
+    border-radius: 24px;
     box-sizing: border-box;
     display: inline-block;
     &:hover {
+    color: #fff;
     background-color: #005689;
     border-color: #005689;
     }

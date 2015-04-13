@@ -28,7 +28,8 @@ define([
     //console.log(dataObj);
     
     function updateData(code, name, p2010, p2015, src) {
-        var li,
+        var li, 
+            pType = (src === "Wales") ? "polling in Wales." : term(src) + " polling.",
             ul = document.querySelector("#jsCandidates"), 
             p = document.querySelector("#jsInfo");
         
@@ -46,14 +47,14 @@ define([
             li.appendChild(document.createTextNode(d)); 
             ul.appendChild(li);
         });
-        
+
         if (p2010 === p2015) {
             p2010 = term(p2010) || p2010;
-            p.textContent = p2010 + " hold, based on polling in " + term(src) + ".";
+            p.textContent = p2010 + " hold, based on " + pType;
         } else {
             p2010 = term(p2010) || p2010;
-            p2015 = term(p2010) || p2015;
-            p.textContent = p2015 + " gain from " + p2010 + " based on polling in " + term(src) + ".";   
+            p2015 = term(p2015) || p2015;
+            p.textContent = p2015 + " gain from " + p2010 + " based on " + pType;   
         }
     }
 

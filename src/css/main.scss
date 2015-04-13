@@ -50,7 +50,7 @@ $c-grey7: map-get($pasteup-palette, 'neutral-7'); //bgc-btn
 $c-grey8: map-get($pasteup-palette, 'neutral-8'); //bgc
 
 // parties
-$c-con:    #005789;
+$c-con: #005789;
 
 $partyColors: (
 con:    #005789,
@@ -64,7 +64,7 @@ others: #B3B3B4,
 dup:    #D46A4C,
 sf:     #008800,
 sdlp:   #99FF66,
-ind: #B3B3B4, //guessed
+ind:    #B3B3B4, //guessed
 );
 
 @each $party, $color in $partyColors {
