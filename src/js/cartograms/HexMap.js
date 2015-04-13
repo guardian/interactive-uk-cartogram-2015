@@ -21,6 +21,8 @@ define([
             height:HEIGHT
         };
 
+        
+
         if(options.selected_geom) {
             
             GEOM.center=options.geom[options.selected_geom].center || GEOM.center;
@@ -189,7 +191,18 @@ define([
                 if(!options.filterSame) {
                     return 0;
                 }
+                if(options.filterRange) {
+                    return !options.filterRange(d.properties.projection_info.margin)
+                }
             	return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
+            })
+            .style("fill-opacity",function(d){
+                if(!options.filterContest) {
+                    return;
+                }
+                if(options.contestScale) {
+                    return options.contestScale(d.properties.projection_info.margin)
+                }
             })
             .attr("d", function(d) {
                 return path(d);
@@ -386,6 +399,59 @@ define([
 
         };
 
+        function applyFilters() {
+            constituenciesMap
+                .selectAll("path")
+                    .classed("gray",function(d){
+                        
+                        if(options.filterRange) {
+                            return !options.filterRange(d.properties.projection_info.margin)
+                        }
+
+                        if(!options.filterSame) {
+                            return 0;
+                        }
+                        return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
+                    })
+                    .style("fill-opacity",function(d){
+                        if(!options.filterContest) {
+                            return;
+                        }
+                        if(options.contestScale) {
+                            return options.contestScale(d.properties.projection_info.margin)
+                        }
+                    })
+        }
+
+        this.applyFilterSame=function(doApply) {
+            options.filterSame=doApply;
+            options.filterContest=false;
+            applyFilters();
+        };
+
+        this.applyFilterContest=function(doApply) {
+            options.filterContest=doApply;
+            options.filterSame=false;
+            applyFilters();
+        };
+        this.applyFilterContestRange=function(range) {
+            
+            options.filterSame=false;
+
+            options.filterContest=false;
+            options.filterRange=range;
+
+            console.log(options.filterRange)
+            applyFilters();
+            
+        }
+        this.removeFilters=function() {
+            options.filterContest=false;
+            options.filterSame=false;
+            options.filterRange=null;
+            applyFilters();  
+        }
+
         this.zoom=function(constituency,callback) {
 
             if(options.zoomable) {
@@ -468,7 +534,7 @@ define([
             })[0];
         }
 
-        
+
 
         function getDistance(x1,y1,x2,y2) {
         	return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));

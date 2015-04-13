@@ -1,0 +1,167 @@
+.histogram {
+	
+	position:absolute;
+	top:30px;
+	right:0px;
+	background-color:rgba(255,255,255,0.7);
+
+	svg {
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 300;
+		display: block;
+		margin: 0 auto;
+
+	}
+	svg .linechart>g {
+		cursor: pointer;
+	}
+	svg .linechart circle {
+		fill:#A06535;
+		stroke:none;
+		fill-opacity:0;
+	}
+	svg .linechart .selected circle {
+		fill-opacity:1;
+		fill:#666;
+	}
+	svg .linechart g:hover circle {
+		fill-opacity:1;
+	}
+	svg .linechart g:last-child circle {
+		fill-opacity:1;
+	}
+	svg .linechart g text {
+		fill:#333;
+		text-anchor:middle;
+		font-size:10px;
+		fill-opacity:0;
+	}
+	svg .linechart g:hover text {
+		fill-opacity:1;
+		font-weight: bold;
+	}
+	svg .linechart g text tspan.click {
+		font-weight: 300;
+		fill:#666;
+	}
+	svg .linechart g.selected text tspan.click {
+		fill-opacity:0;
+	}
+	svg .linechart g line.dropline {
+		fill:none;
+		stroke:#666;
+		stroke-opacity:0.1;
+		stroke-dasharray:2,2;
+		shape-rendering: crispEdges;
+	}
+	svg .linechart g:hover line.dropline {
+		stroke-opacity:0.8;
+	}
+	svg .linechart g.selected line.dropline {
+		stroke-opacity:0.8;
+		stroke:#666;
+	}
+	
+	svg .linechart rect.ix {
+		fill:#000;
+		fill-opacity:0;
+		stroke:none;
+	}
+	
+
+	svg .bar rect {
+		fill:#ddd;
+		stroke:none;
+	}
+	svg .bar:hover rect {
+		fill:#ccc;
+	}
+
+	#axes path,
+	#axes line {
+		shape-rendering: crispEdges;
+	}
+	#axes .axis line.axis {
+		stroke:#aaa;
+	}
+	#axes .axis path {
+		stroke:#999;
+		stroke-width:1;
+		fill:none;
+		shape-rendering: crispEdges;
+		display: none;
+	}
+	#axes .axis .tick line {
+		stroke:#aaa;
+		stroke-width:1;
+		fill:none;
+		shape-rendering: crispEdges;
+		display: none;
+	}
+	#axes .axis .tick text{
+		font-size: 10px;
+		fill:#333;
+	}
+	#axes .x .tick.highlight text,
+	#axes .x .tick.selected text{
+		font-weight: bold;
+		fill:#000;
+	}
+	#axes .x .tick text{
+		text-anchor:middle !important;
+	}
+
+	#axes line.ygrid {
+		fill:none;
+		stroke:#ccc;
+		stroke-width:1;
+		stroke-dasharray: 2,2;
+	}
+	.chart.first #axes line.ygrid,
+	.chart:hover #axes line.ygrid {
+		display: block;
+	}
+	#axes .y .tick text {
+		text-anchor:end;
+	}
+	#axes .y .tick line,
+	#axes .y path {
+		display: none;
+	}
+	#timeselect {
+		position: absolute;
+		width: 80px;
+		height:20px;
+		left:14px;
+		bottom:-15px;
+		line-height: 20px;
+	}
+	#timeselect a.arrow {
+		display: block;
+		width:15px;
+		float: left;
+		text-align: center;
+		font-weight: 400;
+	}
+	#timeselect ul {
+		margin: 0;
+		padding: 0;
+		width: 40px;
+		height: 20px;
+		text-align: center;
+		display: block;
+		overflow: hidden;
+		float: left;
+		font-size: 12px;
+		font-weight: 400;
+	}
+	#timeselect ul li {
+		margin: 0;
+		padding: 0;
+		line-height: 20px;
+		display: none;
+	}
+	#timeselect ul li.selected {
+		display: block;
+	}
+}

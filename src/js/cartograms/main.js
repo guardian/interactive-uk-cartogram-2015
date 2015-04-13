@@ -175,6 +175,18 @@ define([
             
         });
 
+        window.applySameFilter=function(par) {
+            ukCartogram.applyFilter("same",par);
+        };
+
+        window.applyContestFilter=function(par) {
+            ukCartogram.applyFilter("contest",par);
+        };
+
+        window.removeFilters=function(par) {
+            ukCartogram.applyFilter("none");
+        };
+
         
     }
 

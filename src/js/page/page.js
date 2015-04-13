@@ -1,6 +1,8 @@
 define([
+    'd3',
     'common/utilities'
 ], function(
+    d3,
     util
 ) {
     'use strict';
@@ -19,10 +21,16 @@ define([
         /* view */
         var doc = document;
 
+        console.log("!!!!!",dataNow)
+
+        var datetime_format=d3.time.format("%d/%m/%Y %H:%M:%S")
+
+        var lastupdate_date=datetime_format.parse(dataNow.currentdate+" "+dataNow.currenttime);            
+
         // last update
         var cur = new Date(dataNow.currentdate + " " + dataNow.currenttime),
             str = cur.toString(),
-            txt = "Last update on " + str.slice(0, 21) + " " + str.slice(-4, -1);
+            txt = "Last update on " + (d3.time.format("%b %d %Y %H:%M")(lastupdate_date)+" "+(!lastupdate_date.getTimezoneOffset()?"GMT":"BST"));
         
         //TODO: check time format
         doc.querySelector("#jsLastUpdate").textContent = txt;

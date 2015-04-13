@@ -152,9 +152,9 @@ define([
                     });
 
         regionsMap
-            .selectAll("circle.label")
+            .selectAll("circle.city")
             .data(topojson.feature(topo, regions).features.filter(function(d){
-                console.log(d.properties)
+                //console.log(d.properties)
                 return d.geometry.type=="Point" && !d.properties.abbr;
             }))
             .enter()
@@ -203,9 +203,12 @@ define([
             regionsMap
                 .selectAll("text")
                     .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; });
-                    
+            
+            regionsMap
+                .selectAll("circle.city")
+                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; }) 
 
-            var thickness=30,
+            var thickness=options.border_thickness || 30,
                 h=svg.attr("height");
 
             
@@ -380,7 +383,7 @@ define([
             var borders=options.map_g.append("g")
                             .attr("class","borders")
                             .attr("transform","translate("+options.left+",0)"),
-                thickness=30,
+                thickness=options.border_thickness || 30,
                 w=svg.attr("width"),
                 h=svg.attr("height");
 
