@@ -8,7 +8,8 @@ define([
     'use strict';
         
     // data
-    var dataObj = {};
+    var term = util.mapTerm,
+        dataObj = {};
     data.constituencies.forEach(function(d) {
         dataObj[d.ons_id] = {
             name: d.name,
@@ -25,7 +26,6 @@ define([
     });
     //console.log(data);
     //console.log(dataObj);
-    //party dic 
     
     function updateData(code, name, p2010, p2015, src) {
         var li,
@@ -36,6 +36,7 @@ define([
         document.querySelector("#jsMP").textContent = dataObj[code].mp;   
         
         // empty ul
+        //TODO: clone node with children and replace to improve performance
         if (ul.hasChildNodes()) { 
             while (ul.firstChild) {
                 ul.removeChild(ul.firstChild);
@@ -47,9 +48,12 @@ define([
         });
         
         if (p2010 === p2015) {
-            p.textContent = p2010 + " will keep the seat, based on " + src + " poll.";
+            p2010 = term(p2010) || p2010;
+            p.textContent = p2010 + " hold, based on polling in " + term(src) + ".";
         } else {
-            p.textContent = p2015 + " will gain from " + p2010 + " based on " + src + " poll.";   
+            p2010 = term(p2010) || p2010;
+            p2015 = term(p2010) || p2015;
+            p.textContent = p2015 + " gain from " + p2010 + " based on polling in " + term(src) + ".";   
         }
     }
 

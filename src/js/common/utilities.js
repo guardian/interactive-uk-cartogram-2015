@@ -3,7 +3,30 @@ define([
 ) {
     'use strict';
 
-    // utilities: string 
+    /* variables */
+    var termMapping = {
+        "Con":      "Conservatives",
+        //"DUP":      "DUP",
+        //"Green":    "Green",
+        "Lab":      "Labour",
+        "LibDem":   "Lib Dem",
+        //"Others":   "Others",
+        //"PC":       "PC",
+        "SF":       "Sinn Féin",
+        //"SNP":      "SNP",
+        "UKIP":     "Ukip",
+        "National": "national",
+        "Const":    "constituency and national",
+        "NI":       "Northern Ireland",
+        "Wales":    "Wales",
+        "Scotland": "Scotland-wide"
+    };
+    
+    function mapTerm(key) {
+        return termMapping[key];
+    }
+
+    /* utilities: string */ 
     function isPattern(string, pattern) {
         return string.indexOf(pattern) > -1;
     }
@@ -13,13 +36,14 @@ define([
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    
-    // utilities: underscore
+
+
+    /* utilities: underscore */
     // https://github.com/lodash/lodash/blob/e914b83a1b97345fbd8cb68197caf7380bea331d/vendor/underscore/underscore.js
-    
+
     var now = Date.now || function() {
         return new Date().getTime();
-        };
+    };
 
     // _.throttle
     // Returns a function, that, when invoked, will only be triggered at most once
@@ -59,8 +83,9 @@ define([
             return result;
         };
     };
- 
+
     return {
+        mapTerm: mapTerm,
         isPattern: isPattern,
         removePattern: removePattern,
         capitalizeFirstLetter: capitalizeFirstLetter,
