@@ -20,15 +20,13 @@ define([
 
         
         /* content */
-        var doc = document;
-
-        var datetime_format=d3.time.format("%d/%m/%Y %H:%M:%S")
-
-        var lastupdate_date=datetime_format.parse(dataNow.currentdate+" "+dataNow.currenttime);            
+        var doc = document,
+            datetime_format = d3.time.format("%d/%m/%Y %H:%M:%S"),
+            lastupdate_date = datetime_format.parse(dataNow.currentdate+" "+dataNow.currenttime);            
 
         // last update
-        var cur = new Date(dataNow.currentdate + " " + dataNow.currenttime),
-            str = cur.toString(),
+        var //cur = new Date(dataNow.currentdate + " " + dataNow.currenttime),
+            //str = cur.toString(),
             txt = "Last update on " + (d3.time.format("%b %d %Y %H:%M")(lastupdate_date)+" "+(!lastupdate_date.getTimezoneOffset()?"GMT":"BST"));
         
         //console.log(dataNow);

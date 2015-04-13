@@ -54,7 +54,7 @@ $c-con: #005789;
 
 $partyColors: (
 con:    #005789,
-green:  #33A22B,
+"green":  #33A22B,
 lab:    #E31F26,
 snp:    #FCDD03,
 libdem: #FFB900,
@@ -74,7 +74,7 @@ ind:    #B3B3B4, //guessed
 
 // import partial scss
 @import 'modules/grid';
-@import 'modules/components';
+@import 'modules/common';
 @import 'modules/page';
 @import 'modules/cartogram';
 @import 'modules/tooltip';
