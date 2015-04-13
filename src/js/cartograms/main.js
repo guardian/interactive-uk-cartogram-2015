@@ -4,26 +4,28 @@ define([
     'cartograms/UKCartogramComparison',
     'cartograms/ReferenceMap',
     'common/ConstituencyDropdown',
-    'common/ConstituencyExpand'
+    'common/ConstituencyExpand',
+    'common/utilities'
 ], function(
     d3,
     UKCartogram,
     UKCartogramComparison,
     ReferenceMap,
     ConstituencyDropdown,
-    ConstituencyExpand
+    ConstituencyExpand,
+    util
 ) {
     'use strict';
-    
+
     function render(projections,topo,regions) {
-        
+
         var body=document.querySelector("body"),
             width=body.clientWidth || body.offsetWidth;
 
         new ConstituencyDropdown(topo.objects.hexagons.geometries,{
             onSelect:function(constituencyCode) {
                 var constituency=ukCartogram.selectConstituency(constituencyCode);
-                
+
                 // expand component:
                 var c = constituency.properties,
                     p = c.projection_info;
@@ -31,7 +33,7 @@ define([
                 ConstituencyExpand.updateView(1); //0:collapse, 1:expand
             }
         });
-        
+
         var ukCartogram=new UKCartogram(projections, topo, regions,{
             container:"#ukProjections .cartogram .center",
             id:"ukProjection",
@@ -156,25 +158,25 @@ define([
         ];
 
         var maps=[{map:ukCartogram}];
-        
+
         mapsData.forEach(function(m){
 
             maps.push({
                 map:new UKCartogramComparison(projections, topo, regions,{
-                        container:m.container+" .cartogram",
-                        id:m.id,
-                        regions:m.regions,
-                        height:m.height,
-                        geom:m.geom,
-                        geom_normal: m.geom_normal,
-                        geom_small: m.geom_small,
-                        selected_geom:(width<490*2?"small":"normal"),
-                        clipPath:true,
-                        fadeOut:true
-                    })
+                    container:m.container+" .cartogram",
+                    id:m.id,
+                    regions:m.regions,
+                    height:m.height,
+                    geom:m.geom,
+                    geom_normal: m.geom_normal,
+                    geom_small: m.geom_small,
+                    selected_geom:(width<490*2?"small":"normal"),
+                    clipPath:true,
+                    fadeOut:true
+                })
             });
         });
-        
+
         function resize(size) {
 
             maps.forEach(function(m) {
@@ -192,7 +194,7 @@ define([
                 var width=body.clientWidth || body.offsetWidth;
                 resize(width<490*2?"small":"normal");
             },250)
-            
+
         });
 
         window.applySameFilter=function(par) {
@@ -206,23 +208,29 @@ define([
         window.removeFilters=function(par) {
             ukCartogram.applyFilter("none");
         };
-
+        
+        var btnParentID = "jsStandfirst",
+            btnClass = "btn-standfirst",
+            addClass = "selected";
         d3.select("#jsThe650seats")
-            .on("click",function(){
-                ukCartogram.applyFilter("none");
-            })
+        .on("click",function(){
+            ukCartogram.applyFilter("none");
+            util.selectRadioBtn(btnParentID, "jsThe650seats", btnClass, addClass);
+        })
         d3.select("#jsChangehands")
-            .on("click",function(){
-                ukCartogram.applyFilter("same",true);
-            })
+        .on("click",function(){
+            ukCartogram.applyFilter("same",true);
+            util.selectRadioBtn(btnParentID, "jsChangehands", btnClass, addClass);
+        })
         d3.select("#jsBattlegrounds")
-            .on("click",function(){
-                ukCartogram.applyFilter("contestRange");
-            })
+        .on("click",function(){
+            ukCartogram.applyFilter("contestRange");
+            util.selectRadioBtn(btnParentID, "jsBattlegrounds", btnClass, addClass);
+        })
 
     }
 
-    
+
 
     return {
         render: render

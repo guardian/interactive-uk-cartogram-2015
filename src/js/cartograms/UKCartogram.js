@@ -41,9 +41,9 @@ define([
         });
         var contestScale=d3.scale.linear().range([0,1]).domain(ext);
 
-        console.log(contestScale.domain(),"AAAAAAAHHHHHHHH")
+        //console.log(contestScale.domain(),"AAAAAAAHHHHHHHH")
         d3.range(100).forEach(function(d){
-            console.log(d/100,"->",contestScale(d/100))
+            //console.log(d/100,"->",contestScale(d/100))
         })
 
         /*contestScale=function(d){

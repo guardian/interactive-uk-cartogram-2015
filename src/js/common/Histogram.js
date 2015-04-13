@@ -91,7 +91,7 @@ define([
 		//var xscale=d3.scale.linear().domain(extents.x).range([0,WIDTH-(margins.left+margins.right+padding.left+padding.right)]);
 		
 		var xs=data.map(function(d){return d.descr});
-		console.log(xs)
+		//console.log(xs)
 
 		var xscale=d3.scale.ordinal().domain(xs).rangePoints([0,WIDTH-(margins.left+margins.right+padding.left+padding.right)]);
 		
@@ -132,7 +132,7 @@ define([
 
 		var w=(WIDTH-(margins.left+margins.right+padding.left+padding.right))/xscale.domain().length;
 
-		console.log(xscale.range()[1],bars.data().length-1)
+		//console.log(xscale.range()[1],bars.data().length-1)
 		bars.append("rect")
 					.attr("x",-w/4)
 					.attr("y",function(d){
@@ -226,7 +226,7 @@ define([
 
 			//timeSelector.select(time);
 		}
-		console.log(xscale.domain())
+		//console.log(xscale.domain())
 		selectTick(xscale.domain()[xscale.domain().length-1]);
 
 		this.show=function(status){

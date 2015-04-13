@@ -49,7 +49,8 @@ define([
 
         //console.log(sfm);
         //console.log(sfs);
-
+        
+        e.id = "jsStandfirst"; 
         e.textContent = "";
         sfs.forEach(function(s) {
             var n1, n2,
@@ -64,13 +65,16 @@ define([
                 n2 = document.createTextNode(s);
                 n1 = document.createElement("button");
                 n1.id = "js" + util.capitalizeFirstLetter(s.replace(/\s/g, ""));
+                n1.className = "btn-standfirst";
                 n1.appendChild(n2);
             } else {
                 n1 = document.createTextNode(s);
             }
             e.appendChild(n1); 
         });
-        //console.log(e);
+       
+       //document.querySelector("#jsStandfirst .selected").className = "btn-standfirst"; 
+       document.querySelector("#jsThe650seats").className = "btn-standfirst selected";
     }
 
     return {

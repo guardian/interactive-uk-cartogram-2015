@@ -446,7 +446,7 @@ define([
             options.filterContest=false;
             options.filterRange=range;
 
-            console.log(options.filterRange)
+            //console.log(options.filterRange)
             applyFilters();
             
         }

@@ -6,13 +6,13 @@ define([
     /* variables */
     var termMapping = {
         "Con":      "Conservatives",
-        //"DUP":      "DUP",
-        //"Green":    "Green",
         "Lab":      "Labour",
         "LibDem":   "Lib Dem",
+        "SF":       "Sinn Féin",
+        //"DUP":      "DUP",
+        //"Green":    "Green",
         //"Others":   "Others",
         //"PC":       "PC",
-        "SF":       "Sinn Féin",
         //"SNP":      "SNP",
         "UKIP":     "Ukip",
         "National": "national",
@@ -21,7 +21,7 @@ define([
         "Wales":    "Wales",
         "Scotland": "Scotland-wide"
     };
-    
+
     function mapTerm(key) {
         return termMapping[key];
     }
@@ -84,11 +84,22 @@ define([
         };
     };
 
+
+    /* componet: radio btns */
+    var selectRadioBtn = function(btnParentID, btnID, defaultClass, addClass) {
+        var preS = "#" + btnParentID + " ." + addClass,
+            curS = "#" + btnID;
+        document.querySelector(preS).className = defaultClass; 
+        document.querySelector(curS).className = defaultClass + " " + addClass;
+    };
+
+
     return {
         mapTerm: mapTerm,
         isPattern: isPattern,
         removePattern: removePattern,
         capitalizeFirstLetter: capitalizeFirstLetter,
-        throttle: throttle
+        throttle: throttle,
+        selectRadioBtn: selectRadioBtn
     };
 });
