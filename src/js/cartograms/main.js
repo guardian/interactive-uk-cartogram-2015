@@ -187,7 +187,19 @@ define([
             ukCartogram.applyFilter("none");
         };
 
-        
+        d3.select("#jsThe650seats")
+            .on("click",function(){
+                ukCartogram.applyFilter("none");
+            })
+        d3.select("#jsChangehands")
+            .on("click",function(){
+                ukCartogram.applyFilter("same",true);
+            })
+        d3.select("#jsBattlegrounds")
+            .on("click",function(){
+                ukCartogram.applyFilter("contestRange");
+            })
+
     }
 
     

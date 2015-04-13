@@ -149,21 +149,16 @@ define([
             }
         });
         
-        var nested_data = d3.nest()
-                .key(function(d) { 
 
 
+        var defaultRangeFunction=function(value) {
+                        return value < 0.05;
+                    };
 
-                })
-                .rollup(function(leaves) { return leaves.length; })
-                .entries(topo.objects.hexagons.geometries);
-
-        new Histogram([
+        var histogram=new Histogram([
                 {
                     descr:"<5%",
-                    filter:function(value) {
-                        return value < 0.05;
-                    },
+                    filter:defaultRangeFunction,
                     qty:topo.objects.hexagons.geometries.filter(function(d){
                         return d.properties.projection_info.margin<0.05
                     }).length
@@ -233,6 +228,14 @@ define([
         };
         this.applyFilter=function(filter,par) {
             if(filters[filter]) {
+                if(filter=="contestRange") {
+                    if(!par) {
+                        par=defaultRangeFunction;    
+                    }
+                    histogram.show(true);
+                } else {
+                    histogram.show(false)
+                }
                 filters[filter](par);
             }
         };
@@ -264,7 +267,7 @@ define([
 
                 tooltip_contents.select("h4")
                     .text(function() {
-                        return info.properties.name+" "+info.properties.projection_info.margin+"->"+options.contestScale(info.properties.projection_info.margin);
+                        return info.properties.name+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
                     });
 
                 tooltip_contents.select(".proj")
@@ -308,14 +311,18 @@ define([
 
     var names = {
                 "con": "Conservative",
-                "libdem": "Liberal Democrats",
+                "libdem": "Lib Dem",
                 "ukip": "UKIP",
                 "others": "Others",
                 "pc": "PC",
-                "green": "Green Party",
-                "snp": "Scottish National",
-                "lab": "Labour Party",
-                "dup": "DUP"
+                "green": "Green",
+                "snp": "SNP",
+                "lab": "Labour",
+                "dup": "DUP",
+                "alliance": "Alliance",
+                "sdlp": "SDLP",
+                "sf": "SF",
+                "ind": "Ind"
             };
 
     d3.selection.prototype.moveToFront = function() {

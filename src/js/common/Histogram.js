@@ -28,7 +28,7 @@ define([
 		var svg=d3.select(options.container)
 				.append("div")
 					.attr("id","#ht")
-					.attr("class","histogram")
+					.attr("class","histogram hidden")
 					.style({
 						width:WIDTH+"px",
 						height:HEIGHT+"px"
@@ -154,91 +154,7 @@ define([
 						return HEIGHT;
 					})
 
-		/*
-		var circles=linechart.selectAll("g.circle")
-					.data(data)
-					.enter()
-					.append("g")
-						.attr("class","circle")
-						.classed("selected",function(d,i){
-							return d.bucket==extents.x[0];
-						})
-						.attr("transform",function(d){
-							var x=xscale(d.bucket),
-								y=yscale(d.qty);
-							return "translate("+x+","+y+")";
-						})
-						.on("mouseover",function(d){
-							d3.select(".x.axis")
-								.selectAll(".tick")
-									.classed("highlight",function(t){
-										return d.bucket==t;
-									})
-						})
-						.on("mouseout",function(d){
-							d3.select(".x.axis")
-								.selectAll(".tick")
-									.classed("highlight",false)
-						})
-
-
-		var w=(xscale.range()[1])/(circles.data().length-1)
-		circles.append("rect")
-					.attr("class","ix")
-					.attr("x",-w/2)
-					.attr("y",function(d){
-						return -yscale(d.qty)
-					})
-					.attr("width",w)
-					.attr("height",yscale.range()[0]+margins.bottom)
-
-
-		circles.append("circle")
-						.attr("cx",0)
-						.attr("cy",0)
-						.attr("r",4);
-
-		var text=circles.append("text")
-					.attr("class","label")
-					.attr("x",5)
-					.attr("y",14)
-					.style("text-anchor",function(d,i){
-						var position="middle";
-						if(i==0)
-							position="start";
-						if(i==circles.data().length-1)
-							position="end";
-						return position;
-					})
-					
-		text.append("tspan")
-				.attr("class","click")
-				.style("text-anchor",function(d,i){
-					var position="start";
-					if(i==circles.data().length-1)
-						position="end";
-					return position;
-				})
-				.text(function(d){
-					return "click to select"
-				});
-				
-		text.append("tspan")
-				.attr("x",5)
-				.attr("y",-8)
-				.text(function(d){
-					return d3.format(",.2s")(d.value);
-				});
-
-		circles.append("line")
-					.attr("class","dropline")
-					.attr("x1",0)
-					.attr("x2",0)
-					.attr("y1",0)
-					.attr("y2",function(d){
-						return yscale.range()[0] - yscale(d.qty);
-					})
-		*/
+		
 
 
 		var xAxis = d3.svg.axis().scale(xscale).tickSize(3);
@@ -312,6 +228,10 @@ define([
 		}
 		console.log(xscale.domain())
 		selectTick(xscale.domain()[xscale.domain().length-1]);
+
+		this.show=function(status){
+			d3.select(options.container).select(".histogram").classed("hidden",!status)
+		}
 	}
 
    return Histogram;

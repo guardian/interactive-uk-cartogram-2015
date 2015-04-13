@@ -63,7 +63,8 @@ pc:     #868686,
 others: #B3B3B4,
 dup:    #D46A4C,
 sf:     #008800,
-sdlp:   #99FF66
+sdlp:   #99FF66,
+ind: #B3B3B4, //guessed
 );
 
 @each $party, $color in $partyColors {

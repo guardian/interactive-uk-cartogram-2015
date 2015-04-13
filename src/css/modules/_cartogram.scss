@@ -1,3 +1,11 @@
+@each $party, $color in $partyColors {
+    .#{$party}   {
+        fill:$color;
+        color:$color;
+        stroke:$color;
+        stop-color:$color;
+    }
+}/*
 .con {
     fill:$c-con;
     color:$c-con;
@@ -52,6 +60,13 @@
     stroke:#868686;
     stop-color:#868686;
 }
+.sdlp {
+    fill:#B3B3B4;
+    color:#B3B3B4;
+    stroke:#B3B3B4;
+    stop-color:#B3B3B4;
+}
+*/
 .gray {
     fill:#ccc;
     stroke:#ccc;

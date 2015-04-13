@@ -122,6 +122,9 @@ define([
                     //console.log("mouse",d3.mouse(this))
 
         	    	var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
+                        if(options.filterRange) {
+                            return options.filterRange(d.properties.projection_info.margin);
+                        }
                         if(!options.filterSame) {
                             return true;
                         }
@@ -426,12 +429,14 @@ define([
         this.applyFilterSame=function(doApply) {
             options.filterSame=doApply;
             options.filterContest=false;
+            options.filterRange=null;
             applyFilters();
         };
 
         this.applyFilterContest=function(doApply) {
             options.filterContest=doApply;
             options.filterSame=false;
+            options.filterRange=null;
             applyFilters();
         };
         this.applyFilterContestRange=function(range) {

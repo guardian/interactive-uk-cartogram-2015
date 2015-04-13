@@ -169,14 +169,18 @@ define([
 
     var names = {
                 "con": "Conservative",
-                "libdem": "Liberal Democrats",
+                "libdem": "Lib Dem",
                 "ukip": "UKIP",
                 "others": "Others",
                 "pc": "PC",
-                "green": "Green Party",
-                "snp": "Scottish National",
-                "lab": "Labour Party",
-                "dup": "DUP"
+                "green": "Green",
+                "snp": "SNP",
+                "lab": "Labour",
+                "dup": "DUP",
+                "Alliance": "Alliance",
+                "SDLP": "SDLP",
+                "SF": "SF",
+                "Ind": "Ind"
             };
 
     d3.selection.prototype.moveToFront = function() {
