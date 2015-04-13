@@ -62,7 +62,7 @@ p {
     margin-bottom: 15px;
 }
 .f-lastupdate {
-    margin-bottom: -10px;
+    margin-bottom: -5px;
 }
 
 .f-people {
@@ -169,7 +169,7 @@ p {
 @media (min-width: 660px) {
     .row-top { 
         > * { width: calc(50% - 10px); }
-        .legend { min-width: 335px; } //temp
+        .sticky { width: auto; } //temp
     }    
     .row-maps {
         max-width: 100%;
@@ -220,5 +220,8 @@ p {
     }
     .col-h3 {
         width: calc(50% - #{$w-icon});
+    }
+    .f-lastupdate {
+        margin-bottom: -10px;
     }
 }

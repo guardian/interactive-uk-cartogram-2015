@@ -22,10 +22,11 @@ define([
 
         // add last update
         //TODO: check time format
-        var cur = new Date(dataNow.currentdate + " " + dataNow.currenttime),
-            str = cur.toString(),
-            txt = "Last update on " + str.slice(0, 21) + " " + str.slice(-4, -1);
-
+        var cur = dataNow.currentdate,//new Date(dataNow.currentdate + " " + dataNow.currenttime),
+            str = dataNow.currenttime,//cur.toString(),
+            txt = "Last update on " + cur + " " + str;//"Last update on " + str.slice(0, 21) + " " + str.slice(-4, -1);
+        
+        //console.log(dataNow);
         doc.querySelector("#jsLastUpdate").textContent = txt;
 
         // add text
@@ -59,6 +60,7 @@ define([
             if (flag) {
                 n2 = document.createTextNode(s);
                 n1 = document.createElement("button");
+                n1.id = "js" + util.capitalizeFirstLetter(s.replace(" ", ""));
                 n1.appendChild(n2);
             } else {
                 n1 = document.createTextNode(s);
