@@ -3,13 +3,15 @@ define([
     'json!data/hexagons-topo.json',
     'json!data/regions-topo.json',
     'page/page',
-    'cartograms/main',
+    'common/elementStick.js',
+    'cartograms/main.js',
     'text!templates/appTemplate.html'
 ], function(
     reqwest,
     topo,
     regions,
     pageText,
+    stickElement,
     cartograms,
     templateHTML
 ) {
@@ -35,10 +37,12 @@ define([
         script.setAttribute('type','text/javascript');
         head.appendChild(script);
 
+        stickElement.render();
+
         /* Data */
         // Load local JSON data
         //console.log(localData);
-
+ 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
             url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';

@@ -47,9 +47,9 @@ define([
         });
         
         if (p2010 === p2015) {
-            p.textContent = p2010 + " will win the seat again.";
+            p.textContent = p2010 + " will keep the seat, based on " + src + " poll.";
         } else {
-            p.textContent = p2010 + " will lose the seat to the " + p2015 + " base on an overall " + src + " swing.";   
+            p.textContent = p2015 + " will gain from " + p2010 + " based on " + src + " poll.";   
         }
     }
 

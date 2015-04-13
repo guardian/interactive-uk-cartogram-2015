@@ -12,6 +12,8 @@ $guss-webfonts-base-url: '//pasteup.guim.co.uk/fonts/';
 @import 'bower_components/guss-colours/_colours';
 @import 'bower_components/pasteup-palette/src/_palette';
 
+//@import 'bower_components/pasteup-buttons/src/_buttons';
+
 
 // font
 // inheritance from guss-typography
@@ -22,7 +24,7 @@ $ff-s-t:  $f-serif-text;            //: 'Guardian Text Egyptian Web';
 $ff-ss-h: $f-sans-serif-headline;   //: 'Guardian Sans Web';
 $ff-ss-t: $f-sans-serif-text;       //: 'Guardian Text Sans Web';
 $ff-data: $f-data;                  //: 'Guardian Agate Sans 1 Web';
-*/
+ */
 
 $fz-12: 12px;
 $fz-14: 14px;
@@ -38,7 +40,7 @@ $fz-22: 22px;
 $c-brand:   map-get($pasteup-palette, 'guardian-brand');
 $c-brand-l: map-get($pasteup-palette, 'guardian-brand-light');
 $c-brand-d: map-get($pasteup-palette, 'guardian-brand-dark');
-*/
+ */
 // grey
 $c-grey1: map-get($pasteup-palette, 'neutral-1'); //darker
 $c-grey2: map-get($pasteup-palette, 'neutral-2'); //lighter
@@ -48,20 +50,26 @@ $c-grey7: map-get($pasteup-palette, 'neutral-7'); //bgc-btn
 $c-grey8: map-get($pasteup-palette, 'neutral-8'); //bgc
 
 // parties
-
 $c-con:    #005789;
-$c-grn:    #33A22B;
-$c-lab:    #E31F26;
-$c-snp:    #FCDD03;
-$c-ldem:   #FFB900;
-$c-ukip:   #7D0069;
-$c-pc:     #868686;
-$c-others: #B3B3B4;
-$c-dup:    #D46A4C;//$c-others;
-$c-sf:     #008800;
-$c-sdlp:   #99FF66;
 
+$partyColors: (
+con:    #005789,
+green:  #33A22B,
+lab:    #E31F26,
+snp:    #FCDD03,
+libdem: #FFB900,
+ukip:   #7D0069,
+pc:     #868686,
+others: #B3B3B4,
+dup:    #D46A4C,
+sf:     #008800,
+sdlp:   #99FF66
+);
 
+@each $party, $color in $partyColors {
+    .c-#{$party}   { color: $color; }
+    .bgc-#{$party} { background-color: $color; }
+}
 
 // import partial scss
 @import 'modules/grid';

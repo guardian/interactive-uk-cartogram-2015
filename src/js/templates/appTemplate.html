@@ -1,9 +1,9 @@
 <div class="interactive-wrapper">
     <!-- tabs -->
-    <!--div></div-->
     <div id="election-nav-head"></div>
 
     <div class="row-top pos-r">
+            <p class="f-lastupdate"><time id="jsLastUpdate"></time></p>
         <!-- title -->
         <div id="jsTop">
             <h1 class="js-title">Mapping the polls</h1>
@@ -11,18 +11,17 @@
                 Find out who is leading the race in your constituency. Our projection shows who — according to the polls — can expect to win each of the 650 seats in parliament, and breaks out the main battlegrounds. 
             </p>
         </div>
-        <!-- sticky: last update and legend  -->
-        <div class="bgc-white" id="jsStickyRow">
-            <p class="f-lastupdate"><time id="jsLastUpdate"></time></p>
-            <!--ul class="ul-party">
+        <!-- sticky: legend -->
+        <div id="jsSticky">
+            <ul class="legend">
                 <li><span class="rect bgc-lab"></span>Con</li>
                 <li><span class="rect bgc-snp"></span>SNP</li>
-                <li><span class="rect bgc-grn"></span>Green</li>
+                <li><span class="rect bgc-green"></span>Green</li>
                 <li><span class="rect bgc-others"></span>Others</li>
                 <li><span class="rect bgc-ukip"></span>Ukip</li>
-                <li><span class="rect bgc-ldem"></span>Lib Dem</li>
+                <li><span class="rect bgc-libdem"></span>LD</li>
                 <li><span class="rect bgc-con"></span>Lab</li>
-            </ul-->
+            </ul>
         </div>
 
         <!-- box: search -->
@@ -77,6 +76,24 @@
         </div>
     </div>
 
+    <div id="jsEast">
+        <div class="row">
+            <img class="col-icon" src="@@assetPath@@/imgs/icon_east.png" alt="east">
+            <div class="col-h3">
+                <h3 class="js-title"></h3>
+                <p class="js-gloss"></p>
+            </div>
+        </div>
+        <div class="row-maps cartogram">
+            <div class="carto col-2010">
+                <h4>2010 parliament</h4>
+            </div>
+            <div class="carto col-2015">
+                <h4>2015 Guardian projection</h4>
+            </div>
+        </div>
+    </div>
+
     <div id="jsSouthwest">
         <div class="row">
             <img class="col-icon" src="@@assetPath@@/imgs/icon_southwest.png" alt="south west">
@@ -95,9 +112,9 @@
         </div>
     </div>
 
-    <div id="jsEast">
+    <!--div id="jsNorth">
         <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_east.png" alt="east">
+            <img class="col-icon" src="@@assetPath@@/imgs/icon_north.png" alt="north">
             <div class="col-h3">
                 <h3 class="js-title"></h3>
                 <p class="js-gloss"></p>
@@ -111,7 +128,7 @@
                 <h4>2015 Guardian projection</h4>
             </div>
         </div>
-    </div>
+    </div-->
 
     <div id="jsScotland">
         <div class="row">
