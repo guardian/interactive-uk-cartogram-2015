@@ -19,6 +19,8 @@
     "pasteup-buttons": "~0.4.12",
     "requirejs-plugins": "1.0.3",
     "text": "2.0.10",
-    "reqwest": "~1.1.5"
+    "reqwest": "~1.1.5",
+    "d3": "~3.5.5",
+    "topojson": "~1.6.18"
   }
 }
