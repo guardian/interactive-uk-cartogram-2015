@@ -132,6 +132,26 @@ define([
                         center:[1.5, 52]
                     }
                 }
+            },
+            {
+                container:"#jsNorth",
+                id:"east",
+                height:440,
+                regions:["North East","North West","Yorkshire and the Humber"],
+                geom:{
+                    normal:{
+                        width:460,
+                        height:440,
+                        scale_factor:3.4,
+                        center:[-0.2, 54.5]
+                    },
+                    small:{
+                        width:310,
+                        height:330,
+                        scale_factor:2,
+                        center:[-0.2, 54.5]
+                    }
+                }
             }
         ];
 
