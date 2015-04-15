@@ -5,68 +5,7 @@
         stroke:$color;
         stop-color:$color;
     }
-}/*
-.con {
-    fill:$c-con;
-    color:$c-con;
-    stroke:$c-con;
-    stop-color:$c-con;
 }
-.lab {
-    fill:#E31F26;
-    color:#E31F26;
-    stroke:#E31F26;
-    stop-color:#E31F26;
-}
-.snp {
-    fill:#FCDD03;
-    color:#FCDD03;
-    stroke:#FCDD03;
-    stop-color:#FCDD03;
-}
-.libdem {
-    fill:#FFB900;
-    color:#FFB900;
-    stroke:#FFB900;
-    stop-color:#FFB900;
-}
-.ukip {
-    fill:#7D0069;
-    color:#7D0069;
-    stroke:#7D0069;
-    stop-color:#7D0069;
-}
-.green {
-    fill:#33A22B;
-    color:#33A22B;;
-    stroke:#33A22B;
-    stop-color:#33A22B;;
-}
-.others {
-    fill:#B3B3B4;
-    color:#B3B3B4;
-    stroke:#B3B3B4;
-    stop-color:#B3B3B4;
-}
-.dup {
-    fill:#B3B3B4;
-    color:#B3B3B4;
-    stroke:#B3B3B4;
-    stop-color:#B3B3B4;
-}
-.pc {
-    fill:#868686;
-    color:#868686;;
-    stroke:#868686;
-    stop-color:#868686;
-}
-.sdlp {
-    fill:#B3B3B4;
-    color:#B3B3B4;
-    stroke:#B3B3B4;
-    stop-color:#B3B3B4;
-}
-*/
 .gray {
     fill:#ccc;
     stroke:#ccc;
@@ -81,11 +20,6 @@ div.cartogram {
 .center {
     position: relative;
     margin:0 auto;
-
-    //-webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
-    //-moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
-    //box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.25);
-
 }
 /************** CARTOGRAM SVG *************/
 .cartogram svg {
@@ -107,6 +41,16 @@ g .winner2010 {
 .constituency {
     fill-opacity:0.8;
     stroke-width:0;
+
+
+}
+
+.constituencies {
+    -webkit-transition: all 1000ms ease-in-out;
+    -moz-transition: all 1000ms ease-in-out;
+    -ms-transition: all 1000ms ease-in-out;
+    -o-transition: all 1000ms ease-in-out;
+    transition: all 1000ms ease-in-out;
 }
 
 .constituency-border {
@@ -175,6 +119,74 @@ g .winner2010 {
     stroke-opacity:1;
     shape-rendering:crispEdges;
 }
+/*************** FIGHT *******************/
+.constituency.fight path {
+
+}
+path.fight-battle {
+    fill-opacity: 1;
+}
+path.fight-lean {
+    fill-opacity: 0;
+}
+path.fight-safe {
+    fill-opacity:0;
+}
+path.fight-solid {
+    fill-opacity:0;
+}
+path.bw {
+    fill:#666;
+}
+path.full-opacity {
+    fill-opacity:1;
+}
+/*************** PULSATING *******************/
+
+.constituencies.pulsating path {
+    fill:#ccc;
+}
+
+@-webkit-keyframes pulse {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(0.7); }
+    100% { -webkit-transform: scale(1); }
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(10); }
+    100% { transform: scale(1); }
+}
+.pulse path,
+.clone path.pulse {
+    //transform-origin: 50% 50%;
+    //-webkit-transform-origin: 50% 50%;
+    //-moz-transform-origin: 0% 0%;
+    //-ms-transform-origin: 0% 0%;
+    transform-origin: center center;
+    -webkit-animation: pulse 0.5s ease-in-out infinite;
+    animation: pulse 0.5s ease-in-out infinite;
+}
+.pulse path.pulse-battle,
+.clone path.pulse-battle {
+    animation-duration: 0.5s;
+    -webkit-animation-duration: 0.5s;
+}
+.pulse path.pulse-lean,
+.clone path.pulse-lean {
+    animation-duration: 2s;
+    -webkit-animation-duration: 2s;
+}
+.pulse path.pulse-safe,
+.clone path.pulse-safe {
+    animation-duration: 4s;
+    -webkit-animation-duration: 4s;
+}
+.pulse path.pulse-solid,
+.clone path.pulse-solid {
+    animation-duration: 0s;
+    -webkit-animation-duration: 0s;
+}
 /*************** LABELS *******************/
 .m-labels{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; fill: #000; font-size: 16px; opacity: 0.4}
 .m-labels-below{ font-family: "Guardian Text Sans Web","Agate Sans",sans-serif; stroke:#000; font-size: 16px; opacity:0; stroke-width:4px; stroke-linejoin:round;}
@@ -223,20 +235,6 @@ g .winner2010 {
     stroke:#fff;
 }
 
-/*************** REF MAP *******************/
-/*
-.ref-map {
-    
-}
-.ref-map path {
-    fill:#ddd;
-    stroke:none;
-}
-.ref-map path.highlight {
-    fill:#aaa;
-    stroke:#999;
-}
-*/
 /*************** RESET *******************/
 .reset-zoom {
     position: absolute;

@@ -2,13 +2,11 @@ define([
     'd3',
     'cartograms/HexMap',
     'cartograms/RegionsMap',
-    'common/Histogram',
     'common/ConstituencyExpand'
 ], function(
     d3,
     HexMap,
     RegionsMap,
-    Histogram,
     ConstituencyExpand
 ) {
    'use strict';
@@ -97,7 +95,7 @@ define([
                 geom:options.geom,
                 selected_geom:options.selected_geom,
                 main_regions:options.regions,
-                fadeOut:true,
+                fadeOut:false,
                 border_thickness:5,
                 textField:"abbr"
             });
@@ -150,56 +148,6 @@ define([
         });
         
 
-
-        var defaultRangeFunction=function(value) {
-                        return value < 0.05;
-                    };
-
-        var histogram=new Histogram([
-                {
-                    descr:"<5%",
-                    filter:defaultRangeFunction,
-                    qty:topo.objects.hexagons.geometries.filter(function(d){
-                        return d.properties.projection_info.margin<0.05
-                    }).length
-                },
-                {
-                    descr:"5-10%",
-                    filter:function(value) {
-                        return value >= 0.05 && value < 0.10;
-                    },
-                    qty:topo.objects.hexagons.geometries.filter(function(d){
-                        return d.properties.projection_info.margin>=0.05 && d.properties.projection_info.margin<0.1
-                    }).length
-                },
-                {
-                    descr:"10-15%",
-                    filter:function(value) {
-                        return value >= 0.1 && value < 0.15;
-                    },
-                    qty:topo.objects.hexagons.geometries.filter(function(d){
-                        return d.properties.projection_info.margin>=0.1 && d.properties.projection_info.margin<0.15
-                    }).length
-                },
-                {
-                    descr:">15%",
-                    filter:function(value) {
-                        return value >= 0.15;
-                    },
-                    qty:topo.objects.hexagons.geometries.filter(function(d){
-                        return d.properties.projection_info.margin>=0.15;
-                    }).length
-                }
-            ],
-            {
-                container:options.container,
-                onClickCallback:function(range){
-                    self.applyFilter("contestRange",range.filter);
-                }
-            }
-        );
-        
-
         var constituencies = map.getConstituencies();    
 
         this.selectConstituency=function(constituency) {
@@ -228,17 +176,10 @@ define([
         };
         this.applyFilter=function(filter,par) {
             if(filters[filter]) {
-                if(filter=="contestRange") {
-                    if(!par) {
-                        par=defaultRangeFunction;    
-                    }
-                    histogram.show(true);
-                } else {
-                    histogram.show(false)
-                }
                 filters[filter](par);
             }
         };
+
         
     	
         function Tooltip(options) {
@@ -267,7 +208,7 @@ define([
 
                 tooltip_contents.select("h4")
                     .text(function() {
-                        return info.properties.name+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
+                        return info.properties.name;//+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
                     });
 
                 tooltip_contents.select(".proj")

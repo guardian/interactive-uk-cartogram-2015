@@ -60,49 +60,55 @@ define([
 
         
         var map,
-            svg=options.svg;
+        	svg=options.svg;
 
         svg.attr("width", WIDTH)
             .attr("height", HEIGHT);
 
         if(!options.svg) {
-            map = d3.select(options.container)
-                .append("div")
-                .attr("class", "map");
+    	    map = d3.select(options.container)
+    	        .append("div")
+    	        .attr("class", "map");
 
-            map.append("h2")
-                .text(options.title || "UK");
+    	    map.append("h2")
+    	        .text(options.title || "UK");
 
-            svg = options.svg || map.append("svg")
-                                            .attr("width", WIDTH)
-                                            .attr("height", HEIGHT);
-        }
-        
+    	    svg = options.svg || map.append("svg")
+    								        .attr("width", WIDTH)
+    								        .attr("height", HEIGHT);
+    	}
+    	
 
         map = options.map_g.append("g")
             .attr("id", "map_"+options.id)
             .attr("class",options.field)
 
         var constituenciesMap=map.append("g")
-            .attr("class","constituencies")
-            .classed("highlight-change",options.highlightChange);
+        	.attr("class","constituencies")
+        	.classed("highlight-change",options.highlightChange);
 
         
 
-        var ix=map;
+       	var ix=map;
         var clone;
+        var pulse;
+
+        pulse=options.svg.append("g")
+                    .attr("class","fight");
+
         if(options.bg) {
             clone=options.svg.append("g")
                     .attr("class","clone")
                     .attr("x",options.left)
                         .append("path");
+            
 
-            ix=options.svg.append("rect")
-                    .attr("class","bg")
-                    .attr("x",options.left)
-                    .attr("y",0)
-                    .attr("width",WIDTH)
-                    .attr("height",HEIGHT)
+    	    ix=options.svg.append("rect")
+    				.attr("class","bg")
+    				.attr("x",options.left)
+    				.attr("y",0)
+    				.attr("width",WIDTH)
+    				.attr("height",HEIGHT)
             
                     
             //console.log("----->",options.bg.width,options.left)
@@ -117,20 +123,20 @@ define([
         }
         if(options.mouseOverMapCallback) {
 
-            ix
+        	ix
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
 
-                    var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
+        	    	var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
                         if(options.filterRange) {
-                            return filterRange(d.properties.projection_info.margin);
+                            //return options.filterRange.filter(d.properties.projection_info.margin);
                         }
                         if(!options.filterSame) {
                             return true;
                         }
-                        return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
-                    });
-                    
+        	    		return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
+        	    	});
+        	    	
 
                     if(c) {
                         __currentConstituency=c;
@@ -138,19 +144,19 @@ define([
                     }
                     
 
-                })
+        	    })
                 
 
         }
         if(options.mouseOutMapCallback) {
-            ix.on("mouseout",function(){
-                options.mouseOutMapCallback();
-            });                 
+    		ix.on("mouseout",function(){
+    	    	options.mouseOutMapCallback();
+    	    });			    	
         }
         
 
         if(typeof options.left != 'undefined') {
-            map.attr("transform","translate("+(options.left)+",0)");
+        	map.attr("transform","translate("+(options.left)+",0)");
         }
         var to=null;
 
@@ -170,13 +176,13 @@ define([
         //var constituencies=[];
         //console.log("!!!!!!",topo)
         constituenciesMap
-            .selectAll("path")
+        	.selectAll("path")
             .data(topojson.feature(topo, hexagons).features)
             .enter()
             .append("path")
-            .attr("rel",function(d){
-                return d.properties.projection_info["winner2010"]+" -> "+d.properties.projection_info["projection"];
-            })
+    		.attr("rel",function(d){
+    			return d.properties.projection_info["winner2010"]+" -> "+d.properties.projection_info["projection"];
+    		})
             .attr("class", function(d) {
                 var c = "constituency " + d.properties.projection_info[options.field].toLowerCase();
                 //var c = "constituency " + d.properties.projection_info[options.field].toLowerCase();
@@ -188,7 +194,7 @@ define([
                 return c;
             })
             .classed("changing",function(d){
-                return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
+            	return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
             })
             .classed("gray",function(d){
                 if(!options.filterSame) {
@@ -197,8 +203,11 @@ define([
                 if(options.filterRange) {
                     return !options.filterRange(d.properties.projection_info.margin)
                 }
-                return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
+            	return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
             })
+            //.classed("pulse",function(d){
+            //    return d.properties.projection_info.margin<0.05;
+            //})
             .style("fill-opacity",function(d){
                 if(!options.filterContest) {
                     return;
@@ -212,34 +221,35 @@ define([
             })            
             .on("mouseover", function(d) {
                 if(typeof options.mouseOverCallback != 'undefined') {
-                    if(to) {
-                        clearTimeout(to);
-                        to=null;
-                    }
-                    options.mouseOverCallback(d);
+                	if(to) {
+                		clearTimeout(to);
+                		to=null;
+                	}
+                	options.mouseOverCallback(d);
                 }
             })
-            .on("mouseout",function(d){
-                if(typeof options.mouseOutCallback != 'undefined') {
-                    to=setTimeout(function(){
-                        options.mouseOutCallback(); 
-                    },250);
-                    
+            .on("mouseout",function(){
+            	if(typeof options.mouseOutCallback != 'undefined') {
+            		to=setTimeout(function(){
+            			options.mouseOutCallback();	
+            		},250);
+                	
                 }
-                
-            });
+            	
+            })
+
         
 
         map.selectAll("path").filter(function(d){
-            return !d.properties.gray;
+        	return !d.properties.gray;
         })
         /*.each(function(d){
-            constituencies.push(d);
+        	constituencies.push(d);
         })*/
         .style("fill",function(d){
-            if(options.gradients) {
-                return "url(#grad_"+d.properties.projection_info.winner2010.toLowerCase()+"2"+d.properties.projection_info.projection.toLowerCase()+")";    
-            }
+        	if(options.gradients) {
+        		return "url(#grad_"+d.properties.projection_info.winner2010.toLowerCase()+"2"+d.properties.projection_info.projection.toLowerCase()+")";	
+        	}
         });
 
         var constituencies=map
@@ -309,10 +319,10 @@ define([
             resize(size);
         }
         this.getConstituencies=function() {
-            return constituencies;
+        	return constituencies;
         };
         this.getPosition=function() {
-            return [options.left,0];
+        	return [options.left,0];
         };
 
         this.changePreferences = function(year) {
@@ -322,10 +332,10 @@ define([
                 });
         };
         this.getCentroid=function(constituency) {
-            return path.centroid(constituency);
+        	return path.centroid(constituency);
         };
         this.getBounds=function(constituency) {
-            return path.bounds(constituency);
+        	return path.bounds(constituency);
         };
         this.selectCostituency = function(constituency,callback) {
 
@@ -362,21 +372,21 @@ define([
                 .style("display","none")
         }
         this.highlightCostituency = function(constituency) {
-            if(!constituency) {
-                //map.classed("highlight",false);
-                    //.selectAll("path")
-                    //      .classed("highlight",false)
-                if(options.tooltip) {
-                    tooltip.hide();
-                }
-                return;
-            }
-            
+        	if(!constituency) {
+        		//map.classed("highlight",false);
+        			//.selectAll("path")
+        			//		.classed("highlight",false)
+        		if(options.tooltip) {
+        			tooltip.hide();
+        		}
+        		return;
+        	}
+        	
             map
-                .selectAll("path")
-                    .classed("highlight",function(d){
-                        return d.properties.constituency==constituency.properties.constituency;
-                    })
+        		.selectAll("path")
+        			.classed("highlight",function(d){
+        				return d.properties.constituency==constituency.properties.constituency;
+        			})
                     .filter(function(d){
                         return d.properties.constituency==constituency.properties.constituency;
                     })
@@ -384,15 +394,21 @@ define([
                         var __this=d3.select(this);
                         __this.moveToFront();
                         map.selectAll("path.selected").moveToFront();
+                        //console.log(__this.attr("class"))
                         clone
                             .style("display","block")
-                            .attr("d",__this.attr("d"));
+                            .attr("d",__this.attr("d"))
+                            /*.classed("pulse",__this.classed("pulse"))
+                            .classed("pulse-battle",__this.classed("pulse-battle"))
+                            .classed("pulse-lean",__this.classed("pulse-lean"))
+                            .classed("pulse-safe",__this.classed("pulse-safe"))
+                            .classed("pulse-solid",__this.classed("pulse-solid"))*/
                     });
             
 
 
 
-            if (options.tooltip) {
+        	if (options.tooltip) {
 
                 var bbox=svg.node().getBoundingClientRect();
                 tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale, bbox);
@@ -402,46 +418,143 @@ define([
 
         };
 
-        function filterRange(margin) {
-            return margin <= 0.05;
-        }
-
         function applyFilters() {
-            constituenciesMap
-                .selectAll("path")
-                    .classed("gray",function(d){
+            
+            pulse.selectAll("path").remove();
+            
+
+            var alpha=d3.scale.linear().range([1,0]).domain([0,0.65])
+
+            if(options.filterRange) {
+                
+                constituenciesMap
+                    .classed("pulsating",true)
+                    .selectAll("path")
+                        /*.attr("transform",function(d){
+                            var centre=getCentroid(d.properties.constituency);
+                            console.log(d.properties.projection_info.margin,scale(d.properties.projection_info.margin))
+                            return "translate("+(scale(d.properties.projection_info.margin))+","+0+")";
+                        })*/
+                        .classed("gray",function(d){
+                            return true;
+                        })
+                        .each(function(d,i){
+                            //console.log(options.filterRange)
+
+                            //if(options.filterRange.filter(d.properties.projection_info.margin)) {
+                                //d3.select(this).moveToFront();
+                                var c=d3.select(this);
+                                //c.classed("pulse",true);
+                                //c.classed("pulse-"+options.filterRange.status,true);
+                                
+                                var status="solid",
+                                    value=d.properties.projection_info.margin;
+                                if(value<0.05) {
+                                    status="battle";
+                                }
+                                if(value >= 0.05 && value < 0.10) {
+                                    status="lean";
+                                }
+                                if(value >= 0.10 && value < 0.15) {
+                                    status="safe";
+                                }
+                                
+
+                                pulse
+                                    .append("path")
+                                    .datum(d)
+                                    .attr("d",c.attr("d"))
+                                    //.attr("class",c.attr("class")+" pulse pulse-"+options.filterRange.status)
+                                    .attr("class",c.attr("class")+" fight-"+status)
+                                    .classed("gray",false)
+                                    //.style("fill-opacity",function(d){
+                                      //  return alpha(value);
+                                    //})
+                                    .classed("bw",true)
+                            //}
+                            
+                        });
                         
-                        if(options.filterRange) {
-                            return !filterRange(d.properties.projection_info.margin)
-                        }
+            } else {
+                constituenciesMap
+                    .classed("pulsating",false)
+                    .selectAll("path")
+                        .classed("gray",function(d){
+                            
+                            if(options.filterRange) {
+                                return !options.filterRange(d.properties.projection_info.margin)
+                            }
 
-                        if(!options.filterSame) {
-                            return 0;
-                        }
-                        return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
-                    })
+                            if(!options.filterSame) {
+                                return 0;
+                            }
+                            return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
+                        })
+            }
 
+            
+                    
+                    
+            
         }
 
+        this.colorize=function(range) {
+            console.log("COLORIZE",range)
+
+            /*var status="solid",
+                value=d.properties.projection_info.margin;
+            if(value<0.05) {
+                status="battle";
+            }
+            if(value >= 0.05 && value < 0.10) {
+                status="lean";
+            }
+            if(value >= 0.10 && value < 0.15) {
+                status="safe";
+            }*/
+            
+
+            pulse
+                .selectAll("path")
+                .classed("bw",true)
+                .classed("full-opacity",false)
+                //.classed("gray",true)
+                .filter(function(d){
+                    //console.log("######################",d);
+                    if(!range) {
+                        return 0;
+                    }
+                    return range.filter(d.properties.projection_info.margin)
+                })
+                //.classed("gray",false)
+                .classed("full-opacity",true)
+                .classed("bw",false)
+                //.style("fill-opacity",function(d){
+                  //  return alpha(value);
+                //})
+
+        }
         this.applyFilterSame=function(doApply) {
             options.filterSame=doApply;
             options.filterContest=false;
-            options.filterRange=false;
+            options.filterRange=null;
             applyFilters();
         };
 
         this.applyFilterContest=function(doApply) {
             options.filterContest=doApply;
             options.filterSame=false;
-            options.filterRange=false;
+            options.filterRange=null;
             applyFilters();
         };
-        this.applyFilterContestRange=function() {
+        this.applyFilterContestRange=function(range) {
             
+            console.log("applyFilterContestRange",range)
+
             options.filterSame=false;
 
             options.filterContest=false;
-            options.filterRange=true;
+            options.filterRange=range;
 
             //console.log(options.filterRange)
             applyFilters();
@@ -470,13 +583,19 @@ define([
                 
                 __translate=translate;
 
-                map
-                        .transition()
-                            .ease(d3.ease("linear"))
-                            .duration(500)
-                            .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+                
+
+                map.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
 
                 clone.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                pulse.transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
@@ -525,6 +644,11 @@ define([
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                pulse.transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
             }
         }
 
@@ -538,7 +662,7 @@ define([
 
 
         function getDistance(x1,y1,x2,y2) {
-            return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+        	return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
         }
 
         
@@ -551,42 +675,42 @@ define([
 
             //console.log("FIND CLOSEST",coords)
 
-            var closest_constituency=null,
-                dist=10000;
+        	var closest_constituency=null,
+        		dist=10000;
             
             coords=getMapCoords(coords[0],coords[1],__translate,__scale);
 
-            constituencies.filter(function(d){
-                if(!filter) {
-                    return 1;
-                }
+        	constituencies.filter(function(d){
+        		if(!filter) {
+        			return 1;
+        		}
+        		
+        		return filter(d);
+        	}).forEach(function(constituency){
                 
-                return filter(d);
-            }).forEach(function(constituency){
-                
-                //var c_centre=path.centroid(constituency),
+        		//var c_centre=path.centroid(constituency),
                 var     c_centre=getCentroid(constituency.properties.constituency),
-                      __dist=getDistance(coords[0],coords[1],c_centre[0],c_centre[1]);              
+        		      __dist=getDistance(coords[0],coords[1],c_centre[0],c_centre[1]);	    		
 
                 //console.log(coords,c_centre,screen_c_centre)
 
                 //console.log(c_centre,constituency.properties.centroid)
 
-                
+        		
 
-                if(__dist<dist) {
+        		if(__dist<dist) {
                     //console.log(coords,c_centre,screen_c_centre)
-                    closest_constituency=constituency;
-                    dist=__dist;
+        			closest_constituency=constituency;
+        			dist=__dist;
                     
-                }
+        		}
                 
-            });
+        	});
 
             
 
 
-            return closest_constituency;
+        	return closest_constituency;
         }
 
         

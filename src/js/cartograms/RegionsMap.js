@@ -254,16 +254,56 @@ define([
 
         this.zoom=function(translate,scale) {
 
-            regionsMap.transition()
+
+            regionsMap
+                    .selectAll("path")
+                    .transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+            regionsMap
+                    .selectAll("text,circle")
+                    .transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", function(d){
+                            var c=d.properties.ocoords;
+                            if(!d.properties.ocoords) {
+                                c=d3.select(this).attr("transform").replace("translate(","").replace(")","").split(",");    
+                                d.properties.ocoords=[+c[0],+c[1]];
+                            }
+
+                            var diffs=[+c[0]+translate[0],+c[1]+translate[1]];
+
+                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")"
+
+                        });
         }
         this.resetZoom=function(translate,zoom) {
-            regionsMap.transition()
+            regionsMap
+                    .selectAll("path")
+                    .transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(0,0)scale(1)");
+
+            regionsMap
+                    .selectAll("text,circle")
+                    .transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", function(d){
+                            var c=d.properties.ocoords;
+                            if(!d.properties.ocoords) {
+                                c=d3.select(this).attr("transform").replace("translate(","").replace(")","").split(",");    
+                                d.properties.ocoords=[+c[0],+c[1]];
+                            }
+
+                            var diffs=[0,0];
+
+                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")"
+
+                        });
         }
         function getBordersData(w,h,thickness) {
             
