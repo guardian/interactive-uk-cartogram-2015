@@ -3,7 +3,7 @@
     <div id="election-nav-head"></div>
 
     <div class="row-top pos-r">
-            <p class="f-lastupdate"><time id="jsLastUpdate"></time></p>
+        <p class="f-lastupdate"><time id="jsLastUpdate"></time></p>
         <!-- title -->
         <div id="jsTop">
             <h1 class="js-title">Mapping the polls</h1>
@@ -21,6 +21,9 @@
                 <li><span class="rect bgc-ukip"></span>Ukip</li>
                 <li><span class="rect bgc-libdem"></span>LD</li>
                 <li><span class="rect bgc-con"></span>Lab</li>
+                <li><span class="rect bgc-dup"></span>DUP</li>
+                <li><span class="rect bgc-sf"></span>SF</li>
+                <li><span class="rect bgc-sdlp"></span>SDLP</li>
             </ul>
         </div>
 
@@ -48,107 +51,110 @@
         <div class="bt l-close" id="jsClose">
             <h2 class="js-title">Close contests</h2>
             <p class="js-gloss">loading ...</p>
-        </div--> 
+            </div--> 
+        </div>
 
         <!-- section: battleground britain  -->
         <div class="bt" id="jsBattlegrounds">
             <h2 class="js-title">Battleground Britain</h2>
-            <p class="js-gloss">loading ...</p>
+            <p class="row-text js-gloss">loading ...</p>
         </div>
-    </div>
 
-    <!-- subsection -->
-    <div id="jsScotland">
-        <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_scotland.png" alt="scotland">
-            <div class="col-h3">
-                <h3 class="js-title"></h3>
-                <p class="js-gloss"></p>
+        <!-- subsection -->
+        <div id="jsScotland">
+            <div class="row">
+                <img class="col-icon" src="@@assetPath@@/imgs/icon_scotland.png" alt="scotland">
+                <div class="col-text">
+                    <h3 class="js-title"></h3>
+                    <p class="js-gloss"></p>
+                </div>
+            </div>
+            <div class="row-maps cartogram">
+                <div class="carto col-2010">
+                    <h4>2010 parliament</h4>
+                </div>
+                <div class="carto col-2015">
+                    <h4>2015 Guardian projection</h4>
+                </div>
             </div>
         </div>
-        <div class="row-maps cartogram">
-            <div class="carto col-2010">
-                <h4>2010 parliament</h4>
-            </div>
-            <div class="carto col-2015">
-                <h4>2015 Guardian projection</h4>
-            </div>
-        </div>
-    </div>
- 
-    <div id="jsNorth">
-        <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_north.png" alt="north">
-            <div class="col-h3">
-                <h3 class="js-title"></h3>
-                <p class="js-gloss"></p>
-            </div>
-        </div>
-        <div class="row-maps cartogram">
-            <div class="carto col-2010">
-                <h4>2010 parliament</h4>
-            </div>
-            <div class="carto col-2015">
-                <h4>2015 Guardian projection</h4>
-            </div>
-        </div>
-    </div>
 
-    <div id="jsSouthwest">
-        <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_southwest.png" alt="south west">
-            <div class="col-h3">
-                <h3 class="js-title"></h3>
-                <p class="js-gloss"></p>
+        <div id="jsNorth">
+            <div class="row">
+                <img class="col-icon" src="@@assetPath@@/imgs/icon_north.png" alt="north">
+                <div class="col-text">
+                    <h3 class="js-title"></h3>
+                    <p class="js-gloss"></p>
+                </div>
+            </div>
+            <div class="row-maps cartogram">
+                <div class="carto col-2010">
+                    <h4>2010 parliament</h4>
+                </div>
+                <div class="carto col-2015">
+                    <h4>2015 Guardian projection</h4>
+                </div>
             </div>
         </div>
-        <div class="row-maps cartogram">
-            <div class="carto col-2010"><h4>2010 parliament</h4>
 
+        <div id="jsSouthwest">
+            <div class="row">
+                <img class="col-icon" src="@@assetPath@@/imgs/icon_southwest.png" alt="south west">
+                <div class="col-text">
+                    <h3 class="js-title"></h3>
+                    <p class="js-gloss"></p>
+                </div>
             </div>
-            <div class="carto col-2015">
-                <h4>2015 Guardian projection</h4>
+            <div class="row-maps cartogram">
+                <div class="carto col-2010"><h4>2010 parliament</h4>
+
+                </div>
+                <div class="carto col-2015">
+                    <h4>2015 Guardian projection</h4>
+                </div>
             </div>
         </div>
+
+        <div id="jsLondon"> 
+            <div class="row">
+                <img class="col-icon" src="@@assetPath@@/imgs/icon_london.png" alt="london">
+                <div class="col-text">
+                    <h3 class="js-title"></h3>
+                    <p class="js-gloss"></p>
+                </div>
+            </div>
+            <div class="row-maps cartogram">
+                <div class="carto col-2010">
+                    <h4>2010 parliament</h4>
+                </div>
+                <div class="carto col-2015">
+                    <h4>2015 Guardian projection</h4>
+                </div>
+            </div>
+        </div>
+
+        <div id="jsEast">
+            <div class="row">
+                <img class="col-icon" src="@@assetPath@@/imgs/icon_east.png" alt="east">
+                <div class="col-text">
+                    <h3 class="js-title"></h3>
+                    <p class="js-gloss"></p>
+                </div>
+            </div>
+            <div class="row-maps cartogram">
+                <div class="carto col-2010">
+                    <h4>2010 parliament</h4>
+                </div>
+                <div class="carto col-2015">
+                    <h4>2015 Guardian projection</h4>
+                </div>
+            </div>
+        </div>
+
+        <p class="row-text mt-30">
+            Comparison is with 2010, not the outgoing parliament. Exception is made for the two Ukip seats of Rochester and Strood, and Clacton, whose MPs were elected in 2010 as Conservatives but re-elected during the parliament to represent Ukip.
+        </p>
+        
+        <!--p>Apple Chan-Fardel, Seán Clarke, Alberto Nardelli, Ralph Straumann and Carlo Zapponi</p-->
+        <div id="election-nav-footer"></div>
     </div>
-
-    <div id="jsLondon"> 
-        <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_london.png" alt="london">
-            <div class="col-h3">
-                <h3 class="js-title"></h3>
-                <p class="js-gloss"></p>
-            </div>
-        </div>
-        <div class="row-maps cartogram">
-            <div class="carto col-2010">
-                <h4>2010 parliament</h4>
-            </div>
-            <div class="carto col-2015">
-                <h4>2015 Guardian projection</h4>
-            </div>
-        </div>
-    </div>
-
-    <div id="jsEast">
-        <div class="row">
-            <img class="col-icon" src="@@assetPath@@/imgs/icon_east.png" alt="east">
-            <div class="col-h3">
-                <h3 class="js-title"></h3>
-                <p class="js-gloss"></p>
-            </div>
-        </div>
-        <div class="row-maps cartogram">
-            <div class="carto col-2010">
-                <h4>2010 parliament</h4>
-            </div>
-            <div class="carto col-2015">
-                <h4>2015 Guardian projection</h4>
-            </div>
-        </div>
-    </div>
-
-   
-    <!--p>Apple Chan-Fardel, Seán Clarke, Alberto Nardelli, Ralph Straumann and Carlo Zapponi</p-->
-    <div id="election-nav-footer"></div>
-</div>

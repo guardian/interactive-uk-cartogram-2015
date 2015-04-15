@@ -125,7 +125,7 @@ $w: 460px;
         vertical-align: middle;
     }
 }
-@media(min-width:480px){
+@media(min-width: 480px) {
     .legend {
         font-size: $fz-14;
         li {
@@ -139,14 +139,30 @@ $w: 460px;
 
 .sticky .legend {
     margin-bottom: 0px;
+    padding-left: 10px;
 }
 
 // compoment: sticky
+//TODO: recal width
 .sticky {
     background-color: white;
-    //box-shadow: 1px 2px 10px #efefef;
-    position: fixed;
-    top: 0;
+    box-shadow: 1px 2px 10px #efefef;
     z-index: 2;
 }
+.interactive-wrapper .sticky {
+    @extend .interactive-wrapper;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    margin-left: -10px;
+}
+
+@media(min-width: 480px) {
+.sticky .legend {
+    padding-left: 20px;
+}
+.interactive-wrapper .sticky {
+    margin-left: -20px;
+    padding: 0;
+}}
 

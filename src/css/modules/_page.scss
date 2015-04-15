@@ -11,11 +11,13 @@ $h-icon: 100px;
 h1, h2, h3, h4, h5, p {
     margin: 0;
 }
-a {
+
+a,
+button {
     cursor: pointer;
 }
 
-a:hover {
+a:hover,{
     text-decoration: underline;
 }
 
@@ -85,13 +87,11 @@ p {
 }
 
 // style: misc
-.mt-10 {
-    margin-top: 10px;
-}
+.mt-10 { margin-top: 10px; }
+.mt-30 { margin-top: 30px; }
 
 .bt {
     border-top: 1px solid $c-grey5;
-    margin-top: 30px; 
     padding-top: 15px; 
 }
 
@@ -116,6 +116,7 @@ p {
 .row-top {
     @extend .row;
     min-height: 640px;
+    margin-bottom: 0;
 }
 
 .col-icon {
@@ -124,9 +125,10 @@ p {
     height: $h-icon;
     margin-left: -30px;
 }
-.col-h3 {
+// text in subsection
+.col-text {
     float: left;
-    width: calc(100% - #{$w-icon});
+    width: calc(100% - #{$w-icon} + 30px);
 }
 
 .row-maps {
@@ -169,7 +171,6 @@ p {
 @media (min-width: 660px) {
     .row-top { 
         > * { width: calc(50% - 10px); }
-        .sticky { width: auto; } //temp
     }    
     .row-maps {
         max-width: 100%;
@@ -218,8 +219,13 @@ p {
     h1 {
         font-size: 48px;
     }
-    .col-h3 {
-        width: calc(50% - #{$w-icon});
+    // text in section
+    .row-text {
+        width: 50%;
+    }
+    // text in subsection
+    .col-text {
+        width: calc(50% - #{$w-icon} + 30px);
     }
     .f-lastupdate {
         margin-bottom: -10px;

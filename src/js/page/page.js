@@ -73,8 +73,8 @@ define([
             e.appendChild(n1); 
         });
        
-       //document.querySelector("#jsStandfirst .selected").className = "btn-standfirst"; 
-       document.querySelector("#jsThe650seats").className = "btn-standfirst selected";
+        // select default btn in standfirst
+        document.querySelector("#jsThe650seats").className = "btn-standfirst selected";     
     }
 
     return {
