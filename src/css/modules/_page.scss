@@ -169,7 +169,6 @@ p {
 @media (min-width: 660px) {
     .row-top { 
         > * { width: calc(50% - 10px); }
-        .sticky { width: auto; } //temp
     }    
     .row-maps {
         max-width: 100%;
