@@ -36,7 +36,7 @@ define([
         script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
         script.setAttribute('type','text/javascript');
         head.appendChild(script);
-        stickElement.render(); 
+        //stickElement.render(); 
 
         /* Data */
         // Load local JSON data
@@ -67,7 +67,7 @@ define([
             //END OF TODO
         })
         .then(function() {
-            //stickElement.render(); 
+            stickElement.render(); 
         })
         .fail(handleRequestError)
         .always(afterRequest);  
