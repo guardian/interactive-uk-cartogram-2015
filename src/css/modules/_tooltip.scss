@@ -8,17 +8,11 @@
 }
 
 .tooltip div.tooltip-content {
-    
     width:170px;
-    
-
     padding:5px;
-
     margin-left:25px;
-
     background:rgba(255,255,255,0.9);
     border:1px solid #ddd;
-
     position:relative;
 }
 
@@ -48,15 +42,15 @@
 
 .tooltip h4 {
     font-family: $f-sans-serif-headline;
+    font-size: $fz-12;
     margin: 0;
     padding: 0;
-    font-size: 12px;
 }
 .tooltip p {
     font-family: $f-sans-serif-text;
+    font-size: 11px;
     margin: 0;
     padding: 0;
-    font-size: 11px;
     color:#000;
 }
 /*************** TOOLTIP-ARROW ***************/
@@ -77,17 +71,11 @@
 
 .tooltip-arrow div.tooltip-content {
     position: relative;
-
     width:200px;
-    
-    border:1px solid #ddd;
-    
+    //border:1px solid #ddd;
     padding:5px;
-
     margin:150px 0 0 -100px;
-
     background:#fff;
-    
 }
 .tooltip-arrow  .arrow_box {
     position: absolute;
@@ -115,15 +103,15 @@
 }
 .tooltip-arrow h4 {
     font-family: $f-sans-serif-headline;
+    font-size: $fz-14;
     margin: 0;
     padding: 0;
-    font-size: 12px;
 }
 .tooltip-arrow p {
     font-family: $f-sans-serif-text;
+    font-size: 13px;
     margin: 0;
     padding: 0;
-    font-size: 11px;
     color:#000;
 }
 

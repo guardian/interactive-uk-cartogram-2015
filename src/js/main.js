@@ -30,24 +30,22 @@ define([
         // DOM template
         el.innerHTML = templateHTML;
 
-        /* View */
+        //TODO: move to nav project
+        /* Render tabs */
         var head = document.querySelector('head'),
             script = document.createElement('script');
         script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
         script.setAttribute('type','text/javascript');
-        head.appendChild(script);
-        //stickElement.render(); 
+        head.appendChild(script); 
+        //END OF TODO
 
         /* Data */
         // Load local JSON data
         //console.log(localData);
 
         // Load remote JSON data
-        var //key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E',
-            key = '1tfMwu6bHXIoB9uVmTnuhYT0K8lv4OwNXhBCjHVasZP8',
+        var key = '1tfMwu6bHXIoB9uVmTnuhYT0K8lv4OwNXhBCjHVasZP8',
             url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';
-
-        //url="http://interactive.guim.co.uk/spreadsheetdata/1tfMwu6bHXIoB9uVmTnuhYT0K8lv4OwNXhBCjHVasZP8.json";
 
         reqwest({
             url: url,
@@ -55,19 +53,20 @@ define([
             crossOrigin: true
         })
         .then(function(data) {
-
-            /* Render */
+            /* Render texts and cartograms */
             pageText.render(data.sheets.RESULT[0], data.sheets.glosses);
             cartograms.render(data,topo,regions);
-            
-            //TODO: move it to nav project
-            var imgs = document.querySelectorAll('.electionNav-footer-item img');
-            imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
-            imgs[1].src = '@@assetPath@@/imgs/proj_cartogram.png';
-            //END OF TODO
         })
         .then(function() {
-            stickElement.render(); 
+            /* Render legand as stick element */
+            stickElement.render();
+
+            //TODO: move to nav project
+            var imgs = document.querySelectorAll('.electionNav-footer-item img');
+            console.log(document.querySelectorAll('.electionNav-footer-item img'));
+            imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
+            imgs[1].src = '@@assetPath@@/imgs/proj_cartogram.png';
+            //END OF TODO/
         })
         .fail(handleRequestError)
         .always(afterRequest);  
