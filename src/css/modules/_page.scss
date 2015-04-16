@@ -6,6 +6,11 @@
 $w-icon: 100px;
 $h-icon: 100px;
 
+//temp
+.cartogram svg {
+    width: 100%;
+}
+
 
 // reset
 h1, h2, h3, h4, h5, p {
@@ -112,6 +117,9 @@ p {
     margin-left: 0;
 }
 
+//TODO: remove hack
+#election-nav-head { display: none; }
+
 
 // responsive
 .row {
@@ -174,6 +182,17 @@ p {
 }
 
 @media (min-width: 660px) {
+    //TODO: remove hack
+    #election-nav-head { 
+        display: block;
+        .electionNav-head-title:after {
+            display: block;
+        }
+        .electionNav-head-item {
+            display: inline-block;
+        }
+    }
+
     .row-top { 
         > * { width: calc(50% - 10px); }
     }    
