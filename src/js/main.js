@@ -30,15 +30,6 @@ define([
         // DOM template
         el.innerHTML = templateHTML;
 
-        //TODO: move to nav project
-        /* Render tabs */
-        var head = document.querySelector('head'),
-            script = document.createElement('script');
-        script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
-        script.setAttribute('type','text/javascript');
-        head.appendChild(script); 
-        //END OF TODO
-
         /* Data */
         // Load local JSON data
         //console.log(localData);
@@ -58,14 +49,16 @@ define([
             cartograms.render(data,topo,regions);
         })
         .then(function() {
+            /* Render tabs */
+            var head = document.querySelector('head'),
+                script = document.createElement('script');
+            script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
+            script.setAttribute('type','text/javascript');
+            head.appendChild(script); 
+        })
+        .then(function() {
             /* Render legand as stick element */
             stickElement.render();
-
-            //TODO: move to nav project
-            var imgs = document.querySelectorAll('.electionNav-footer-item img');
-            imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
-            imgs[1].src = '@@assetPath@@/imgs/proj_cartogram.png';
-            //END OF TODO/
         })
         .fail(handleRequestError)
         .always(afterRequest);  
