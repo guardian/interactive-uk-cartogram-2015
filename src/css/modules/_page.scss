@@ -6,11 +6,6 @@
 $w-icon: 100px;
 $h-icon: 100px;
 
-//temp
-.cartogram svg {
-    width: 100%;
-}
-
 
 // reset
 h1, h2, h3, h4, h5, p {
@@ -82,7 +77,6 @@ p {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
     color: $c-grey1;
-    padding-left: 15px;
 }
 
 // style: elements
@@ -95,6 +89,30 @@ p {
 }
 .btn-x:hover {
     opacity: 0.3;
+}
+
+.btn-standfirst {
+    color: $c-grey2;
+    background-color: #d4d4d4;
+    font-family: $f-sans-serif-text;
+    font-size: 15px;
+    vertical-align: top;
+    text-decoration: none;
+    line-height: 24px;
+    width: auto;
+    height: 24px;
+    padding: 0 6px;
+    margin: 0 3px;
+    border: 1px solid #d4d4d4;
+    border-radius: 24px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.btn-standfirst:hover,
+.btn-standfirst.selected {
+    color: #fff;
+    background-color: #005689;
+    border-color: #005689;
 }
 
 // style: misc
@@ -111,10 +129,20 @@ p {
 }
 
 .ul-candidates {
-    @extend .f-people;
     list-style: none;
     margin-top: 0;
     margin-left: 0;
+    padding-left: 0;
+    li {
+        @extend .f-people;
+    } 
+    a {
+        @extend .f-people;
+        text-decoration: none;
+        &:hover {
+        text-decoration: underline;
+        }
+    }
 }
 
 //TODO: remove hack
