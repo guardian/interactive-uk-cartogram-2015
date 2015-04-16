@@ -34,7 +34,7 @@ define([
           con = d.name;
           }*/
     });
-    console.log(data);
+    //console.log(data);
     //console.log(max, con);    
 
     function removeChildNodes(el) {
@@ -50,7 +50,8 @@ define([
             str = "lab snp green ukip libdem con dup sf sdlp pc";
 
         // specail cases
-        if (party === "LD") { party = "libdem"; } 
+        console.log(party);
+        if (party === "LD") { bgc = "libdem"; } 
         if (str.indexOf(bgc) === -1) { bgc = "others"; }
 
         return " bgc-" + bgc;

@@ -15,17 +15,18 @@ define([
 
     function getOffsetTop (el, isTab) {
         //TODO: if more than one parent has offsetTop
-        var f = document.querySelector("#header"),
-            top  = el.offsetTop;
+        var h = document.querySelector("#header"),
+            f = document.querySelector("figure"),
+            a = document.querySelector("#jsStickyAnchor"),
+            top  = a.offsetTop;
 
-        if (f !== null) { top += 179; } //remove magic number: ad + nav g! 
+        if (h !== null) { top += f.offsetTop/*179*/; } //remove magic number: ad + nav g! 
         top += isTab ? 79 : 30;         //remove magic number: nav tabs
         /*
-        console.log(isTab);
-        console.log(el);
-        console.log(el.offsetTop);
-        console.log(el.offsetParent);
-        console.log(el.offsetParent.offsetTop);
+        console.log(el.offsetTop, "[legend]");
+        console.log(a.offsetTop);
+        console.log(a.parentNode.offsetTop);
+        console.log(f.offsetTop);
         console.log(top);
         */
         return top;
