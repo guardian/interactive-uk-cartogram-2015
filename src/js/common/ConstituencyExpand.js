@@ -8,6 +8,7 @@ define([
     'use strict';
         
     // data
+    //var max = 0, con;
     var term = util.mapTerm,
         dataObj = {};
     data.constituencies.forEach(function(d) {
@@ -23,9 +24,14 @@ define([
                     return c.name + ", " + c.party;
                 })
         };
+        /*var l = d[2015].candidates.length;
+        if (l > max) { 
+            max = l; 
+            con = d.name;
+        }*/
     });
     //console.log(data);
-    //console.log(dataObj);
+    //console.log(max, con);
     
     function updateData(code, name, p2010, p2015, src) {
         var li, 

@@ -63,7 +63,6 @@ define([
 
             //TODO: move to nav project
             var imgs = document.querySelectorAll('.electionNav-footer-item img');
-            console.log(document.querySelectorAll('.electionNav-footer-item img'));
             imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
             imgs[1].src = '@@assetPath@@/imgs/proj_cartogram.png';
             //END OF TODO/

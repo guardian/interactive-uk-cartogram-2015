@@ -95,13 +95,14 @@ $w: 460px;
     overflow: hidden;
 }
 .expand.hide {
-    height: 0;
-    transition: height, 1s;
+    max-height: 0;
+    transition: max-height, 1s;
 } 
 .expand.show { 
-    height: 308px; //temp 
+    height: auto;
+    max-height: 415px; //temp 
     margin-bottom: 30px;    
-    transition: height, 1s;
+    transition: max-height, 1s;
 }
 
 
