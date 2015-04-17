@@ -1,9 +1,11 @@
 define([
     'd3',
     'topojson',
+    'common/TouchEvents'
 ], function(
     d3,
-    topojson
+    topojson,
+    TouchEvents
 ) {
    'use strict';
 
@@ -66,24 +68,16 @@ define([
             .attr("height", options.hundred?"100%":HEIGHT);
 
         
-
-        /*if(!options.svg) {
-            map = d3.select(options.container)
-                .append("div")
-                .attr("class", "map");
-
-            map.append("h2")
-                .text(options.title || "UK");
-
-            svg = options.svg || map.append("svg")
-                                            .attr("width", WIDTH)
-                                            .attr("height", HEIGHT);
-        }*/
         
 
         map = options.map_g.append("g")
             .attr("id", "map_"+options.id)
             .attr("class",options.field)
+
+        //OPTIMIZATIONS
+        var svg_node=svg.node(),
+            map_node=map.node();
+        //END OF OPTIMAZIONS
 
         var constituenciesMap=map.append("g")
             .attr("class","constituencies")
@@ -103,8 +97,8 @@ define([
                     .attr("class","bg")
                     .attr("x",options.left)
                     .attr("y",0)
-                    .attr("width",WIDTH)
-                    .attr("height",HEIGHT)
+                    .attr("width",svg_node.clientWidth || svg_node.offsetWidth)
+                    .attr("height",svg_node.clientHeight || svg_node.offsetHeight)
             
                     
             //console.log("----->",options.bg.width,options.left)
@@ -117,13 +111,46 @@ define([
                     options.mouseClickMapCallback(__currentConstituency);
                 })
         }
+        var touchstart=false;
         if(options.mouseOverMapCallback) {
+
 
             ix
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
+                    if(!touchstart) {
+                        var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
+                            if(options.filterRange) {
+                                return filterRange(d.properties.projection_info.margin);
+                            }
+                            if(!options.filterSame) {
+                                return true;
+                            }
+                            return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
+                        });
+                        
 
-                    var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
+                        if(c) {
+                            __currentConstituency=c;
+                            options.mouseOverMapCallback(c);
+                        }
+                    }
+
+                });
+
+            new TouchEvents(ix,{
+                element:map_node,
+                touchStartCallback:function(){
+                    touchstart=true;
+                },
+                touchEndCallback:function(){
+                    touchstart=false;
+                },
+                touchMoveCallback:function(coord){
+                    touchstart=true;
+                    //var coord=d3.touches(map_node);
+                        
+                    var c=findClosest([coord[0],coord[1]-40],function(d){
                         if(options.filterRange) {
                             return filterRange(d.properties.projection_info.margin);
                         }
@@ -138,9 +165,51 @@ define([
                         __currentConstituency=c;
                         options.mouseOverMapCallback(c);
                     }
-                    
-
+                }
+            });
+            /*
+            var timing=null;
+            ix
+                .on("touchstart", function(){
+                    timing=new Date();
+                    touchstart=true;
                 })
+                .on("touchend",function(){
+                    timing=null;
+                    if(options.mouseOutMapCallback) {
+                        options.mouseOutMapCallback();
+                    }
+                    touchstart=false;
+                })
+                .on("touchmove",function(d){
+                    if(touchstart) {
+
+
+
+                        d3.event.preventDefault();
+
+                        var coord=d3.touches(map_node);
+                        
+                        var c=findClosest([coord[0][0],coord[0][1]-40],function(d){
+                            if(options.filterRange) {
+                                return filterRange(d.properties.projection_info.margin);
+                            }
+                            if(!options.filterSame) {
+                                return true;
+                            }
+                            return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
+                        });
+                        
+
+                        if(c) {
+                            __currentConstituency=c;
+                            options.mouseOverMapCallback(c);
+                        }
+
+
+                    }
+                })
+            */
                 
 
         }
@@ -296,8 +365,8 @@ define([
 
             setCentroids();
 
-            ix.attr("width",GEOM.width)
-                .attr("height",GEOM.height);
+            ix.attr("width",svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
+                .attr("height",svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
 
             constituenciesMap
                 .selectAll("path")
@@ -396,7 +465,7 @@ define([
 
             if (options.tooltip) {
 
-                var bbox=svg.node().getBoundingClientRect();
+                var bbox=svg_node.getBoundingClientRect();
                 tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale, bbox);
             }
 
@@ -498,7 +567,7 @@ define([
                 if(options.tooltip) {
                     tooltip.hide();
                     setTimeout(function(d){
-                        var bbox=svg.node().getBoundingClientRect();
+                        var bbox=svg_node.getBoundingClientRect();
                         tooltip.show(constituency, c_centre, __translate, __scale, bbox);    
                     },750)
                     
@@ -567,9 +636,8 @@ define([
                 if(!filter) {
                     return 1;
                 }
-                
                 return filter(d);
-            }).forEach(function(constituency){
+            }).every(function(constituency){
                 
                 //var c_centre=path.centroid(constituency),
                 var     c_centre=getCentroid(constituency.properties.constituency),
@@ -585,8 +653,10 @@ define([
                     //console.log(coords,c_centre,screen_c_centre)
                     closest_constituency=constituency;
                     dist=__dist;
-                    
                 }
+
+                
+                return __dist>5;
                 
             });
 

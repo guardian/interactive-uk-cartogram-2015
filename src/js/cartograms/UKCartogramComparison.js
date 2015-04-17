@@ -65,33 +65,20 @@ define([
         this.resize=function(size) {
             mapsTable.resize(size);
         }
-
-    	//mapsTable.connect("2010", "2015", "end", "projection",options);
-        /*
-    	var to=null;
-        window.addEventListener('resize', function(event){
-            if(to) {
-                clearTimeout(to);
-                to=null;
-            }
-            to=setTimeout(function(){
-                mapsTable.resize();   
-            },250)
-            
-        });*/
     	
         function Tooltip(options) {
             //console.log("Tooltip",options)
 
-            var container=d3.select(options.container);
+            var container=d3.select(options.container),
+                container_node=container.node();
 
             var tooltip = container
                 .append("div")
                 .attr("class", "tooltip-arrow")
                 //.style("width","46%");//options.width?((options.width/2-(margins.left+margins.right))+"px"):"90%");
 
-
-
+            var CURRENT_CONSTITUENCY=null;
+        
             var tooltip_contents = tooltip.append("div")
                                         .attr("class","tooltip-content")
             tooltip_contents.append("h4");
@@ -101,26 +88,40 @@ define([
             tooltip.append("div")
                         .attr("class","arrow_box")
             this.hide = function() {
+                CURRENT_CONSTITUENCY=null;
                 tooltip.style({
                     display:"none"
                 });
             };
+
+            var swings={
+                "Const":"constituency and national polling",
+                "National":"national polling",
+                "NI":"Northern Ireland polling",
+                "Wales":"polling in Wales",
+                "Scotland":"Scotland-wide polling"
+            }
+
             this.show = function(info, coords, translate, scale, bbox) {
 
                 //console.log(info,coords);
                 
                 var left=bbox.left;
 
-                if(left>460) {
+                if(CURRENT_CONSTITUENCY==info.properties.constituency) {
                     return;
-                }
-                //console.log(options)
+                } 
+
+                CURRENT_CONSTITUENCY=info.properties.constituency;
                 
-                var container_w=container.node().clientWidth || container.node().offsetWidth,
+                
+                var container_w=container_node.clientWidth || container_node.offsetWidth,
                     status=(container_w>620)?"h":"v",
                     w=(status=="h")?options.geom.normal.width:options.geom.small.width,
-                    h=(status=="h")?0:options.geom.small.height,
+                    h=(status=="h")?0:options.geom.small.height;
                 
+                console.log("show",info)
+
                 container_w=(container_w>620)?container_w/2:container_w;
                 
                 tooltip.style({
@@ -139,22 +140,7 @@ define([
                     .html(function() {
                         var from=info.properties.projection_info["winner2010"].toLowerCase(),
                             to=info.properties.projection;
-
-                        //console.log(info.properties.projection_info)
-
-                        var swings={
-                            "Const":"constituency and national polling",
-                            "National":"national polling",
-                            "NI":"Northern Ireland polling",
-                            "Wales":"polling in Wales",
-                            "Scotland":"Scotland-wide polling"
-                        }
-                        /*
-                        if(from!==to) {
-                            return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span>, based on "+swings[info.properties.projection_info.source];    
-                        }
-                        return "<span class=\""+to+"\">" + names[to] + "<\/span> hold, based on "+swings[info.properties.projection_info.source];    
-                        */
+                        
                         if(from!==to) {
                             return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[info.properties.projection_info.source];    
                         }

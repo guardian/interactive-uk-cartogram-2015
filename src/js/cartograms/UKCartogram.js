@@ -39,20 +39,6 @@ define([
         });
         var contestScale=d3.scale.linear().range([0,1]).domain(ext);
 
-        //console.log(contestScale.domain(),"AAAAAAAHHHHHHHH")
-        d3.range(100).forEach(function(d){
-            //console.log(d/100,"->",contestScale(d/100))
-        })
-
-        /*contestScale=function(d){
-            if(d<0.05) {
-                return 1;
-            }
-            if(d<0.1) {
-                return 0.5
-            }
-            return 0.2;
-        }*/
 
         var svg = d3.select(options.container).append("svg");
                                 
@@ -60,6 +46,9 @@ define([
         var map_g=svg.append("g"),
             map_regions_g=svg.append("g").attr("class","regions");
     	
+        //OPTIMIZATIONS
+        var svg_node=svg.node();
+        //END OF OPTIMAZIONS
 
         var center=[0,0];
 
@@ -194,6 +183,9 @@ define([
             tooltip_contents.append("h4");
             tooltip_contents.append("p")
                 .attr("class", "proj");
+
+            var tooltip_node=tooltip.node();
+
             this.hide = function() {
                 tooltip.style({
                     display:"none"
@@ -202,6 +194,13 @@ define([
             function getScreenCoords(x, y, translate, scale) {
                 return [translate[0] + x*scale,translate[1] + y*scale];
             }
+            var swings={
+                "Const":"constituency and national polling",
+                "National":"national polling",
+                "NI":"Northern Ireland polling",
+                "Wales":"polling in Wales",
+                "Scotland":"Scotland-wide polling"
+            };
             this.show = function(info, coords, translate, scale) {
 
 
@@ -219,13 +218,7 @@ define([
                             to=info.properties.projection;
 
                         //console.log(info.properties.projection_info)
-                        var swings={
-                            "Const":"constituency and national polling",
-                            "National":"national polling",
-                            "NI":"Northern Ireland polling",
-                            "Wales":"polling in Wales",
-                            "Scotland":"Scotland-wide polling"
-                        }
+                        
                         /*
                         if(from!==to) {
                             return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span>, based on "+swings[info.properties.projection_info.source];    
@@ -238,8 +231,8 @@ define([
                         return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source];    
                     });
 
-                var h=tooltip.node().clientHeight || tooltip.offsetHeight || 50,
-                    w=svg.node().clientWidth || svg.offsetWodth;
+                var h=tooltip_node.clientHeight || tooltip_node.offsetHeight || 50,
+                    w=svg_node.clientWidth || svg_node.offsetWodth;
 
                 tooltip.style({
                     display:"block",
