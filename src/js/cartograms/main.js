@@ -34,27 +34,7 @@ define([
             }
         });
 
-        var ukCartogram=new UKCartogram(projections, topo, regions,{
-            container:"#ukProjections .cartogram .center",
-            id:"ukProjection",
-            width:460,
-            height:640,
-            selected_geom:(width<490*2?"small":"normal"),
-            geom:{
-                normal:{
-                    width:460,
-                    height:640,
-                    scale_factor:2,
-                    center:[1, 54.45]
-                },
-                small:{
-                    width:310,
-                    height:640,
-                    scale_factor:1.6,
-                    center:[2.9, 54.45]
-                }
-            }
-        });
+
 
         var mapsData=[
             {
@@ -159,22 +139,49 @@ define([
 
         var maps=[{map:ukCartogram}];
 
-        mapsData.forEach(function(m){
+        function createRegionalMaps() {
+            mapsData.forEach(function(m){
 
-            maps.push({
-                map:new UKCartogramComparison(projections, topo, regions,{
-                    container:m.container+" .cartogram",
-                    id:m.id,
-                    regions:m.regions,
-                    height:m.height,
-                    geom:m.geom,
-                    geom_normal: m.geom_normal,
-                    geom_small: m.geom_small,
-                    selected_geom:(width<490*2?"small":"normal"),
-                    clipPath:true,
-                    fadeOut:true
-                })
+                maps.push({
+                    map:new UKCartogramComparison(projections, topo, regions,{
+                        container:m.container+" .cartogram",
+                        id:m.id,
+                        regions:m.regions,
+                        height:m.height,
+                        geom:m.geom,
+                        geom_normal: m.geom_normal,
+                        geom_small: m.geom_small,
+                        selected_geom:(width<490*2?"small":"normal"),
+                        clipPath:true,
+                        fadeOut:true
+                    })
+                });
             });
+        }
+        
+        var ukCartogram=new UKCartogram(projections, topo, regions,{
+            container:"#ukProjections .cartogram .center",
+            id:"ukProjection",
+            width:460,
+            height:640,
+            selected_geom:(width<490*2?"small":"normal"),
+            geom:{
+                normal:{
+                    width:460,
+                    height:640,
+                    scale_factor:2,
+                    center:[1, 54.45]
+                },
+                small:{
+                    width:310,
+                    height:640,
+                    scale_factor:1.6,
+                    center:[2.9, 54.45]
+                }
+            },
+            callback:function(){
+                setTimeout(createRegionalMaps,250);
+            }
         });
 
         function resize(size) {

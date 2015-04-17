@@ -262,9 +262,6 @@ define([
         map.selectAll("path").filter(function(d){
             return !d.properties.gray;
         })
-        /*.each(function(d){
-            constituencies.push(d);
-        })*/
         .style("fill",function(d){
             if(options.gradients) {
                 return "url(#grad_"+d.properties.projection_info.winner2010.toLowerCase()+"2"+d.properties.projection_info.projection.toLowerCase()+")";    
@@ -278,10 +275,13 @@ define([
                 .data(),
             centroids={};
 
-        updateConstituencies();
         setCentroids();
 
-        //setTimeout(updateConstituencies,1000);
+        
+        if(options.callback) {
+            options.callback();
+        }
+
         function setCentroids() {
             map
                 .selectAll("path")
@@ -291,9 +291,6 @@ define([
         }
         function getCentroid(constituencyCode) {
             return centroids[constituencyCode];
-        }
-        function updateConstituencies() {
-            
         }
 
         function resize(size) {
@@ -514,7 +511,6 @@ define([
                     callback(__translate,__scale);
                 }
                 
-                updateConstituencies();
                 setCentroids();
 
 

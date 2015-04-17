@@ -135,7 +135,8 @@ define([
             mouseOutMapCallback:function(d){
                 map.highlightCostituency();
                 map.deHighlightCostituency();
-            }
+            },
+            callback:options.callback
         });
         
 
