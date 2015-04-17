@@ -1,54 +1,52 @@
 define([
     'common/utilities',
-    'json!data/constituency2.json'
+    'json!data/constituency.json'
 ], function(
     util,
     dataObj
 ) {
     'use strict';
 
-    // data
-    //var max = 0, con;
     var term = util.mapTerm;
+    
+    // data
+    //var max = 0, con; 
     /*
-        dataObj = {};
+    var dataObj = {};
     data.constituencies.forEach(function(d) {
-        var mp = d[2010].candidates[0];
-        mp.text = mp.name + ", " + mp.party;
-        mp.majority = d[2010].percentageMajority;
+        var mp = {}, 
+            mpObj = d[2010].candidates[0];
+        //mp.txt = mpObj.name + ", " + mpObj.party; //text
+        mp.who = mpObj.name;                        //winner 2010
+        mp.pty = mpObj.party;                       //party
+        mp.per = mpObj.percentage;                  //percentage
+        mp.maj = d[2010].percentageMajority;        //majority
 
         dataObj[d.ons_id] = {
-            name: d.name,
-            mp_old: d[2010].candidates.filter(function(c) {
+            //"const": d.name,
+            "mp": mp,
+            /*mp_parsed: d[2010].candidates.filter(function(c) {
               return c.party === d[2010].winningParty;
               }).map(function(mp) {
               return mp.name + ", " + mp.party;
-              })[0],
-            mp: mp,
-            candidates: 
+              })[0],* /
+            "candi": 
                 d[2015].candidates.map(function(c) {
                 return {
-                    text: c.name + ", " + c.party,
-                    link: c.url,
-                    party: c.party
+                    //txt: c.name + ", " + c.party,
+                    who: c.name,
+                    url: c.url,
+                    pty: c.party
                 };
             })
         };
-        */
-        /*
-        var l = d[2015].candidates.length;
-        if (l > max) { 
-           max = l; 
-           con = d.name;
-        }
-        */
-    /*
-    });
-    */
+    });*/
+    
     //console.log(JSON.stringify(dataObj));
     //console.log(data);
     //console.log(dataObj);
     //console.log(max, con);    
+
 
     function removeChildNodes(el) {
         if (el.hasChildNodes()) { 
@@ -76,16 +74,16 @@ define([
         return node;
     }
 
-    function updateData(code, name, p2010, p2015, src) {
+    function updateData(constCode, constName, p2010, p2015, src) {
         var a, cn1, cn2, txt, li, 
         pType = (src === "Wales") ? "polling in Wales." : term(src) + " polling",
             ul = document.querySelector("#jsCandidates"), 
             p1 = document.querySelector("#jsInfo"),
             p2 = document.querySelector("#jsMP"),
-            mp = dataObj[code].mp;
+            mp = dataObj[constCode].mp;
 
         // add constituency
-        document.querySelector("#jsName").textContent = name;   
+        document.querySelector("#jsName").textContent = constName;   
 
         // add info
         if (p2010 === p2015) {
@@ -98,9 +96,13 @@ define([
         }
 
         // add mp
-        txt = mp.text + ", " + Math.round(mp.percentage*10)/10 + "% vote share (" + Math.round(mp.majority*10)/10 + "% majority)";
         removeChildNodes(p2); 
-        p2.appendChild(insertRect(mp.party));
+        
+        txt = mp.who + ", " + mp.pty + ", " + 
+            Math.round(mp.per*10)/10 + "% vote share (" + 
+            Math.round(mp.maj*10)/10 + "% majority)";
+        
+        p2.appendChild(insertRect(mp.pty));
         p2.appendChild(document.createTextNode(txt));   
         //console.log(mp);
 
@@ -110,15 +112,15 @@ define([
         //ul = ul.cloneNode(false);
         removeChildNodes(ul);
 
-        dataObj[code].candidates.forEach(function(d) {
-            txt = document.createTextNode(d.text);
-            cn1 = insertRect(d.party);
+        dataObj[constCode].candi.forEach(function(d) {
+            txt = document.createTextNode(d.who + ", " + d.pty);
+            cn1 = insertRect(d.pty);
             cn2 = txt;
 
             // link
             if (d.link !== undefined) {
                 a = document.createElement("a");
-                a.href = d.link;
+                a.href = d.url;
                 a.target = "_blank";
                 a.appendChild(txt); 
                 cn2 = a;

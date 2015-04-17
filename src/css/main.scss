@@ -51,6 +51,10 @@ $c-grey3: map-get($pasteup-palette, 'neutral-3');
 $c-grey5: map-get($pasteup-palette, 'neutral-5'); //c-border
 $c-grey7: map-get($pasteup-palette, 'neutral-7'); //bgc-btn
 $c-grey8: map-get($pasteup-palette, 'neutral-8'); //bgc
+$c-grey9: #ababab; //f-footer
+.c-grey9 {
+    color: $c-grey9;
+}
 
 // parties
 $c-con: #005789;

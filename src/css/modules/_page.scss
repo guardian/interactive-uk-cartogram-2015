@@ -88,8 +88,11 @@ p {
 .f-footnote {
     font-family: $f-sans-serif-text;
     font-size: $fz-13;
-    color: #ababab;
+    color: $c-grey9;
     line-height: 1.3;
+    a {
+        color: $c-grey9;
+    }
 }
 .f-credit {
     font-family: $f-serif-text;
