@@ -2,6 +2,20 @@
  * CSS of page goes here
  * */
 
+
+//TODO: remove playground
+#ukProjections {
+    border: 1px dotted lightblue;
+    box-sizing: border-box;
+    height: 100%;
+}
+.center {
+    border: 1px solid;
+    box-sizing: border-box;
+}
+//END OF TODO
+
+
 // variables
 $w-icon: 100px;
 $h-icon: 100px;
@@ -92,53 +106,6 @@ p {
 }
 
 // style: elements
-.btn-x {
-    width: 20px;
-    height: 20px;
-    background-repeat: no-repeat;
-    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAzMy4yIDMzLjIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDMzLjIgMzMuMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PGc+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIyLjEsMCAwLDIuMSAxNC44LDE4LjQgMzEuNCwzMi45IDMzLjIsMzEuMSAxOC40LDE0LjggIi8+PHBvbHlnb24gZmlsbD0iIzAxMDIwMiIgcG9pbnRzPSIwLDMxLjEgMi4xLDMzLjIgMTguNCwxOC40IDMzLjIsMi4xIDMxLjEsMCAxNC44LDE0LjggIi8+PC9nPjwvc3ZnPg==);
-    opacity: 0.1;
-}
-.btn-x:hover {
-    opacity: 0.3;
-}
-
-.btn-standfirst {
-    color: $c-grey2;
-    background-color: #d4d4d4;
-    font-family: $f-sans-serif-text;
-    font-size: $fz-15;
-    vertical-align: top;
-    text-decoration: none;
-    line-height: 24px;
-    width: auto;
-    height: 24px;
-    padding: 0 6px;
-    margin: 0 3px;
-    border: 1px solid #d4d4d4;
-    border-radius: 24px;
-    box-sizing: border-box;
-    display: inline-block;
-}
-.btn-standfirst:hover,
-.btn-standfirst.selected {
-    color: #fff;
-    background-color: #005689;
-    border-color: #005689;
-}
-
-// style: misc
-.mt-10 { margin-top: 10px; }
-.mt-30 { margin-top: 30px; }
-
-.bt {
-    border-top: 1px solid $c-grey5;
-    padding-top: 15px; 
-}
-
-.hidden {
-    display: none;
-}
 
 .ul-candidates {
     list-style: none;
@@ -157,8 +124,24 @@ p {
     }
 }
 
+// style: misc
+.mt-10 { margin-top: 10px; }
+.mt-30 { margin-top: 30px; }
+
+.bt {
+    border-top: 1px solid $c-grey5;
+    padding-top: 15px; 
+}
+
+.hidden {
+    display: none;
+}
+
+
+
 //TODO: remove hack
 #election-nav-head { display: none; }
+//END OF TODO
 
 
 // responsive
@@ -170,6 +153,7 @@ p {
 .row-top {
     @extend .row;
     min-height: 640px;
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -244,6 +228,7 @@ p {
             max-width: none;
             margin: 0;
     }}
+    //END OF TODO
 
     .row-top { 
         > * { width: calc(50% - 10px); }
