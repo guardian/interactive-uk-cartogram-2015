@@ -33,7 +33,7 @@ define([
     			top:15
     		};
 
-        d3.select(options.container).style("width",(options.geom[options.selected_geom].width+"px")||"100%")
+        //d3.select(options.container).style("width",(options.geom[options.selected_geom].width+"px")||"100%")
         var ext=d3.extent(topo.objects.hexagons.geometries,function(d){
             return d.properties.projection_info.margin;
         });
@@ -116,6 +116,7 @@ define([
                     contestScale:contestScale
                 }),
             map_g:map_g,
+            hundred:true,
             border:1,
             container: options.container,
             geom:options.geom,
@@ -135,6 +136,7 @@ define([
                 });
                 var c = d.properties,
                     p = c.projection_info;
+
                 ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
                 ConstituencyExpand.updateView(1);
             },
@@ -236,12 +238,16 @@ define([
                         return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source];    
                     });
 
-                var h=tooltip.node().clientHeight || tooltip.offsetHeight || 50;
+                var h=tooltip.node().clientHeight || tooltip.offsetHeight || 50,
+                    w=svg.node().clientWidth || svg.offsetWodth;
 
                 tooltip.style({
                     display:"block",
                     left: (coords[0]) + "px",
                     top: (coords[1]-h/2) + "px"
+                })
+                .classed("left",function(){
+                    return (coords[0]>w/2);
                 });
 
             };

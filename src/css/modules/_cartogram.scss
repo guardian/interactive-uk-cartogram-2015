@@ -14,12 +14,15 @@
     stroke-width:1 !important;
 }
 /************** CARTOGRAM CONTAINER *************/
-div.cartogram {
+.cartogram {
     position: relative;
+    height: 642px;
 }
 .center {
     position: relative;
     margin:0 auto;
+    height: 100%;
+    width:320px;
 }
 /************** CARTOGRAM SVG *************/
 .cartogram svg {
@@ -260,9 +263,21 @@ path.full-opacity {
     background-color:#ccc;
 }
 @media(min-width:660px){
+    .cartogram {
+        height: 100%;
+    }
     .center {
         position: relative;
         margin:0;
+        float: right;
+        width: 100%;
+    }
+    .hundred {
+        width: 100% !important;
+        height: 100%;
+    }
+    svg.overflow {
+        border-left:1px solid #eee;
     }
 }
 

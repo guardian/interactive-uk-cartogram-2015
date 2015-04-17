@@ -61,7 +61,7 @@ define([
                 selected_geom:options.selected_geom,
                 main_regions:options.regions,
                 fadeOut:options.fadeOut,
-                textField:"name"
+                textField:"abbr"
             });
 
             maps[d.field]=new HexMap(topo, {
@@ -103,9 +103,11 @@ define([
                         //connections.selectAll("g.connection").classed("highlight",false);
                     }
                 });
+            //console.log(regions[d.field]);
+            regions[d.field].addBorders();
 
         });
-
+        
         this.resize=function(size) {
 
             d3.values(maps).forEach(function(map) {

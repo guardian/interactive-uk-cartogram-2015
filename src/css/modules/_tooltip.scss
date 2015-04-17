@@ -8,7 +8,7 @@
 }
 
 .tooltip div.tooltip-content {
-    width:170px;
+    width:120px;
     padding:5px;
     margin-left:25px;
     background:rgba(255,255,255,0.9);
@@ -39,6 +39,31 @@
     border-width: 9px;
     margin-top: -9px;
 }
+
+.tooltip.left div.tooltip-content {
+    margin-left:-150px;
+}
+
+.tooltip.left .tooltip-content:after, 
+.tooltip.left .tooltip-content:before {
+    right: none;
+    left: 100%;
+    top: 50%;
+}
+
+.tooltip.left .tooltip-content:after {
+    border-width: 8px;
+    margin-top: -8px;
+    border-right-color: transparent;
+    border-left-color: rgba(255,255,255,0.9);
+}
+.tooltip.left .tooltip-content:before {
+    border-width: 9px;
+    margin-top: -9px;
+    border-right-color: transparent;
+    border-left-color: #ddd;
+}
+
 
 .tooltip h4 {
     font-family: $f-sans-serif-headline;
@@ -71,10 +96,10 @@
 
 .tooltip-arrow div.tooltip-content {
     position: relative;
-    width:200px;
+    width:260px;
     //border:1px solid #ddd;
     padding:5px;
-    margin:150px 0 0 -100px;
+    margin:150px 0 0 -130px;
     background:#fff;
 }
 .tooltip-arrow  .arrow_box {
@@ -128,13 +153,13 @@
 
         border-bottom:2px solid #333;
         height: 0px;
-        width:calc(100% - 350px); //460px + 40px
+        width:calc(100% - 400px); //460px + 40px
         margin-left:15px;
         margin-top:19px; /* height of h4 title on the map */
     }
 
     .tooltip-arrow div.tooltip-content {
-        margin:-60px auto 0;
+        margin:-80px auto 0;
     }
 
     .tooltip-arrow div.tooltip-content {
@@ -164,6 +189,14 @@
         border-style: solid;
         border-width: 4.5px 0 4.5px 9px;
         border-color: transparent transparent transparent #333;
+    }
+}
+@media(min-width:360px){
+    .tooltip div.tooltip-content {
+        width:170px;
+    }
+    .tooltip.left div.tooltip-content {
+        margin-left:-205px;
     }
 }
 @media(min-width:980px){

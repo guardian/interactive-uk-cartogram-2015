@@ -193,7 +193,7 @@ define([
             to=setTimeout(function(){
                 var width=body.clientWidth || body.offsetWidth;
                 resize(width<490*2?"small":"normal");
-            },250)
+            },100)
 
         });
 
@@ -222,10 +222,10 @@ define([
             ukCartogram.applyFilter("same",true);
             util.selectRadioBtn(btnParentID, "jsChangehands", btnClass, addClass);
         })
-        d3.select("#jsBattlegrounds")
+        d3.select("#jsBattlegroundseats")
         .on("click",function(){
             ukCartogram.applyFilter("contestRange");
-            util.selectRadioBtn(btnParentID, "jsBattlegrounds", btnClass, addClass);
+            util.selectRadioBtn(btnParentID, "jsBattlegroundseats", btnClass, addClass);
         })
 
     }

@@ -62,10 +62,12 @@ define([
         var map,
             svg=options.svg;
 
-        svg.attr("width", WIDTH)
-            .attr("height", HEIGHT);
+        svg.attr("width", options.hundred?"100%":WIDTH)
+            .attr("height", options.hundred?"100%":HEIGHT);
 
-        if(!options.svg) {
+        
+
+        /*if(!options.svg) {
             map = d3.select(options.container)
                 .append("div")
                 .attr("class", "map");
@@ -76,7 +78,7 @@ define([
             svg = options.svg || map.append("svg")
                                             .attr("width", WIDTH)
                                             .attr("height", HEIGHT);
-        }
+        }*/
         
 
         map = options.map_g.append("g")
@@ -279,8 +281,8 @@ define([
             WIDTH = GEOM.width;
             HEIGHT = GEOM.height;
 
-            svg.attr("width",WIDTH)
-                .attr("height",HEIGHT);
+            svg.attr("width",options.hundred?"100%":WIDTH)
+                .attr("height",options.hundred?"100%":HEIGHT);
 
             //100:600=WIDTH:x
             scale = 2000;
@@ -502,6 +504,9 @@ define([
                     
                 }
 
+
+                svg.classed("overflow",true);
+
                 return translate;    
             }
             
@@ -525,6 +530,8 @@ define([
                         .ease(d3.ease("linear"))
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
+
+                svg.classed("overflow",false);
             }
         }
 

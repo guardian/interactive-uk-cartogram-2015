@@ -137,16 +137,16 @@ $w: 460px;
 .expand.show { 
     height: auto;
     max-height: 445px; //temp 
-    //margin-bottom: 30px;    
+    margin-bottom: 30px;    
     transition: max-height, 1s;
 }
 .expand .rect {
     margin-left: 1px;
     margin-right: 6px;
 }
-@media(min-width: 480px) {
+@media(min-width: 660px) {
 .expand.show { 
-    margin-bottom: 30px;    
+    margin-bottom: 0px;    
 }}
 
 

@@ -126,7 +126,7 @@ define([
                 tooltip.style({
                     display:"block",
                     left: (status=="v"?(container_w-w)/2:0) + coords[0] +"px",
-                    height: h+"px",
+                    height: (h+(status=="v"?-10:0))+"px",
                     top: coords[1] + "px"
                 });
 
@@ -143,7 +143,7 @@ define([
                         //console.log(info.properties.projection_info)
 
                         var swings={
-                            "Const":"on constituency and national polling",
+                            "Const":"constituency and national polling",
                             "National":"national polling",
                             "NI":"Northern Ireland polling",
                             "Wales":"polling in Wales",

@@ -52,8 +52,8 @@ define([
         var map,
             svg=options.svg;
 
-        svg.attr("width", WIDTH)
-            .attr("height", HEIGHT);
+        //svg.attr("width", WIDTH)
+        //    .attr("height", HEIGHT);
 
 
         var regionsMap=options.map_g.append("g")
@@ -104,7 +104,13 @@ define([
             .enter()
             .append("text")
                 .attr("class","m-labels-below")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("x",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("y",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
                     .attr("dy", "-.35em")
                     .text(function(d){
                         return d.properties[options.textField] || d.properties.name;
@@ -118,7 +124,13 @@ define([
             .enter()
             .append("text")
                 .attr("class","m-labels")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("x",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("y",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
                     .attr("dy", "-.35em")
                     .text(function(d){
                         return d.properties[options.textField] || d.properties.name;
@@ -132,7 +144,13 @@ define([
             .enter()
             .append("text")
                 .attr("class","m-labels-below city-below")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("x",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("y",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
                     .attr("dy", "-.35em")
                     .text(function(d){
                         return d.properties[options.textField] || d.properties.name;
@@ -145,7 +163,13 @@ define([
             .enter()
             .append("text")
                 .attr("class","m-labels city")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("x",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("y",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
                     .attr("dy", "-.35em")
                     .text(function(d){
                         return d.properties[options.textField] || d.properties.name;
@@ -160,9 +184,13 @@ define([
             .enter()
             .append("circle")
                 .attr("class","city")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
-                    .attr("cx",0)
-                    .attr("cy",0)
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+                    .attr("cx",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("cy",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
                     .attr("r",2)
 
         if(typeof options.left != 'undefined') {
@@ -170,6 +198,7 @@ define([
         }
 
         function resize(size) {
+
 
             
             GEOM=options.geom[size];
@@ -181,8 +210,8 @@ define([
             WIDTH = GEOM.width;
             HEIGHT = GEOM.height;
 
-            svg.attr("width",WIDTH)
-                .attr("height",HEIGHT);
+            //svg.attr("width",options.hundred?"100%":WIDTH)
+              //  .attr("height",HEIGHT);
 
             //100:600=WIDTH:x
             scale = 2000;
@@ -199,18 +228,51 @@ define([
                     .attr("d", function(d) {
                         return path(d);
                     });
+            /*regionsMap
+                    .selectAll("text,circle")
+                    .transition()
+                        .ease(d3.ease("linear"))
+                        .duration(500)
+                        .attr("transform", function(d){
+                            var c=d.properties.ocoords;
+                            if(!d.properties.ocoords) {
+                                c=d3.select(this).attr("transform").replace("translate(","").replace(")","").split(",");    
+                                d.properties["ocoords"]=[+c[0],+c[1]];
+                            }
 
+
+
+
+
+                            var diffs=[+c[0]+translate[0],+c[1]+translate[1]];
+
+                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")";
+
+                        });*/
             regionsMap
                 .selectAll("text")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; });
+                    .attr("x",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("y",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
+                    //.attr("transform", "translate(" + translate + ")scale(" + scale + ")")
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; });
             
             regionsMap
                 .selectAll("circle.city")
-                    .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; }) 
+                    .attr("cx",function(d){
+                        return projection(d.geometry.coordinates)[0]
+                    })
+                    .attr("cy",function(d){
+                        return projection(d.geometry.coordinates)[1]
+                    })
+                    //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; }) 
 
             var thickness=options.border_thickness || 30,
-                h=svg.attr("height");
-
+                w=svg.node().clientWidth || svg.node().offsetWidth,
+                h=svg.node().clientHeight || svg.node().offsetHeight;
             
             options.map_g.select("g.borders")
                         .selectAll("rect")
@@ -237,7 +299,7 @@ define([
                 clipPath.select("rect")
                             .attr("x",0)
                             .attr("y",0)
-                            .attr("width",WIDTH)
+                            .attr("width",w)
                             .attr("height",h);
 
             
@@ -266,18 +328,26 @@ define([
                     .transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
-                        .attr("transform", function(d){
+                        //.attr("transform", "translate(" + translate + ")")
+                        .attr("transform", "translate(" + translate + ")scale(" + scale + ")")
+                        /*
+                        .attr("transform2", function(d){
                             var c=d.properties.ocoords;
                             if(!d.properties.ocoords) {
                                 c=d3.select(this).attr("transform").replace("translate(","").replace(")","").split(",");    
-                                d.properties.ocoords=[+c[0],+c[1]];
+                                d.properties["ocoords"]=[+c[0],+c[1]];
                             }
+
+
+
+
 
                             var diffs=[+c[0]+translate[0],+c[1]+translate[1]];
 
-                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")"
+                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")";
 
-                        });
+                        });*/
+
         }
         this.resetZoom=function(translate,zoom) {
             regionsMap
@@ -292,18 +362,8 @@ define([
                     .transition()
                         .ease(d3.ease("linear"))
                         .duration(500)
-                        .attr("transform", function(d){
-                            var c=d.properties.ocoords;
-                            if(!d.properties.ocoords) {
-                                c=d3.select(this).attr("transform").replace("translate(","").replace(")","").split(",");    
-                                d.properties.ocoords=[+c[0],+c[1]];
-                            }
-
-                            var diffs=[0,0];
-
-                            return "translate("+(+c[0]+diffs[0])+","+(+c[1]+diffs[1])+")"
-
-                        });
+                        .attr("transform", "translate(0,0)scale(1)");
+                        
         }
         function getBordersData(w,h,thickness) {
             
@@ -421,13 +481,13 @@ define([
 
 
             var borders=options.map_g.append("g")
-                            .attr("class","borders")
-                            .attr("transform","translate("+options.left+",0)"),
-                thickness=options.border_thickness || 30,
-                w=svg.attr("width"),
-                h=svg.attr("height");
+                            .attr("class","borders");
 
-            
+            var thickness=options.border_thickness || 30,
+                w=svg.node().clientWidth || svg.node().offsetWidth,
+                h=svg.node().clientHeight || svg.node().offsetHeight;
+
+            //console.log(svg.node(),w,h)
 
             borders.selectAll("rect")
                         .data(getBordersData(w,h,thickness))
@@ -467,9 +527,14 @@ define([
             }
         }
 
+
         if(options.fadeOut) {
-            addBorders();
+            //addBorders();
         }
+
+        this.addBorders=function(){
+            addBorders();
+        };
     }
 
     return RegionsMap;
