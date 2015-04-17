@@ -19,7 +19,7 @@ define([
         "Const":    "constituency and national",
         "NI":       "Northern Ireland",
         "Wales":    "Wales",
-        "Scotland": "Scotland"
+        "Scotland": "Scotland-wide"
     };
 
     function mapTerm(key) {
