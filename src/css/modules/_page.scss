@@ -78,6 +78,10 @@ p {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.f-lastupdate {
+    padding-top: 20px;
+}
+ 
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
@@ -152,6 +156,7 @@ p {
     min-height: 640px;
     margin-top: 0;
     margin-bottom: 0;
+    //padding-top: 30px;
 }
 
 .col-icon {
@@ -213,7 +218,10 @@ p {
     #election-nav-head { 
         display: block;
         width: 100%;
-        
+        height: 50px;
+        position: absolute;
+        top: 0;
+
         .electionNav-head-title:after {
             display: block;
         }
@@ -224,6 +232,7 @@ p {
     #election-nav-head, 
     #election-nav-footer { 
         .electionNav-inner-container {
+            background-color: transparent;
             max-width: none;
             margin: 0;
     }}
@@ -233,8 +242,12 @@ p {
         height: 100%;
     }
     //END OF TODO
+    .f-lastupdate {
+        padding-top: 60px;
+    }
     
     .row-top { 
+        //padding-top: 80px;
         width: calc(100% + 50px); 
         > * { width: calc(50% - 10px); }
     }    

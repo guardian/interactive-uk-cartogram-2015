@@ -21,7 +21,7 @@ define([
             top  = a.offsetTop;
 
         if (h !== null) { top += f.offsetTop/*179*/; } //remove magic number: ad + nav g! 
-        top += isTab ? 79 : 30;         //remove magic number: nav tabs
+        //top += isTab ? 79 : 30;         //remove magic number: nav tabs
         /*
         console.log(el.offsetTop, "[legend]");
         console.log(a.offsetTop);
