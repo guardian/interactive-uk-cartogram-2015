@@ -3,7 +3,8 @@ define([
     'json!data/hexagons-topo.json',
     'json!data/regions-topo.json',
     'page/page',
-    'common/elementStick.js',
+    'common/stickElement.js',
+    'common/shareButtons.js',
     'cartograms/main.js',
     'text!templates/appTemplate.html'
 ], function(
@@ -12,6 +13,7 @@ define([
     regions,
     pageText,
     stickElement,
+    shareButtons,
     cartograms,
     templateHTML
 ) {
@@ -59,7 +61,8 @@ define([
         })
         .then(function() {
             /* Render legand as stick element */
-            stickElement.render();
+            stickElement();
+            shareButtons();
         })
         .fail(handleRequestError)
         .always(afterRequest);  

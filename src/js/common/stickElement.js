@@ -58,7 +58,5 @@ define([
         window.addEventListener("resize", util.throttle(setOffsetTop, 300));
     }
 
-    return {
-        render: stickElementOnScroll
-    };
+    return stickElementOnScroll;
 });

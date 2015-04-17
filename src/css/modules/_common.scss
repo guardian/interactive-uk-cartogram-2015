@@ -1,4 +1,4 @@
-$w: 460px;
+$w: 450px;
 
 // element
 .ul-nostyle {
@@ -154,24 +154,35 @@ $w: 460px;
 .legend {
     @extend .ul-nostyle;
     font-family: $f-sans-serif-text;
-    font-size: $fz-12;
+    font-size: $fz-14;
     margin-bottom: 15px;
     li {
         display: inline-block;
         padding-right: 4px;
     }
-}
-@media(min-width: 480px) {
-    .legend {
-        font-size: $fz-14;
-        li {
-            padding-right: 5px;
-        }
-        .rect {
-            margin-right: 5px;
-        }
+    li:last-child {
+        padding-right: 0;
+    }
+    .rect {
+        margin-right: 5px;
     }
 }
+@media(max-width: 490px) { 
+.legend { 
+    li { 
+        padding-right: 4px; 
+    }
+}}
+@media(max-width: 478px) {
+.legend {
+    li {
+        width: calc((100% - 16px) / 5);
+        padding-right: 0;
+    }
+}}
+
+//@media(max-width: 479px) {
+//.legend { li { width: calc((100% - 12px) / 5); padding-right: 0; }}}
 
 .sticky .legend {
     margin-bottom: 0px;
