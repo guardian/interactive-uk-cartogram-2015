@@ -10,7 +10,8 @@
   "license": "Apache 2.0",
   "config": {
     "port": 9000,
-    "s3_folder": "2015/mar/uk-cartogram/"
+    "s3_folder": "2015/mar/uk-cartogram/",
+    "s3_folder_dev": "next-gen/uk/uk-cartograms/"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
