@@ -12,13 +12,18 @@ define([
     var term = util.mapTerm,
         dataObj = {};
     data.constituencies.forEach(function(d) {
+        var mp = d[2010].candidates[0];
+        mp.text = mp.name + ", " + mp.party;
+        mp.majority = d[2010].percentageMajority;
+
         dataObj[d.ons_id] = {
             name: d.name,
-            mp: d[2010].candidates.filter(function(c) {
-                return c.party === d[2010].winningParty;
-            }).map(function(mp) {
-                return mp.name + ", " + mp.party;
-            })[0],
+            /*mp: d[2010].candidates.filter(function(c) {
+              return c.party === d[2010].winningParty;
+              }).map(function(mp) {
+              return mp.name + ", " + mp.party;
+              })[0],*/
+            mp: mp,
             candidates: 
                 d[2015].candidates.map(function(c) {
                 return {
@@ -28,13 +33,16 @@ define([
                 };
             })
         };
-        /*var l = d[2015].candidates.length;
-          if (l > max) { 
-          max = l; 
-          con = d.name;
-          }*/
+        /*
+        var l = d[2015].candidates.length;
+        if (l > max) { 
+           max = l; 
+           con = d.name;
+        }
+        */
     });
     //console.log(data);
+    //console.log(dataObj);
     //console.log(max, con);    
 
     function removeChildNodes(el) {
@@ -50,14 +58,14 @@ define([
             str = "lab snp green ukip libdem con dup sf sdlp pc";
 
         // specail cases
-        console.log(party);
+        //console.log(party);
         if (party === "LD") { bgc = "libdem"; } 
         if (str.indexOf(bgc) === -1) { bgc = "others"; }
 
         return " bgc-" + bgc;
     }
 
-    function getRect(party) {
+    function insertRect(party) {
         var node = document.createElement("span");
         node.className = "rect" + getBgColor(party);
         return node;
@@ -67,15 +75,31 @@ define([
         var a, cn1, cn2, txt, li, 
         pType = (src === "Wales") ? "polling in Wales." : term(src) + " polling.",
             ul = document.querySelector("#jsCandidates"), 
-            mp = document.querySelector("#jsMP"),
-            p = document.querySelector("#jsInfo");
+            p1 = document.querySelector("#jsInfo"),
+            p2 = document.querySelector("#jsMP"),
+            mp = dataObj[code].mp;
 
+        // add constituency
         document.querySelector("#jsName").textContent = name;   
 
-        removeChildNodes(mp); 
-        mp.appendChild(getRect(p2010));
-        mp.appendChild(document.createTextNode(dataObj[code].mp));   
+        // add info
+        if (p2010 === p2015) {
+            p2010 = term(p2010) || p2010;
+            p1.textContent = p2010 + " hold, based on " + pType;
+        } else {
+            p2010 = term(p2010) || p2010;
+            p2015 = term(p2015) || p2015;
+            p1.textContent = p2015 + " gain from " + p2010 + " based on " + pType; 
+        }
 
+        // add mp
+        txt = mp.text + ", " + Math.round(mp.percentage*10)/10 + "% vote share (" + Math.round(mp.majority*10)/10 + "% majority)";
+        removeChildNodes(p2); 
+        p2.appendChild(insertRect(mp.party));
+        p2.appendChild(document.createTextNode(txt));   
+        console.log(mp);
+
+        // add candidates
         // empty ul
         //TODO: clone node with children and replace to improve performance
         //ul = ul.cloneNode(false);
@@ -83,8 +107,8 @@ define([
 
         dataObj[code].candidates.forEach(function(d) {
             txt = document.createTextNode(d.text);
-            cn1 = getRect(d.party),
-                cn2 = txt;
+            cn1 = insertRect(d.party);
+            cn2 = txt;
 
             // link
             if (d.link !== undefined) {
@@ -101,14 +125,6 @@ define([
             ul.appendChild(li);
         });
 
-        if (p2010 === p2015) {
-            p2010 = term(p2010) || p2010;
-            p.textContent = p2010 + " hold, based on " + pType;
-        } else {
-            p2010 = term(p2010) || p2010;
-            p2015 = term(p2015) || p2015;
-            p.textContent = p2015 + " gain from " + p2010 + " based on " + pType; 
-        }
     }
 
     function updateView(opt) {    

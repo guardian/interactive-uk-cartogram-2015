@@ -218,7 +218,7 @@ define([
 
                         //console.log(info.properties.projection_info)
                         var swings={
-                            "Const":"on constituency and national polling",
+                            "Const":"constituency and national polling",
                             "National":"national polling",
                             "NI":"Northern Ireland polling",
                             "Wales":"polling in Wales",

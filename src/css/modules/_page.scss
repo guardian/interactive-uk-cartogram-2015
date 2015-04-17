@@ -43,7 +43,7 @@ h3 {
     color: $c-grey3;
 }
 h4 { 
-    font-size: 16px;
+    font-size: $fz-16;
 }
 h5 {
     font-family: $f-sans-serif-text;
@@ -66,17 +66,29 @@ p {
 .f-lastupdate {
     margin-bottom: -5px;
 }
-.f-footnote {
-    font-family: $f-sans-serif-text;
-    font-size: 13px;
-    color: #ababab;
-    line-height: 1.3;
-}
 
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
     color: $c-grey1;
+}
+
+.f-footnote {
+    font-family: $f-sans-serif-text;
+    font-size: $fz-13;
+    color: #ababab;
+    line-height: 1.3;
+}
+.f-credit {
+    font-family: $f-serif-text;
+    font-size: $fz-15;
+    font-weight: bold;
+    color: $c-grey2;    
+    margin-top: 30px;
+    margin-bottom: 15px;
+    a {
+        color: $c-brand;    
+    }
 }
 
 // style: elements
@@ -95,7 +107,7 @@ p {
     color: $c-grey2;
     background-color: #d4d4d4;
     font-family: $f-sans-serif-text;
-    font-size: 15px;
+    font-size: $fz-15;
     vertical-align: top;
     text-decoration: none;
     line-height: 24px;
@@ -140,7 +152,7 @@ p {
         @extend .f-people;
         text-decoration: none;
         &:hover {
-        text-decoration: underline;
+            text-decoration: underline;
         }
     }
 }
@@ -185,7 +197,7 @@ p {
 
 .col-2010 h4,
 .col-2015 h4 {
-    font-size: 13px;
+    font-size: $fz-13;
     color:#000;
     font-family: $f-sans-serif-headline;
 }
@@ -209,8 +221,14 @@ p {
     bottom: 0;
 }
 
+#election-nav-head, 
+#election-nav-footer { 
+    .electionNav-inner-container {
+        padding-top: 0;
+}}
+
 @media (min-width: 660px) {
-    //TODO: remove hack
+    //TODO: remove this hack if possible
     #election-nav-head { 
         display: block;
         .electionNav-head-title:after {
@@ -220,6 +238,12 @@ p {
             display: inline-block;
         }
     }
+    #election-nav-head, 
+    #election-nav-footer { 
+        .electionNav-inner-container {
+            max-width: none;
+            margin: 0;
+    }}
 
     .row-top { 
         > * { width: calc(50% - 10px); }

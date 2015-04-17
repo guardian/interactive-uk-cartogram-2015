@@ -39,7 +39,9 @@ define([
                 doc.querySelector("#" + d.id + " .js-gloss").textContent = d.gloss;
             }
         });
+        
 
+        /* replace some [word(s)] into buttons in a string */
         // add btns to standfirst
         var e = document.querySelector("#jsTop .js-gloss"),
             s = dataText[0].gloss; 
@@ -74,7 +76,12 @@ define([
         });
        
         // select default btn in standfirst
-        document.querySelector("#jsThe650seats").className = "btn-standfirst selected";     
+        document.querySelector("#jsThe650seats").className = "btn-standfirst selected";
+        /* end of replacement */
+
+
+        /* replace names into links */
+        //var names = ["Apple Chan-Fardel", "Seán Clarke", "Alberto Nardelli"," Ralph Straumann", "Carlo Zapponi"];
     }
 
     return {
