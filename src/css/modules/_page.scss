@@ -215,6 +215,8 @@ p {
     //TODO: remove this hack if possible
     #election-nav-head { 
         display: block;
+        width: 100%;
+        
         .electionNav-head-title:after {
             display: block;
         }
