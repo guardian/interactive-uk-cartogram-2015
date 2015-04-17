@@ -156,7 +156,7 @@ define([
     	this.resize=function(size) {
             map.resize(size);
             regions_map.resize(size);
-            d3.select(options.container).style("width",(options.geom[size].width+"px")||"100%")
+            //d3.select(options.container).style("width",(options.geom[size].width+"px")||"100%")
         };
 
         var filters={

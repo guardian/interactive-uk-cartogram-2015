@@ -167,49 +167,7 @@ define([
                     }
                 }
             });
-            /*
-            var timing=null;
-            ix
-                .on("touchstart", function(){
-                    timing=new Date();
-                    touchstart=true;
-                })
-                .on("touchend",function(){
-                    timing=null;
-                    if(options.mouseOutMapCallback) {
-                        options.mouseOutMapCallback();
-                    }
-                    touchstart=false;
-                })
-                .on("touchmove",function(d){
-                    if(touchstart) {
-
-
-
-                        d3.event.preventDefault();
-
-                        var coord=d3.touches(map_node);
-                        
-                        var c=findClosest([coord[0][0],coord[0][1]-40],function(d){
-                            if(options.filterRange) {
-                                return filterRange(d.properties.projection_info.margin);
-                            }
-                            if(!options.filterSame) {
-                                return true;
-                            }
-                            return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
-                        });
-                        
-
-                        if(c) {
-                            __currentConstituency=c;
-                            options.mouseOverMapCallback(c);
-                        }
-
-
-                    }
-                })
-            */
+            
                 
 
         }
