@@ -3,15 +3,14 @@
  * */
 
 
-//TODO: remove playground
+/*/TODO: remove playground
 #ukProjections {
     box-sizing: border-box;
-    height: 100%;
-}
+}/*
 .center {
     box-sizing: border-box;
 }
-//END OF TODO
+//END OF TODO*/
 
 
 // variables
@@ -43,6 +42,7 @@ button:focus {
 // style: fonts
 h1 {
     font-size: 32px;
+    line-height: 38px;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -77,15 +77,14 @@ p {
     margin-bottom: 15px;
 }
 .f-lastupdate {
-    margin-bottom: -5px;
+    padding-top: 20px;
 }
-
+ 
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
     color: $c-grey1;
 }
-
 .f-footnote {
     font-family: $f-sans-serif-text;
     font-size: $fz-13;
@@ -151,9 +150,11 @@ p {
 
 .row-top {
     @extend .row;
+    overflow: visible;
     min-height: 640px;
     margin-top: 0;
     margin-bottom: 0;
+    //padding-top: 30px;
 }
 
 .col-icon {
@@ -215,7 +216,10 @@ p {
     #election-nav-head { 
         display: block;
         width: 100%;
-        
+        height: 50px;
+        position: absolute;
+        top: 0;
+
         .electionNav-head-title:after {
             display: block;
         }
@@ -226,12 +230,23 @@ p {
     #election-nav-head, 
     #election-nav-footer { 
         .electionNav-inner-container {
+            background-color: transparent;
             max-width: none;
             margin: 0;
     }}
     //END OF TODO
-
+    //TODO: remove playground
+    #ukProjections {
+        height: 100%;
+    }
+    //END OF TODO
+    .f-lastupdate {
+        padding-top: 60px;
+    }
+    
     .row-top { 
+        //padding-top: 80px;
+        width: calc(100% + 50px); 
         > * { width: calc(50% - 10px); }
     }    
     .row-maps {
@@ -282,9 +297,17 @@ p {
         right: 0;
     }
 }
+
+@media (min-width: 740px) {
+    .row-top {
+        width: calc(100% + 20px); 
+    }
+}
+
 @media (min-width: 980px) {
     h1 {
         font-size: 48px;
+        line-height: 54px;
     }
     // text in section
     .row-text {
@@ -293,8 +316,5 @@ p {
     // text in subsection
     .col-text {
         width: calc(50% - #{$w-icon} + 30px);
-    }
-    .f-lastupdate {
-        margin-bottom: -10px;
     }
 }

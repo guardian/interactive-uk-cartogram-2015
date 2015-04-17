@@ -73,7 +73,7 @@ define([
 
     function updateData(code, name, p2010, p2015, src) {
         var a, cn1, cn2, txt, li, 
-        pType = (src === "Wales") ? "polling in Wales." : term(src) + " polling.",
+        pType = (src === "Wales") ? "polling in Wales." : term(src) + " polling",
             ul = document.querySelector("#jsCandidates"), 
             p1 = document.querySelector("#jsInfo"),
             p2 = document.querySelector("#jsMP"),
@@ -97,7 +97,7 @@ define([
         removeChildNodes(p2); 
         p2.appendChild(insertRect(mp.party));
         p2.appendChild(document.createTextNode(txt));   
-        console.log(mp);
+        //console.log(mp);
 
         // add candidates
         // empty ul
