@@ -1,15 +1,16 @@
 define([
     'common/utilities',
-    'json!data/constituency.json'
+    'json!data/constituency2.json'
 ], function(
     util,
-    data
+    dataObj
 ) {
     'use strict';
 
     // data
     //var max = 0, con;
-    var term = util.mapTerm,
+    var term = util.mapTerm;
+    /*
         dataObj = {};
     data.constituencies.forEach(function(d) {
         var mp = d[2010].candidates[0];
@@ -18,11 +19,11 @@ define([
 
         dataObj[d.ons_id] = {
             name: d.name,
-            /*mp: d[2010].candidates.filter(function(c) {
+            mp_old: d[2010].candidates.filter(function(c) {
               return c.party === d[2010].winningParty;
               }).map(function(mp) {
               return mp.name + ", " + mp.party;
-              })[0],*/
+              })[0],
             mp: mp,
             candidates: 
                 d[2015].candidates.map(function(c) {
@@ -33,6 +34,7 @@ define([
                 };
             })
         };
+        */
         /*
         var l = d[2015].candidates.length;
         if (l > max) { 
@@ -40,7 +42,10 @@ define([
            con = d.name;
         }
         */
+    /*
     });
+    */
+    //console.log(JSON.stringify(dataObj));
     //console.log(data);
     //console.log(dataObj);
     //console.log(max, con);    
