@@ -225,6 +225,12 @@ p {
         }
         .electionNav-head-item {
             display: inline-block;
+            a {
+                background-color: rgba(255, 255, 255, 0.75);
+                margin-top: 16px;
+                padding-top: 0;
+                padding-right: 8px;
+            }
         }
     }
     #election-nav-head, 
@@ -238,6 +244,7 @@ p {
     //TODO: remove playground
     #ukProjections {
         height: 100%;
+        width: calc(50% + 10px);
     }
     //END OF TODO
     .f-lastupdate {
@@ -245,9 +252,9 @@ p {
     }
     
     .row-top { 
-        //padding-top: 80px;
         width: calc(100% + 50px); 
-        > * { width: calc(50% - 10px); }
+        padding-bottom: 30px;
+        > * { width: calc(50% - 30px); }
     }    
     .row-maps {
         max-width: 100%;
