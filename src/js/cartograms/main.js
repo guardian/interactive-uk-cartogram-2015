@@ -137,27 +137,9 @@ define([
             }
         ];
 
-        var maps=[{map:ukCartogram}];
+        
 
-        function createRegionalMaps() {
-            mapsData.forEach(function(m){
-
-                maps.push({
-                    map:new UKCartogramComparison(projections, topo, regions,{
-                        container:m.container+" .cartogram",
-                        id:m.id,
-                        regions:m.regions,
-                        height:m.height,
-                        geom:m.geom,
-                        geom_normal: m.geom_normal,
-                        geom_small: m.geom_small,
-                        selected_geom:(width<490*2?"small":"normal"),
-                        clipPath:true,
-                        fadeOut:true
-                    })
-                });
-            });
-        }
+        
         
         var ukCartogram=new UKCartogram(projections, topo, regions,{
             container:"#ukProjections .cartogram .center",
@@ -180,9 +162,31 @@ define([
                 }
             },
             callback:function(){
-                setTimeout(createRegionalMaps,250);
+                
             }
         });
+        var maps=[{map:ukCartogram}];
+        createRegionalMaps();
+        function createRegionalMaps() {
+            mapsData.forEach(function(m){
+
+                maps.push({
+                    map:new UKCartogramComparison(projections, topo, regions,{
+                        container:m.container+" .cartogram",
+                        id:m.id,
+                        regions:m.regions,
+                        height:m.height,
+                        geom:m.geom,
+                        geom_normal: m.geom_normal,
+                        geom_small: m.geom_small,
+                        selected_geom:(width<490*2?"small":"normal"),
+                        clipPath:true,
+                        fadeOut:true
+                    })
+                });
+            });
+        }
+        
 
         function resize(size) {
 

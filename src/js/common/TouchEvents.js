@@ -57,6 +57,10 @@ define([
                 //if (ev.type == 'mousedown') {
                 //    $(document).on('mousemove', onMove).on('mouseup', onEnd);
                 //}
+
+                if(options.touchStartCallback) {
+                    options.touchStartCallback([startX,startY]);
+                }
             }
         }
          

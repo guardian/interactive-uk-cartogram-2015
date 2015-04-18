@@ -105,6 +105,23 @@ define([
 
         }
 
+        function onMove(coords) {
+            var c=findClosest([coords[0]-options.left,coords[1]],function(d){
+                if(options.filterRange) {
+                    return filterRange(d.properties.projection_info.margin);
+                }
+                if(!options.filterSame) {
+                    return true;
+                }
+                return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
+            });
+            
+
+            if(c) {
+                __currentConstituency=c;
+                options.mouseOverMapCallback(c);
+            }
+        }
         
         if(options.mouseClickMapCallback) {
             ix.on("click",function(){
@@ -119,52 +136,23 @@ define([
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
                     if(!touchstart) {
-                        var c=findClosest([d3.mouse(this)[0]-options.left,d3.mouse(this)[1]],function(d){
-                            if(options.filterRange) {
-                                return filterRange(d.properties.projection_info.margin);
-                            }
-                            if(!options.filterSame) {
-                                return true;
-                            }
-                            return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
-                        });
-                        
-
-                        if(c) {
-                            __currentConstituency=c;
-                            options.mouseOverMapCallback(c);
-                        }
+                        onMove(d3.mouse(this));
                     }
 
                 });
 
             new TouchEvents(ix,{
                 element:map_node,
-                touchStartCallback:function(){
+                touchStartCallback:function(coords){
                     touchstart=true;
+                    onMove([coords[0],coords[1]-40]);
                 },
                 touchEndCallback:function(){
                     touchstart=false;
                 },
-                touchMoveCallback:function(coord){
+                touchMoveCallback:function(coords){
                     touchstart=true;
-                    //var coord=d3.touches(map_node);
-                        
-                    var c=findClosest([coord[0],coord[1]-40],function(d){
-                        if(options.filterRange) {
-                            return filterRange(d.properties.projection_info.margin);
-                        }
-                        if(!options.filterSame) {
-                            return true;
-                        }
-                        return d.properties.projection_info["projection"] != d.properties.projection_info["winner2010"];
-                    });
-                    
-
-                    if(c) {
-                        __currentConstituency=c;
-                        options.mouseOverMapCallback(c);
-                    }
+                    onMove([coords[0],coords[1]-40]);
                 }
             });
             

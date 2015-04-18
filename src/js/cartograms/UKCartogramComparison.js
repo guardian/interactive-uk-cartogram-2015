@@ -120,7 +120,7 @@ define([
                     w=(status=="h")?options.geom.normal.width:options.geom.small.width,
                     h=(status=="h")?0:options.geom.small.height;
                 
-                console.log("show",info)
+                //console.log("show",info)
 
                 container_w=(container_w>620)?container_w/2:container_w;
                 
