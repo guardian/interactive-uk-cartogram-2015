@@ -208,7 +208,6 @@ p {
     bottom: 0;
 }
 
-#election-nav-head, 
 #election-nav-footer { 
     .electionNav-inner-container {
         padding-top: 0;
@@ -222,18 +221,8 @@ p {
         height: 50px;
         position: absolute;
         top: 0;
-
-        .electionNav-head-title:after {
-            display: block;
-        }
-        .electionNav-head-item {
-            display: inline-block;
-            a {
-                background-color: rgba(255, 255, 255, 0.75);
-                margin-top: 16px;
-                padding-top: 0;
-                padding-right: 8px;
-            }
+        .electionNav-head-item a {
+            background-color: rgba(255, 255, 255, 0.75);
         }
     }
     #election-nav-head, 
@@ -250,6 +239,7 @@ p {
         width: calc(50% + 10px);
     }
     //END OF TODO
+    
     .f-lastupdate {
         padding-top: 60px;
     }
