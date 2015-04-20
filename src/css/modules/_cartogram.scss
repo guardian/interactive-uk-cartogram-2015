@@ -280,6 +280,7 @@ path.full-opacity {
     }
     svg.overflow {
         border-left:1px solid #eee;
+        box-sizing: border-box;
     }
 }
 

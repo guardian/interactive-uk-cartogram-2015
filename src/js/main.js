@@ -38,7 +38,7 @@ define([
 
         // Load remote JSON data
         var key = '1YilVzArect3kcE1rzJvYivXkfs1oL0MLCrvC9GjPF6E', 
-                //'1tfMwu6bHXIoB9uVmTnuhYT0K8lv4OwNXhBCjHVasZP8', test version
+            //'1tfMwu6bHXIoB9uVmTnuhYT0K8lv4OwNXhBCjHVasZP8', test version
             url = 'http://interactive.guim.co.uk/spreadsheetdata/'+key+'.json';
 
         reqwest({
@@ -55,7 +55,7 @@ define([
             /* Render tabs */
             var head = document.querySelector('head'),
                 script = document.createElement('script');
-            script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
+            script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav-v2/electionNav.js');
             script.setAttribute('type','text/javascript');
             head.appendChild(script); 
         })
@@ -63,6 +63,11 @@ define([
             /* Render legand as stick element */
             stickElement();
             shareButtons();
+
+            /*/TODO: move to nav project
+            var imgs = document.querySelectorAll('.electionNav-footer-item img');
+            imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
+            //END OF TODO*/
         })
         .fail(handleRequestError)
         .always(afterRequest);  
