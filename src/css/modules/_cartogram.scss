@@ -17,6 +17,10 @@
 .cartogram {
     position: relative;
     height: 642px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.cartogram * {
+    -webkit-tap-highlight-color: inherit;
 }
 .center {
     position: relative;

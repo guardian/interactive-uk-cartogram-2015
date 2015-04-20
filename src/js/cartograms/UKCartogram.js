@@ -233,7 +233,8 @@ define([
                     });
 
                 var h=tooltip_node.clientHeight || tooltip_node.offsetHeight || 50,
-                    w=svg_node.clientWidth || svg_node.offsetWodth;
+                    svg_box=svg_node.getBoundingClientRect(),
+                    w=svg_box.width || svg_node.clientWidth || svg_node.offsetWidth;
 
                 tooltip.style({
                     display:"block",

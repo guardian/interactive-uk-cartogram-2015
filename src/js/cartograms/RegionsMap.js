@@ -271,8 +271,10 @@ define([
                     //.attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; }) 
 
             var thickness=options.border_thickness || 30,
-                w=svg.node().clientWidth || svg.node().offsetWidth,
-                h=svg.node().clientHeight || svg.node().offsetHeight;
+                svg_node=svg.node(),
+                svg_box=svg_node.getBoundingClientRect(),
+                w=svg_box.width || svg_node.clientWidth || svg_node.offsetWidth,
+                h=svg_box.height || svg_node.clientHeight || svg_node.offsetHeight;
             
             options.map_g.select("g.borders")
                         .selectAll("rect")
@@ -484,8 +486,10 @@ define([
                             .attr("class","borders");
 
             var thickness=options.border_thickness || 30,
-                w=svg.node().clientWidth || svg.node().offsetWidth,
-                h=svg.node().clientHeight || svg.node().offsetHeight;
+                svg_node=svg.node(),
+                svg_box=svg_node.getBoundingClientRect(),
+                w=svg_box.width || svg_node.clientWidth || svg_node.offsetWidth,
+                h=svg_box.height || svg_node.clientHeight || svg_node.offsetHeight;
 
             //console.log(svg.node(),w,h)
 

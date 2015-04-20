@@ -93,15 +93,15 @@ define([
                     .attr("x",options.left)
                         .append("path");
 
+            var svg_box=svg_node.getBoundingClientRect();
+
             ix=options.svg.append("rect")
                     .attr("class","bg")
                     .attr("x",options.left)
                     .attr("y",0)
-                    .attr("width",svg_node.clientWidth || svg_node.offsetWidth)
-                    .attr("height",svg_node.clientHeight || svg_node.offsetHeight)
-            
-                    
-            //console.log("----->",options.bg.width,options.left)
+                    .attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth)
+                    .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight)
+            //console.log(svg_node,svg_node.clientWidth || svg_node.offsetWidth,svg_node.clientHeight || svg_node.offsetHeight)
 
         }
 
@@ -307,9 +307,10 @@ define([
             path.projection(projection);
 
             setCentroids();
+            var svg_box=svg_node.getBoundingClientRect();
 
-            ix.attr("width",svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
-                .attr("height",svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
+            ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
+                .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
 
             constituenciesMap
                 .selectAll("path")

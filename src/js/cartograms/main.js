@@ -160,9 +160,6 @@ define([
                     scale_factor:1.6,
                     center:[2.9, 54.45]
                 }
-            },
-            callback:function(){
-                
             }
         });
         var maps=[{map:ukCartogram}];
