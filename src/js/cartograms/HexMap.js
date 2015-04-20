@@ -148,7 +148,7 @@ define([
                 element:svg_node,
                 touchStartCallback:function(coords){
                     touchstart=true;
-                    onMove([coords[0],coords[1]-40]);
+                    //onMove([coords[0],coords[1]-40]);
                 },
                 touchEndCallback:function(){
                     touchstart=false;
