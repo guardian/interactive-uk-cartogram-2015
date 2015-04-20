@@ -15,6 +15,8 @@ define([
     	
         var self=this;
 
+        var isTouch=('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+
     	topo.objects.hexagons.geometries.forEach(function(d) {
 
     		var projection = projections.sheets["RESULT"].filter(function(p) {
@@ -89,6 +91,8 @@ define([
                 textField:"abbr"
             });
 
+        var highlightedCostituency=null;
+
         var map=new HexMap(topo, {
             id:options.id,
             field: "projection",
@@ -99,10 +103,14 @@ define([
             },
             left: 0,//WIDTH/2,
             svg:svg,
+            isTouch:isTouch,
             tooltip: new Tooltip({
                     container: options.container,
                     left: 0,
-                    contestScale:contestScale
+                    contestScale:contestScale,
+                    callback:function() {
+                        selectAndExpandConstituency(highlightedCostituency)
+                    }
                 }),
             map_g:map_g,
             hundred:true,
@@ -117,30 +125,36 @@ define([
             filterContest:false,
             contestScale:contestScale,
             mouseClickMapCallback:function(d){
-                map.selectCostituency(d,function(c){
-                    map.zoom(c,function(translate,scale){
-                        regions_map.zoom(translate,scale)
-                    });
-
-                });
-                var c = d.properties,
-                    p = c.projection_info;
-
-                ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
-                ConstituencyExpand.updateView(1);
+                selectAndExpandConstituency(d);
             },
             mouseOverMapCallback:function(d){
                 map.highlightCostituency(d);
+                highlightedCostituency=d;
             },
             mouseOutMapCallback:function(d){
                 map.highlightCostituency();
                 map.deHighlightCostituency();
+                highlightedCostituency=null;
             },
             callback:options.callback
         });
         
 
         var constituencies = map.getConstituencies();    
+
+        function selectAndExpandConstituency(d) {
+            map.selectCostituency(d,function(c){
+                map.zoom(c,function(translate,scale){
+                    regions_map.zoom(translate,scale)
+                });
+
+            });
+            var c = d.properties,
+                p = c.projection_info;
+
+            ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
+            ConstituencyExpand.updateView(1);
+        }
 
         this.selectConstituency=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
@@ -178,9 +192,22 @@ define([
 
             var tooltip = d3.select(options.container)
                 .append("div")
-                .attr("class", "tooltip");
+                .attr("class", "tooltip")
+                .classed("touch",isTouch);
+
+
+
             var tooltip_contents = tooltip.append("div")
                                         .attr("class","tooltip-content")
+
+            if(isTouch) {
+                tooltip_contents.on("touchstart",function(){
+                    if(options.callback) {
+                        options.callback();
+                    }
+                })
+            }
+
             tooltip_contents.append("h4");
             tooltip_contents.append("p")
                 .attr("class", "proj");
@@ -218,18 +245,13 @@ define([
                         var from=info.properties.projection_info["winner2010"].toLowerCase(),
                             to=info.properties.projection;
 
-                        //console.log(info.properties.projection_info)
-                        
-                        /*
+                        var tap2expand="<span class=\"tap2expand\">Tap to select</span>";
+
+
                         if(from!==to) {
-                            return "<span class=\""+to+"\">" + names[to] + "<\/span> gain from <span class=\""+from+"\">" + names[from] + "<\/span>, based on "+swings[info.properties.projection_info.source];    
+                            return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[info.properties.projection_info.source] + tap2expand;
                         }
-                        return "<span class=\""+to+"\">" + names[to] + "<\/span> hold, based on "+swings[info.properties.projection_info.source];    
-                        */
-                        if(from!==to) {
-                            return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[info.properties.projection_info.source];    
-                        }
-                        return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source];    
+                        return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source] + tap2expand;
                     });
 
                 var h=tooltip_node.clientHeight || tooltip_node.offsetHeight || 50,

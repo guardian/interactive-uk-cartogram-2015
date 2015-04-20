@@ -141,7 +141,7 @@ define([
 
         
         
-        var ukCartogram=new UKCartogram(projections, topo, regions,{
+        /*var ukCartogram=new UKCartogram(projections, topo, regions,{
             container:"#ukProjections .cartogram .center",
             id:"ukProjection",
             width:460,
@@ -160,10 +160,45 @@ define([
                     scale_factor:1.6,
                     center:[2.9, 54.45]
                 }
+            },
+            callback:function(){
+                createRegionalMaps();
             }
-        });
-        var maps=[{map:ukCartogram}];
-        createRegionalMaps();
+        });*/
+        var maps=[];
+        var ukCartogram;
+        maps.push(
+            {
+                map: ukCartogram=new UKCartogram(projections, topo, regions,{
+                    container:"#ukProjections .cartogram .center",
+                    id:"ukProjection",
+                    width:460,
+                    height:640,
+                    selected_geom:(width<490*2?"small":"normal"),
+                    geom:{
+                        normal:{
+                            width:460,
+                            height:640,
+                            scale_factor:2,
+                            center:[1, 54.45]
+                        },
+                        small:{
+                            width:310,
+                            height:640,
+                            scale_factor:1.6,
+                            center:[2.9, 54.45]
+                        }
+                    },
+                    callback:function(){
+                        createRegionalMaps();
+                    }
+                })
+            }
+        );
+
+        
+
+        //createRegionalMaps();
         function createRegionalMaps() {
             mapsData.forEach(function(m){
 
@@ -186,7 +221,7 @@ define([
         
 
         function resize(size) {
-
+            console.log(size,maps)
             maps.forEach(function(m) {
                 m.map.resize(size);
             });
@@ -205,17 +240,7 @@ define([
 
         });
 
-        window.applySameFilter=function(par) {
-            ukCartogram.applyFilter("same",par);
-        };
-
-        window.applyContestFilter=function(par) {
-            ukCartogram.applyFilter("contest",par);
-        };
-
-        window.removeFilters=function(par) {
-            ukCartogram.applyFilter("none");
-        };
+        
         
         var btnParentID = "jsStandfirst",
             btnClass = "btn-standfirst",

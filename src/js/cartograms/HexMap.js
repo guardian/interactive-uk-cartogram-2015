@@ -122,11 +122,14 @@ define([
                 options.mouseOverMapCallback(c);
             }
         }
-        
+        var touchstart=false;
         if(options.mouseClickMapCallback) {
+            
             ix.on("click",function(){
-                    options.mouseClickMapCallback(__currentConstituency);
-                })
+                if(!options.isTouch) {
+                    options.mouseClickMapCallback(__currentConstituency);    
+                }
+            });
         }
         var touchstart=false;
         if(options.mouseOverMapCallback) {
@@ -236,7 +239,7 @@ define([
                     options.mouseOverCallback(d);
                 }
             })
-            .on("mouseout",function(d){
+            .on("mouseout",function(){
                 if(typeof options.mouseOutCallback != 'undefined') {
                     to=setTimeout(function(){
                         options.mouseOutCallback(); 

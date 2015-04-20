@@ -78,6 +78,15 @@
     padding: 0;
     color:#000;
 }
+
+.tooltip .tap2expand {
+    display: none;
+    font-style: italic;
+    color:$c-grey2;
+}
+.touch.tooltip .tap2expand {
+    display: block;
+}
 /*************** TOOLTIP-ARROW ***************/
 .tooltip-arrow {
 
