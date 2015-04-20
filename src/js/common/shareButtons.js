@@ -13,12 +13,12 @@ define([
         function openShareWindow(e){
             
             var network = e.currentTarget.getAttribute('data-source'); 
-            var guardianUrl = "http://preview.gutools.co.uk/politics/ng-interactive/2015/apr/17/election-2015-constituency-map";//+(currentView?("#"+currentView):"");
+            var guardianUrl = "http://gu.com/p/47ctg";//+(currentView?("#"+currentView):"");
             var twitterBaseUrl = "https://twitter.com/home?status=";
             var facebookBaseUrl = "https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&link=";
-            var sharemessage = "Election 2015: Constituency by constituency - The Guardian";
+            var sharemessage = "Election 2015: Who is leading the polls where you live? http://gu.com/p/47ctg";
             var shareWindow = "";
-            var shareImage = "";
+            var shareImage = "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2015/4/17/1429274739843/a2824ca7-3924-4a29-9adb-1cc3ef7f14d3-bestSizeAvailable.gif";
             //var currentView = e.currentTarget.getAttribute('data-view');
             //var sharemessage=document.querySelector("a[name=default]");
             
@@ -32,9 +32,9 @@ define([
             if(network === "twitter"){
                 shareWindow = 
                     twitterBaseUrl + 
-                    encodeURIComponent(sharemessage);/* + 
+                    encodeURIComponent(sharemessage); + 
                     "%20" + 
-                    (currentView?encodeURIComponent(guardianUrl):""); */
+                    "http://gu.com/p/47ctg"; 
 
             }else if(network === "facebook"){
                 shareWindow = 
