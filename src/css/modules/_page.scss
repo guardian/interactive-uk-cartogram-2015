@@ -43,6 +43,7 @@ button:focus {
 h1 {
     font-size: 32px;
     line-height: 38px;
+    color: black;
 }
 h2 {
     font-family: $f-serif-headline;
@@ -72,7 +73,7 @@ p {
 .f-standfirst {
     font-family: $f-serif-text;
     font-size: $fz-18;
-    color: $c-grey3;
+    color: $c-grey2;
     margin-top: 15px;
     margin-bottom: 15px;
 }
