@@ -16,7 +16,7 @@ define([
             var guardianUrl = "http://gu.com/p/47ctg";//+(currentView?("#"+currentView):"");
             var twitterBaseUrl = "https://twitter.com/home?status=";
             var facebookBaseUrl = "https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&link=";
-            var sharemessage = "Election 2015: Who is leading the polls where you live? http://gu.com/p/47ctg";
+            var sharemessage = "Election 2015: Who is leading the polls where you live? http://gu.com/p/47ctg pic.twitter.com/vpDUQxkrJX";
             var shareWindow = "";
             var shareImage = "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2015/4/17/1429274739843/a2824ca7-3924-4a29-9adb-1cc3ef7f14d3-bestSizeAvailable.gif";
             //var currentView = e.currentTarget.getAttribute('data-view');
