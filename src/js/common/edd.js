@@ -124,7 +124,9 @@ define([
 
 
 
-			dropdown.addEventListener('mousedown', onDropdownClick);
+			dropdown.addEventListener('mousedown', function(d){
+				onDropdownClick(d);
+			});
 			dropdown.addEventListener('mouseover', onDropdownMouseOver);
 
 			opts.el.appendChild(input);
