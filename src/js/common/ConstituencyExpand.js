@@ -118,14 +118,14 @@ define([
             cn2 = txt;
 
             // link
-            if (d.link !== undefined) {
+            if (d.url !== undefined) {
                 a = document.createElement("a");
                 a.href = d.url;
                 a.target = "_blank";
                 a.appendChild(txt); 
                 cn2 = a;
             }
-
+            console.log(d);
             li = document.createElement("li");
             li.appendChild(cn1); 
             li.appendChild(cn2); 

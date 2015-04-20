@@ -25,6 +25,10 @@ $ff-ss-h: $f-sans-serif-headline;   //: 'Guardian Sans Web';
 $ff-ss-t: $f-sans-serif-text;       //: 'Guardian Text Sans Web';
 $ff-data: $f-data;                  //: 'Guardian Agate Sans 1 Web';
  */
+.ff-s-t {
+    font-family: $f-serif-text;
+}
+
 
 $fz-12: 12px;
 $fz-13: 13px;
@@ -34,7 +38,9 @@ $fz-16: 16px;
 $fz-18: 18px;
 $fz-20: 20px;
 $fz-22: 22px;
-
+.fz-16 {
+    font-size: $fz-16;
+}
 // color:
 // inheritance from pasteup-palette
 // http://guardian.github.io/pasteup-palette/demo/
@@ -52,8 +58,8 @@ $c-grey5: map-get($pasteup-palette, 'neutral-5'); //c-border
 $c-grey7: map-get($pasteup-palette, 'neutral-7'); //bgc-btn
 $c-grey8: map-get($pasteup-palette, 'neutral-8'); //bgc
 $c-grey9: #ababab; //f-footer
-.c-grey9 {
-    color: $c-grey9;
+.c-grey2 {
+    color: $c-grey2;
 }
 
 // parties
