@@ -106,7 +106,7 @@ define([
         }
 
         function onMove(coords) {
-            var c=findClosest([coords[0]-options.left,coords[1]],function(d){
+            var c=findClosest([coords[0],coords[1]],function(d){
                 if(options.filterRange) {
                     return filterRange(d.properties.projection_info.margin);
                 }
@@ -142,7 +142,7 @@ define([
                 });
 
             new TouchEvents(ix,{
-                element:map_node,
+                element:svg_node,
                 touchStartCallback:function(coords){
                     touchstart=true;
                     onMove([coords[0],coords[1]-40]);
@@ -573,6 +573,8 @@ define([
                 dist=10000;
             
             coords=getMapCoords(coords[0],coords[1],__translate,__scale);
+
+
 
             constituencies.filter(function(d){
                 if(!filter) {
