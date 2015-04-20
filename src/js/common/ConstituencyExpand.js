@@ -125,7 +125,7 @@ define([
                 a.appendChild(txt); 
                 cn2 = a;
             }
-            console.log(d);
+            
             li = document.createElement("li");
             li.appendChild(cn1); 
             li.appendChild(cn2); 

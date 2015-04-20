@@ -221,7 +221,7 @@ define([
         
 
         function resize(size) {
-            console.log(size,maps)
+            //console.log(size,maps)
             maps.forEach(function(m) {
                 m.map.resize(size);
             });
