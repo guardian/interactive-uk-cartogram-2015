@@ -93,6 +93,7 @@ define([
                     .attr("x",options.left)
                         .append("path");
 
+            /*
             var svg_box=svg_node.getBoundingClientRect();
 
             ix=options.svg.append("rect")
@@ -101,6 +102,7 @@ define([
                     .attr("y",0)
                     .attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth)
                     .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight)
+            */
             //console.log(svg_node,svg_node.clientWidth || svg_node.offsetWidth,svg_node.clientHeight || svg_node.offsetHeight)
 
         }
@@ -125,7 +127,7 @@ define([
         var touchstart=false;
         if(options.mouseClickMapCallback) {
             
-            ix.on("click",function(){
+            svg.on("click",function(){
                 if(!options.isTouch) {
                     options.mouseClickMapCallback(__currentConstituency);    
                 }
@@ -135,7 +137,7 @@ define([
         if(options.mouseOverMapCallback) {
 
 
-            ix
+            svg
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
                     if(!touchstart) {
@@ -144,7 +146,7 @@ define([
 
                 });
 
-            new TouchEvents(ix,{
+            new TouchEvents(svg,{
                 element:svg_node,
                 touchStartCallback:function(coords){
                     touchstart=true;
@@ -163,7 +165,7 @@ define([
 
         }
         if(options.mouseOutMapCallback) {
-            ix.on("mouseout",function(){
+            svg.on("mouseout",function(){
                 options.mouseOutMapCallback();
             });                 
         }
@@ -312,8 +314,8 @@ define([
             setCentroids();
             var svg_box=svg_node.getBoundingClientRect();
 
-            ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
-                .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
+            //ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
+              //  .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
 
             constituenciesMap
                 .selectAll("path")
@@ -499,6 +501,11 @@ define([
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
                 
+                //var svg_box=svg_node.getBoundingClientRect();
+
+                //ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
+                  //  .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
+
                 if(callback) {
                     callback(__translate,__scale);
                 }
