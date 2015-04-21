@@ -18,6 +18,7 @@
     position: relative;
     height: 642px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    &:hover { cursor: pointer; }
 }
 .cartogram * {
     -webkit-tap-highlight-color: inherit;

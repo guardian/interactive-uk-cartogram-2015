@@ -55,19 +55,14 @@ define([
             /* Render tabs */
             var head = document.querySelector('head'),
                 script = document.createElement('script');
-            script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav-v2/electionNav.js');
+            script.setAttribute('src','http://interactive.guim.co.uk/2015/04/election-nav/electionNav.js');
             script.setAttribute('type','text/javascript');
             head.appendChild(script); 
         })
         .then(function() {
-            /* Render legand as stick element */
-            stickElement();
+            /* Render social buttons and legand as stick element */
             shareButtons();
-
-            /*/TODO: move to nav project
-            var imgs = document.querySelectorAll('.electionNav-footer-item img');
-            imgs[0].src = '@@assetPath@@/imgs/proj_projection.png';
-            //END OF TODO*/
+            stickElement();
         })
         .fail(handleRequestError)
         .always(afterRequest);  
