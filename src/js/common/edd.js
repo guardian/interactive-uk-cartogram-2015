@@ -1,7 +1,7 @@
 define([
 	
 ], function(
-
+	
 ) {	
 
 	'use strict';
@@ -20,20 +20,50 @@ define([
 			// onChange - takes the new value and returns a promise that resolves to an array
 			// onSelect - once the user selects
 
-			var dropdown, input, focusElement, lastVal = '';
+			var dropdown, input, focusElement, lastVal = '', touchstart;
 
 			function renderDropdown(arr,selectIndex) {
 				setFocusElement(null);
+
+
 				if (arr.length > 0) {
+					//d3.select(dropdown).remove(".edd__entry");
+
 					var htmls = arr.map(function(entry,i) { 
 						var classes = 'edd__entry' + (entry[0] === null ? ' edd__entry--info' : '');
 						return '<div class="'+classes+'" data-val="'+entry[0]+'">'+entry[1]+'</div>';
-					})
+					});
 					dropdown.innerHTML = htmls.join('');
 					dropdown.style.display = '';
 					if(selectIndex !== undefined) {
 						setFocusElement(dropdown.querySelector('*:nth-child('+(selectIndex+1)+')'));
 					}
+					
+					var entries=dropdown.querySelectorAll("div.edd__entry");
+					for(var i=0;i<entries.length;i++) {
+
+						entries[i].addEventListener("mousedown",function(evt){ 
+							if(!touchstart) {
+								setFocusElement(this);	
+								onDropdownClick(evt);
+								onBlur(evt);
+							}
+						});
+						entries[i].addEventListener("mouseover",function(evt){ 
+							setFocusElement(this);
+						});
+						entries[i].addEventListener("touchstart",function(evt){ 
+							touchstart=true;
+							setFocusElement(this);
+						});
+						entries[i].addEventListener("touchend",function(evt){ 
+							onDropdownClick(evt);
+							onBlur(evt);
+							touchstart=false;
+						});
+					}
+
+						
 				} else {
 					dropdown.style.display = 'none';
 				}
@@ -120,19 +150,22 @@ define([
 			// create listeners
 			input.addEventListener('keyup', onInputKeyUp) ;
 			input.addEventListener('keydown', onInputKeyDown) ;
-			input.addEventListener('blur', onBlur) ;
+			//input.addEventListener('blur', onBlur) ;
 
 
 
-			dropdown.addEventListener('mousedown', function(d){
-				onDropdownClick(d);
-			});
-			dropdown.addEventListener('mouseover', onDropdownMouseOver);
+			//dropdown.addEventListener('mousedown', function(d){
+			//	alert("mousedown")
+			//	onDropdownClick(d);
+			//});
+			//dropdown.addEventListener('mouseover', onDropdownMouseOver); 
 
 			opts.el.appendChild(input);
 			opts.el.appendChild(dropdown);
 
 			renderDropdown([]);
+
+			console.log("v. 0.11")
 
 		}
 
