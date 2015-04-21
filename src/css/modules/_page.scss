@@ -31,7 +31,9 @@ button:focus {
 
 // style: fonts
 h1 {
+    font-family: $f-serif-headline;
     font-size: 32px;
+    font-weight: normal;
     color: black;
     line-height: 38px;
 }
@@ -74,7 +76,7 @@ p {
     padding-top: 30px;
     margin-bottom: 5px;
 }
- 
+
 .f-people {
     font-family: $f-sans-serif-text;
     font-size: $fz-14;
@@ -216,12 +218,12 @@ p {
         width: calc(50% + 10px);
     }
     //END OF TODO
-    
+
     .f-lastupdate {
         padding-top: 90px;
         margin-bottom: 10px;
     }
-    
+
     .row-top { 
         width: calc(100% + 50px); 
         padding-bottom: 30px;
