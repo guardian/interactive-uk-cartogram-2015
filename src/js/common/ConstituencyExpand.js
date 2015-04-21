@@ -1,8 +1,10 @@
 define([
     'common/utilities',
+    //'json!data/constituency_src.json'
     'json!data/constituency.json'
 ], function(
     util,
+    //data
     dataObj
 ) {
     'use strict';
@@ -21,7 +23,7 @@ define([
         mp.pty = mpObj.party;                       //party
         mp.per = mpObj.percentage;                  //percentage
         mp.maj = d[2010].percentageMajority;        //majority
-
+        
         dataObj[d.ons_id] = {
             //"const": d.name,
             "mp": mp,
@@ -32,17 +34,21 @@ define([
               })[0],* /
             "candi": 
                 d[2015].candidates.map(function(c) {
+                var url = c.url,
+                    //console.log(c.url);
+                    //console.log(url.slice(-4));
+                    id = (url !== undefined) ? url.slice(-4) : undefined;
                 return {
                     //txt: c.name + ", " + c.party,
                     who: c.name,
-                    url: c.url,
+                    url: id,//c.url,
                     pty: c.party
                 };
             })
         };
-    });*/
-    
-    //console.log(JSON.stringify(dataObj));
+    });
+    console.log(JSON.stringify(dataObj));
+    */
     //console.log(data);
     //console.log(dataObj);
     //console.log(max, con);    
@@ -120,7 +126,8 @@ define([
             // link
             if (d.url !== undefined) {
                 a = document.createElement("a");
-                a.href = d.url;
+                //a.href = d.url;
+                a.href = "https://yournextmp.com/person/" + d.url;
                 a.target = "_blank";
                 a.appendChild(txt); 
                 cn2 = a;
