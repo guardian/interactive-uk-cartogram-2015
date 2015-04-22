@@ -165,7 +165,7 @@ define([
 
 			renderDropdown([]);
 
-			console.log("v. 0.11")
+			console.log("v. 0.3")
 
 		}
 

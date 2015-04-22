@@ -190,16 +190,19 @@ define([
                         }
                     },
                     callback:function(){
-                        createRegionalMaps();
+                        createRegionalMaps(maps);
                     }
-                })
+                }),
+                id:"ukProjections",
+                position:document.getElementById("ukProjections").getBoundingClientRect()
             }
         );
-
-        
+        detectScroll();
+        //console.log("--->",maps)
 
         //createRegionalMaps();
-        function createRegionalMaps() {
+        function createRegionalMaps(maps) {
+            var screenPositions=[];
             mapsData.forEach(function(m){
 
                 maps.push({
@@ -216,12 +219,55 @@ define([
                         fadeOut:true
                     })
                 });
+
+                var index=maps.length-1;
+                //setTimeout(function(){
+                    var __map = document.getElementById(m.container.substr(1)),
+                        screenPosition = __map.getBoundingClientRect();
+
+                    screenPositions.push({
+                        id:m.container,
+                        position:screenPosition
+                    });
+
+                    maps[index].id=m.container;
+                    maps[index].position=screenPosition;    
+                //},250);
+                
+
+                
+
             });
+
+            //console.log(maps);
+
+            detectScroll();
+
+            
         }
         
+        function detectScroll() {
+            var scrollTop = document.body.scrollTop;
+            //console.log("detectScroll",scrollTop)
+
+            maps.forEach(function(m){
+                //console.log(m,scrollTop)
+                if(m.position && m.position.top<scrollTop+300) {
+                    //console.log("show",m.id);
+                    m.map.showConstituencies();
+                }
+            });
+        }
+
+        window.addEventListener(
+            'scroll',
+            detectScroll,
+            false
+        );
 
         function resize(size) {
             //console.log(size,maps)
+            detectScroll();
             maps.forEach(function(m) {
                 m.map.resize(size);
             });

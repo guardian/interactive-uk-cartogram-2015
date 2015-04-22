@@ -77,23 +77,33 @@ define([
         //OPTIMIZATIONS
         var svg_node=svg.node(),
             map_node=map.node();
-        var working_svg=document.createElement("svg");        
-        var working_constituenciesMap=document.createElement("g");
+        //END OF OPTIMAZIONS
 
-        working_constituenciesMap.className="constituencies";
-        working_svg.appendChild(working_constituenciesMap);
-        
-        //console.log(working_svg);
-        //console.log(d3.select(working_svg));
-        //var working_constituenciesMap=d3.select(working_svg).select("g");
-        //console.log(working_constituenciesMap)
-        //END OF OPTIMIZATIONS
+        var constituenciesMap=map.append("g")
+            .attr("class","constituencies")
+            .classed("highlight-change",options.highlightChange);
 
         
-        var clone=options.svg.append("g")
+
+        var ix=map;
+        var clone;
+        if(options.bg) {
+            clone=options.svg.append("g")
                     .attr("class","clone")
                     .attr("x",options.left)
                         .append("path");
+
+            var svg_box=svg_node.getBoundingClientRect();
+
+            ix=options.svg.append("rect")
+                    .attr("class","bg")
+                    .attr("x",options.left)
+                    .attr("y",0)
+                    .attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth)
+                    .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight)
+            //console.log(svg_node,svg_node.clientWidth || svg_node.offsetWidth,svg_node.clientHeight || svg_node.offsetHeight)
+
+        }
 
         function onMove(coords) {
             var c=findClosest([coords[0],coords[1]],function(d){
@@ -115,7 +125,7 @@ define([
         var touchstart=false;
         if(options.mouseClickMapCallback) {
             
-            svg.on("click",function(){
+            ix.on("click",function(){
                 if(!options.isTouch) {
                     options.mouseClickMapCallback(__currentConstituency);    
                 }
@@ -125,7 +135,7 @@ define([
         if(options.mouseOverMapCallback) {
 
 
-            svg
+            ix
                 .on("mousemove",function(){
                     //console.log("mouse",d3.mouse(this))
                     if(!touchstart) {
@@ -134,7 +144,7 @@ define([
 
                 });
 
-            new TouchEvents(svg,{
+            new TouchEvents(ix,{
                 element:svg_node,
                 touchStartCallback:function(coords){
                     touchstart=true;
@@ -153,13 +163,8 @@ define([
 
         }
         if(options.mouseOutMapCallback) {
-            svg.on("mouseout",function(){                
-                if(d3.event.target.nodeName=="svg") {
-                    tooltip.hide();
-                }
-
+            ix.on("mouseout",function(){
                 options.mouseOutMapCallback();
-                
             });                 
         }
         
@@ -181,18 +186,24 @@ define([
 
         }());
 
-        var features=topojson.feature(topo, hexagons).features;
-        d3.select(working_constituenciesMap)
+
+        //var constituencies=[];
+        //console.log("!!!!!!",topo)
+        /*var paths=constituenciesMap
             .selectAll("path")
-            .data(features)
+            .data()
             .enter()
-            .append("path")
-                //.attr("rel",function(d){
-                //    return d.properties.projection_info["winner2010"]+" -> "+d.properties.projection_info["projection"];
-                //})
+            .append("path");*/
+
+        var features=topojson.feature(topo, hexagons).features,
+            index=0;
+        d3.timer(function(){
+            console.log(index);
+
+            constituenciesMap.append("path")
+                .datum(features[index])
                 .attr("class", function(d) {
                     var c = "constituency " + d.properties.projection_info[options.field].toLowerCase();
-                    //var c = "constituency " + d.properties.projection_info[options.field].toLowerCase();
 
                     if (options.border) {
                         c += " constituency-border";
@@ -212,102 +223,36 @@ define([
                     }
                     return d.properties.projection_info["projection"] == d.properties.projection_info["winner2010"];
                 })
-                .style("fill-opacity",function(d){
-                    if(!options.filterContest) {
-                        return;
-                    }
-                    if(options.contestScale) {
-                        return options.contestScale(d.properties.projection_info.margin)
-                    }
-                })
                 .attr("d", function(d) {
                     return path(d);
+                })
+                .on("mouseover", function(d) {
+                    console.log(d);
+                    if(typeof options.mouseOverCallback != 'undefined') {
+                        if(to) {
+                            clearTimeout(to);
+                            to=null;
+                        }
+                        options.mouseOverCallback(d);
+                    }
+                })
+                .on("mouseout",function(){
+                    if(typeof options.mouseOutCallback != 'undefined') {
+                        to=setTimeout(function(){
+                            options.mouseOutCallback(); 
+                        },250);
+                        
+                    }
+                    
                 });
 
-        //console.log(working_constituenciesMap);
-        //console.log(working_constituenciesMap.node());
-        //console.log(working_constituenciesMap.node().innerHTML);
+
+
+            index++;
+            return index===features.length;
+        });
         
-
-
-        //constituenciesMap.html(d3.select(working_svg).html());
-        //console.log(constituenciesMap.node()) 
-        //var map_node=constituenciesMap.node();
-        //map_node.innerHTML="<path></path>";//d3.select(working_svg).html();
-        
-
-
-        var constituenciesMap=map.append("g")
-            .attr("class","constituencies")
-            .classed("highlight-change",options.highlightChange);
-
-        //map.node().appendChild(working_constituenciesMap.cloneNode(true));
-        
-        //map.node().innerHTML=working_constituenciesMap.innerHTML;
-        //var constituenciesMap=map.select("g.constituencies").classed("highlight-change",options.highlightChange);
-        
-        //svg_node.textContent="<circle></circle>";
-        //map.node().innerHTML=working_constituenciesMap.innerHTML;
-        //var constituenciesMap=map.append("g").attr("class","constituencies").classed("highlight-change",options.highlightChange);
-
-        if(!options.noDOM) {
-            drawConstituencies();
-        }
-
-        var DRAWN=false,
-            constituencies,
-            centroids={};
-
-        function drawConstituencies() {
-            if(!DRAWN) {
-                
-                constituenciesMap.node().innerHTML=working_constituenciesMap.innerHTML;
-                DRAWN=true;    
-
-                constituenciesMap
-                    .selectAll("path")
-                    .data(features)
-                    .on("mouseover", function(d) {
-                        if(typeof options.mouseOverCallback !== 'undefined') {
-                            if(to) {
-                                clearTimeout(to);
-                                to=null;
-                            }
-                            options.mouseOverCallback(d);
-                        }
-                    })
-                    .on("mouseout",function(){
-                        if(typeof options.mouseOutCallback !== 'undefined') {
-                            to=setTimeout(function(){
-                                options.mouseOutCallback(); 
-                            },250);
-                            
-                        }
-                        
-                    });
-                
-                constituencies=constituenciesMap
-                        .selectAll("path").filter(function(d){
-                            return !d.properties.gray;
-                        })
-                        .data();
-                centroids={};
-
-                setCentroids();
-            }
-            
-        }
-        this.showConstituencies=function() {
-            drawConstituencies();
-        }
-
-        /*
-        constituenciesMap
-            .selectAll("path")
-            .data(topojson.feature(topo, hexagons).features)
-            .enter()
-            .append("path")
-            .attr("rel",function(d){
+        /*paths.attr("rel",function(d){
                 return d.properties.projection_info["winner2010"]+" -> "+d.properties.projection_info["projection"];
             })
             .attr("class", function(d) {
@@ -363,38 +308,16 @@ define([
             });*/
         
 
-        /*map.selectAll("path").filter(function(d){
+        map.selectAll("path").filter(function(d){
             return !d.properties.gray;
         })
         .style("fill",function(d){
             if(options.gradients) {
                 return "url(#grad_"+d.properties.projection_info.winner2010.toLowerCase()+"2"+d.properties.projection_info.projection.toLowerCase()+")";    
             }
-        });*/
+        });
 
-        constituenciesMap
-            .selectAll("path")
-            .data(features)
-            .on("mouseover", function(d) {
-                if(typeof options.mouseOverCallback !== 'undefined') {
-                    if(to) {
-                        clearTimeout(to);
-                        to=null;
-                    }
-                    options.mouseOverCallback(d);
-                }
-            })
-            .on("mouseout",function(){
-                if(typeof options.mouseOutCallback !== 'undefined') {
-                    to=setTimeout(function(){
-                        options.mouseOutCallback(); 
-                    },250);
-                    
-                }
-                
-            });
-        
-        var constituencies=constituenciesMap
+        var constituencies=map
                 .selectAll("path").filter(function(d){
                     return !d.properties.gray;
                 })
@@ -447,8 +370,8 @@ define([
             setCentroids();
             var svg_box=svg_node.getBoundingClientRect();
 
-            //ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
-              //  .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
+            ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
+                .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
 
             constituenciesMap
                 .selectAll("path")
@@ -519,9 +442,8 @@ define([
                 //map.classed("highlight",false);
                     //.selectAll("path")
                     //      .classed("highlight",false)
-
                 if(options.tooltip) {
-                //    tooltip.hide();
+                    tooltip.hide();
                 }
                 return;
             }
@@ -613,15 +535,14 @@ define([
             if(options.zoomable) {
                 var c_centre=this.getCentroid(constituency);
                 
-                var svg_box=svg_node.getBoundingClientRect();
-
-                
 
                 var center =    getCentroid(constituency.properties.constituency),//path.centroid(constituency),
                                 scale = 2,
-                                translate = [svg_box.width / 2 - scale * center[0], svg_box.height * (2/3) - scale * center[1]];
+                                translate = [GEOM.width / 2 - scale * center[0], GEOM.height / 2 - scale * center[1]];
 
                 __scale=scale;
+
+                //var dist=getDistance(__translate[0],__translate[1],translate[0],translate[1]);
                 
                 __translate=translate;
 
@@ -636,11 +557,6 @@ define([
                         .duration(500)
                         .attr("transform", "translate(" + __translate + ")scale(" + __scale + ")");
                 
-                //var svg_box=svg_node.getBoundingClientRect();
-
-                //ix.attr("width",svg_box.width || svg_node.clientWidth || svg_node.offsetWidth || GEOM.width)
-                  //  .attr("height",svg_box.height || svg_node.clientHeight || svg_node.offsetHeight || GEOM.height);
-
                 if(callback) {
                     callback(__translate,__scale);
                 }
@@ -759,106 +675,5 @@ define([
         
 
     };
-
-    (function (view) {
-
-        var
-            constructors    = ['SVGSVGElement', 'SVGGElement']
-            , dummy         = document.createElement('dummy');
-
-        if (!constructors[0] in view) {
-            return false;
-        }
-
-        if (Object.defineProperty) {
-
-            var innerHTMLPropDesc = {
-
-                get : function () {
-
-                    dummy.innerHTML = '';
-
-                    Array.prototype.slice.call(this.childNodes)
-                    .forEach(function (node, index) {
-                        dummy.appendChild(node.cloneNode(true));
-                    });
-
-                    return dummy.innerHTML;
-                },
-
-                set : function (content) {
-                    var
-                        self        = this
-                        , parent    = this
-                        , allNodes  = Array.prototype.slice.call(self.childNodes)
-
-                        , fn        = function (to, node) {
-                            if (node.nodeType !== 1) {
-                                return false;
-                            }
-
-                            var newNode = document.createElementNS('http://www.w3.org/2000/svg', node.nodeName.toLowerCase());
-
-                            Array.prototype.slice.call(node.attributes)
-                            .forEach(function (attribute) {
-                                newNode.setAttribute(attribute.name, attribute.value);
-                            });
-
-                            if (node.nodeName === 'TEXT') {
-                                newNode.textContent = node.innerHTML;
-                            }
-
-                            to.appendChild(newNode);
-
-                            if (node.childNodes.length) {
-
-                                Array.prototype.slice.call(node.childNodes)
-                                .forEach(function (node, index) {
-                                    fn(newNode, node);
-                                });
-
-                            }
-                        };
-
-                    // /> to </tag>
-                    content = content.replace(/<(\w+)([^<]+?)\/>/, '<$1$2></$1>');
-
-                    // Remove existing nodes
-                    allNodes.forEach(function (node, index) {
-                        node.parentNode.removeChild(node);
-                    });
-
-
-                    dummy.innerHTML = content;
-
-                    Array.prototype.slice.call(dummy.childNodes)
-                    .forEach(function (node) {
-                        fn(self, node);
-                    });
-
-                }
-                , enumerable        : true
-                , configurable      : true
-            };
-
-            try {
-                constructors.forEach(function (constructor, index) {
-                    Object.defineProperty(window[constructor].prototype, 'innerHTML', innerHTMLPropDesc);
-                });
-            } catch (ex) {
-                // TODO: Do something meaningful here
-            }
-
-        } else if (Object['prototype'].__defineGetter__) {
-
-            constructors.forEach(function (constructor, index) {
-                window[constructor].prototype.__defineSetter__('innerHTML', innerHTMLPropDesc.set);
-                window[constructor].prototype.__defineGetter__('innerHTML', innerHTMLPropDesc.get);
-            });
-
-        }
-
-        } (window));
-
     return HexMap;    
 });

@@ -57,7 +57,8 @@ define([
 
 
         var regionsMap=options.map_g.append("g")
-            .attr("class","regions "+options.field);
+            .attr("class","regions "+options.field)
+            .classed("wireframe",true);
 
 
         var regions=!options.regions?topo.objects.regions:(function(){
@@ -314,6 +315,10 @@ define([
 
         this.resize=function(size){
             resize(size);
+        }
+
+        this.hideWireframe=function(){
+            regionsMap.classed("wireframe",true)
         }
 
         this.zoom=function(translate,scale) {

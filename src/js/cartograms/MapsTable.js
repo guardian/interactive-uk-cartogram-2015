@@ -39,7 +39,8 @@ define([
         var MAX_WIDTH=300;
 
         var maps={},
-            regions={};
+            regions={},
+            scrollPositions=[];
 
         svgs.each(function(d,i){
             //console.log(d);
@@ -83,6 +84,7 @@ define([
                     selected_geom:options.selected_geom,
                     regions:options.regions,
                     filterSame:true,
+                    noDOM:true,
                     mouseOverMapCallback:function(d){
                         d3.entries(maps).forEach(function(map){
                             map.value.highlightCostituency(d);
@@ -106,8 +108,18 @@ define([
             //console.log(regions[d.field]);
             regions[d.field].addBorders();
 
+            
+
+
         });
         
+        this.showConstituencies=function() {
+            d3.values(maps).forEach(function(map) {
+                //console.log("showConstituencies",map)
+                map.showConstituencies();
+            });            
+        }
+
         this.resize=function(size) {
 
             d3.values(maps).forEach(function(map) {

@@ -59,13 +59,17 @@ define([
     		regions:options.regions,
     		clipPath:options.clipPath,
     		fadeOut:options.fadeOut,
-            tooltip:tooltip
+            tooltip:tooltip,
+            scrollReact:true
     	});
 
         this.resize=function(size) {
             mapsTable.resize(size);
         }
-    	
+    	this.showConstituencies=function() {
+            //console.log("UKCartogramComparison","showConstituencies")
+            mapsTable.showConstituencies();
+        }
         function Tooltip(options) {
             //console.log("Tooltip",options)
 
@@ -124,9 +128,11 @@ define([
 
                 container_w=(container_w>620)?container_w/2:container_w;
                 
+                console.log(status)
+
                 tooltip.style({
                     display:"block",
-                    left: (status=="v"?(container_w-w)/2:0) + coords[0] +"px",
+                    left: (status=="v"?(container_w-w)/2+10:0) + coords[0] +"px",
                     height: (h+(status=="v"?-10:0))+"px",
                     top: coords[1] + "px"
                 });

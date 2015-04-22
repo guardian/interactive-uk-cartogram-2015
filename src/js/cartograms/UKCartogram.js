@@ -124,6 +124,7 @@ define([
             filterSame:false,
             filterContest:false,
             contestScale:contestScale,
+            noDOM:true,
             mouseClickMapCallback:function(d){
                 selectAndExpandConstituency(d);
             },
@@ -155,7 +156,10 @@ define([
             ConstituencyExpand.updateData(c.constituency, c.name, p.winner2010, p.projection, p.source);
             ConstituencyExpand.updateView(1);
         }
-
+        this.showConstituencies=function() {
+            map.showConstituencies();
+            regions_map.hideWireframe();
+        }
         this.selectConstituency=function(constituency) {
             constituency=map.findConstituency(constituency || "S14000051");
 
@@ -189,6 +193,8 @@ define([
         
     	
         function Tooltip(options) {
+
+            var CURRENT_CONSTITUENCY=null;
 
             var tooltip = d3.select(options.container)
                 .append("div")
@@ -231,10 +237,16 @@ define([
             };
             this.show = function(info, coords, translate, scale) {
 
+                //console.log(info,coords)
+                if(CURRENT_CONSTITUENCY==info.properties.constituency) {
+                    return;
+                }
+
+                CURRENT_CONSTITUENCY=info.properties.constituency;
 
                 coords=getScreenCoords(coords[0],coords[1],translate,scale)
                 
-
+                CURRENT_CONSTITUENCY=info.properties.name;
                 tooltip_contents.select("h4")
                     .text(function() {
                         return info.properties.name;//+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
@@ -258,6 +270,8 @@ define([
                     svg_box=svg_node.getBoundingClientRect(),
                     w=svg_box.width || svg_node.clientWidth || svg_node.offsetWidth;
 
+
+                //console.log(info.properties.name,h)
                 tooltip.style({
                     display:"block",
                     left: (coords[0]) + "px",
