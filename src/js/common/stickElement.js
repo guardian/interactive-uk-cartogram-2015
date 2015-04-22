@@ -4,53 +4,57 @@ define([
     util
 ) {
     'use strict';
+    var d = document;
 
-    function isTab () {
-        var d = document,
-            e = d.documentElement,
+    /*function isTab () {
+        var e = d.documentElement,
             g = d.getElementsByTagName('body')[0],
             w = window.innerWidth || e.clientWidth || g.clientWidth;
         return w > 660;
-    }
+    }*/
 
-    function getOffsetTop (el, isTab) {
+    function getOffsetTop () {
         //TODO: if more than one parent has offsetTop
-        var h = document.querySelector("#header"),
-            f = document.querySelector("figure"),
-            a = document.querySelector("#jsStickyAnchor"),
-            top  = a.offsetTop;
+        var h = d.querySelector("#header"),
+            f = d.querySelector("figure"),
+            a = d.querySelector("#jsStickyAnchor"),
+            top  = a.offsetTop; // parent
 
-        if (h !== null) { top += f.offsetTop/*179*/; } //remove magic number: ad + nav g! 
-        //top += isTab ? 79 : 30;         //remove magic number: nav tabs
+        if (h !== null) { top += f.offsetTop; } // ad 
         /*
-        console.log(el.offsetTop, "[legend]");
-        console.log(a.offsetTop);
-        console.log(a.parentNode.offsetTop);
-        console.log(f.offsetTop);
-        console.log(top);
+           console.log(el.offsetTop, "[legend]");
+           console.log(a.offsetTop);
+           console.log(a.parentNode.offsetTop);
+           console.log(f.offsetTop);
+           console.log(top);
         */
         return top;
     }
 
     function stickElementOnScroll() {
-        var el = document.querySelector("#jsSticky"),
-            offset = getOffsetTop(el, isTab());
+        var el = d.querySelector("#jsSticky"),
+            bg = d.querySelector("#jsStickyBackground"),
+            offset = getOffsetTop();
 
         function stickIfNeeded() {
             var cn = el.className,
                 cnSticky = "sticky",
-                pageOffset = (document.documentElement && document.documentElement.scrollTop) || 
-                document.body.scrollTop; //window.pageYOffset
+                pageOffset = (d.documentElement && d.documentElement.scrollTop) || 
+                d.body.scrollTop; //window.pageYOffset
+            
+            // stick or not
             if (offset <= pageOffset) {
-                cn  = cn + (util.isPattern(cn, cnSticky) ? "" : " " + cnSticky);
+                cn = cn + (util.isPattern(cn, cnSticky) ? "" : " " + cnSticky);
+                bg.className = "sticky-bg";
             } else {
                 cn = util.removePattern(cn, cnSticky);
+                bg.className = "";
             }
             el.className = cn.trim();
         }
 
         function setOffsetTop() {
-            offset = getOffsetTop(el, isTab());
+            offset = getOffsetTop();
         }
 
         //addEventListener
