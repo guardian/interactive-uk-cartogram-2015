@@ -79,7 +79,6 @@ define([
             var tooltip = container
                 .append("div")
                 .attr("class", "tooltip-arrow")
-                //.style("width","46%");//options.width?((options.width/2-(margins.left+margins.right))+"px"):"90%");
 
             var CURRENT_CONSTITUENCY=null;
         
@@ -127,8 +126,6 @@ define([
                 //console.log("show",info)
 
                 container_w=(container_w>620)?container_w/2:container_w;
-                
-                console.log(status)
 
                 tooltip.style({
                     display:"block",

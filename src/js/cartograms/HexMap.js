@@ -549,7 +549,7 @@ define([
             if (options.tooltip) {
 
                 var bbox=svg_node.getBoundingClientRect();
-                tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale, bbox);
+                tooltip.show(constituency, getCentroid(constituency.properties.constituency), __translate, __scale, bbox, false);
             }
 
 
@@ -619,7 +619,7 @@ define([
 
                 var center =    getCentroid(constituency.properties.constituency),//path.centroid(constituency),
                                 scale = 2,
-                                translate = [svg_box.width / 2 - scale * center[0], svg_box.height * (2/3) - scale * center[1]];
+                                translate = [svg_box.width / 2 - scale * center[0], (svg_box.height/2*1.5) - scale * center[1]];
 
                 __scale=scale;
                 
@@ -656,7 +656,7 @@ define([
                     tooltip.hide();
                     setTimeout(function(d){
                         var bbox=svg_node.getBoundingClientRect();
-                        tooltip.show(constituency, c_centre, __translate, __scale, bbox);    
+                        tooltip.show(constituency, c_centre, __translate, __scale, bbox, true);    
                     },750)
                     
                 }
@@ -760,7 +760,7 @@ define([
 
     };
 
-    (function (view) {
+    ;(function (view) {
 
         var
             constructors    = ['SVGSVGElement', 'SVGGElement']

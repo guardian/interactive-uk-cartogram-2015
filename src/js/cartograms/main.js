@@ -247,7 +247,7 @@ define([
         }
         
         function detectScroll() {
-            var scrollTop = document.body.scrollTop;
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             //console.log("detectScroll",scrollTop)
 
             maps.forEach(function(m){
@@ -259,11 +259,29 @@ define([
             });
         }
 
-        window.addEventListener(
-            'scroll',
-            detectScroll,
-            false
-        );
+        ;(function() {
+            var throttle = function(type, name, obj) {
+                var obj = obj || window;
+                var running = false;
+                var func = function() {
+                    if (running) { return; }
+                    running = true;
+                    requestAnimationFrame(function() {
+                        obj.dispatchEvent(new CustomEvent(name));
+                        running = false;
+                    });
+                };
+                obj.addEventListener(type, func);
+            };
+
+            /* init - you can init any event */
+            throttle ("scroll", "optimizedScroll");
+        })();
+
+        
+
+        //window.addEventListener(
+        window.addEventListener("optimizedScroll",detectScroll,false);
 
         function resize(size) {
             //console.log(size,maps)

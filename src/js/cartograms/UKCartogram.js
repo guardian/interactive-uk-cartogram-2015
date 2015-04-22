@@ -108,8 +108,8 @@ define([
                     container: options.container,
                     left: 0,
                     contestScale:contestScale,
-                    callback:function() {
-                        selectAndExpandConstituency(highlightedCostituency)
+                    callback:function(c) {
+                        selectAndExpandConstituency(c)
                     }
                 }),
             map_g:map_g,
@@ -195,7 +195,7 @@ define([
         function Tooltip(options) {
 
             var CURRENT_CONSTITUENCY=null;
-
+            var self=this;
             var tooltip = d3.select(options.container)
                 .append("div")
                 .attr("class", "tooltip")
@@ -209,7 +209,8 @@ define([
             if(isTouch) {
                 tooltip_contents.on("touchstart",function(){
                     if(options.callback) {
-                        options.callback();
+                        self.hide();
+                        options.callback(CURRENT_CONSTITUENCY);
                     }
                 })
             }
@@ -235,35 +236,34 @@ define([
                 "Wales":"polling in Wales",
                 "Scotland":"Scotland-wide polling"
             };
-            this.show = function(info, coords, translate, scale) {
+            this.show = function(constituency, coords, translate, scale, bbox, click) {
 
-                //console.log(info,coords)
-                if(CURRENT_CONSTITUENCY==info.properties.constituency) {
+                if(!click && (CURRENT_CONSTITUENCY!==null && CURRENT_CONSTITUENCY.properties.constituency==constituency.properties.constituency)) {
                     return;
                 }
 
-                CURRENT_CONSTITUENCY=info.properties.constituency;
+                CURRENT_CONSTITUENCY=constituency;
 
                 coords=getScreenCoords(coords[0],coords[1],translate,scale)
                 
-                CURRENT_CONSTITUENCY=info.properties.name;
+                //CURRENT_CONSTITUENCY=info.properties.name;
                 tooltip_contents.select("h4")
                     .text(function() {
-                        return info.properties.name;//+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
+                        return constituency.properties.name;//+" "+d3.format(",.2%")(info.properties.projection_info.margin);//+"->"+options.contestScale(info.properties.projection_info.margin);
                     });
 
                 tooltip_contents.select(".proj")
                     .html(function() {
-                        var from=info.properties.projection_info["winner2010"].toLowerCase(),
-                            to=info.properties.projection;
+                        var from=constituency.properties.projection_info["winner2010"].toLowerCase(),
+                            to=constituency.properties.projection;
 
-                        var tap2expand="<span class=\"tap2expand\">Tap to select</span>";
+                        var tap2expand="<span class=\"tap2expand\">Tap here to select</span>";
 
 
                         if(from!==to) {
-                            return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[info.properties.projection_info.source] + tap2expand;
+                            return "<b>" + names[to] + "<\/b> gain from <b>" + names[from] + "<\/b>, based on "+swings[constituency.properties.projection_info.source] + tap2expand;
                         }
-                        return "<b>" + names[to] + "<\/b> hold, based on "+swings[info.properties.projection_info.source] + tap2expand;
+                        return "<b>" + names[to] + "<\/b> hold, based on "+swings[constituency.properties.projection_info.source] + tap2expand;
                     });
 
                 var h=tooltip_node.clientHeight || tooltip_node.offsetHeight || 50,
