@@ -281,7 +281,7 @@ define([
         
 
         //window.addEventListener(
-        window.addEventListener("optimizedScroll",detectScroll,false);
+        window.addEventListener("scroll",detectScroll,false);
 
         function resize(size) {
             //console.log(size,maps)

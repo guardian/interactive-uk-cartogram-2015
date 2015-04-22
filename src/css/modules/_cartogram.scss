@@ -44,6 +44,13 @@
 }
 
 /************** CARTOGRAM SVG *************/
+.cartogram svg {
+    background: transparent;
+    display: block;
+    user-select:none;
+    -webkit-touch-callout: none;
+    overflow: hidden;
+}
 .cartogram svg text {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -51,11 +58,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-.cartogram svg {
-    background: transparent;
-    display: block;
-    user-select:none;
 }
 .cartogram svg rect.bg {
     fill-opacity:0;

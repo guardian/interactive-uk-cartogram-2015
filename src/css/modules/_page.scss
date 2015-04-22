@@ -98,7 +98,9 @@ p {
     color: $c-grey2;    
     margin-top: 15px;
 }
-
+.f-no-wrap {
+    white-space: nowrap;
+}
 // style: elements
 
 .ul-candidates {
