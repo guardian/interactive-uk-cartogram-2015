@@ -165,8 +165,6 @@ define([
 
 			renderDropdown([]);
 
-			console.log("v. 0.3")
-
 		}
 
 		//window.initEdd = initEdd;
