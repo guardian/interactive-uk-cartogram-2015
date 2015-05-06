@@ -44,7 +44,7 @@ define([
 
 						entries[i].addEventListener("mousedown",function(evt){ 
 							if(!touchstart) {
-								setFocusElement(this);	
+								setFocusElement(this);
 								onDropdownClick(evt);
 								onBlur(evt);
 							}
@@ -120,7 +120,11 @@ define([
 			}
 
 			function onDropdownClick(event) {
+
 				var value = event.target.getAttribute('data-val');
+				if(value == null) {
+					value = event.target.parentElement.getAttribute('data-val');
+				}
 				if (value !== 'null') {
 					input.value = event.target.textContent;
 					renderDropdown([]);
