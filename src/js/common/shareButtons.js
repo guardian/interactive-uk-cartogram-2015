@@ -14,7 +14,7 @@ define([
             
             var network = e.currentTarget.getAttribute('data-source'); 
             var guardianUrl = "http://gu.com/p/47ctg";//+(currentView?("#"+currentView):"");
-            var twitterBaseUrl = "https://twitter.com/home?status=";
+            var twitterBaseUrl = "https://twitter.com/intent/tweet?text=";
             var facebookBaseUrl = "https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&link=";
             var sharemessage = "Election 2015: Who is leading the polls where you live? http://gu.com/p/47ctg pic.twitter.com/vpDUQxkrJX";
             var shareWindow = "";
